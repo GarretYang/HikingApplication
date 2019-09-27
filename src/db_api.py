@@ -46,7 +46,7 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
         return _id
 
 
-def read(db, _id):
+def read_report(db, _id):
     """
     READ method for reading a users' report by object id
     INVARIANT: Each report has unique <user_id, feature_name> pair.
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     client = MongoClient('mongodb+srv://username:password@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
     db = client.hiking
     reportID = create_report(db, 'mountain', ['wet', 'rock'], 'ann arbor', 9999)
-    print(read(db, reportID))
+    print(read_report(db, reportID))
     if delete_report(db, 9999, 'mountain'):
         print('Successful update!')
     else:
