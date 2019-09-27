@@ -1,22 +1,39 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-# create an report in the "Reports" collection
-def create_report(db, feature_name, tags, location, user_id, **kwargs):
-    reports = {
-        'tags': tags,
-        'location': location,
-        'user_id': user_id, 
-        'feature_name': feature_name
+
+def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwargs):
+    """
+    CREATE method for creating a users' report
+    INVARIANT: Each report has unique <user_id, feature_name> pair.
+
+    Parameters
+    ----------
+    db: a database instance
+    feature_name_in: the name of the feature being created
+    tags_in: tags that associate with report
+    location_in: location information (possibly coordinates)
+    user_id_in: user_id of the creator of the report
+    **kwargs: optional input, possibly an array of photos for the report
+
+    Returns
+    -------
+    Boolean: object id of the report if successfully created. Otherwise, false.
+
+    """
+    report = {
+        'feature_name': feature_name_in,
+        'tags': tags_in,
+        'location': location_in,
+        'user_id': user_id_in,
     }
     if 'photos' in kwargs:
-        reports['photos'] = kwargs['photos']
-
+        report.append({'photos': kwargs.get('photo')})
     try:
-        _id = db.Reports.insert_one(reports).inserted_id
-        existed_report = db.Features.find_one({'feature_name': feature_name})
+        _id = db.Reports.insert_one(report).inserted_id
+        existed_report = db.Features.find_one({'feature_name': feature_name_in})
         if existed_report is None:
-            db.Features.insert_one({'feature_name': feature_name, 'feature_reports': [_id]})
+            db.Features.insert_one({'feature_name': feature_name_in, 'feature_reports': [_id]})
         else:
             existed_report['feature_reports'].append(_id)
             query = {'_id': ObjectId(existed_report['_id'])}
@@ -24,12 +41,32 @@ def create_report(db, feature_name, tags, location, user_id, **kwargs):
             db.Features.update_one(query, new_values)
     except AssertionError as error:
         print(error)
+        return False
+    else:
+        return _id
 
-# read a report by id in the "Features" collection
-def read_report(db, _id) :
-    res = db.Features.find_one({'_id': ObjectId(_id)})
-    print(res)
-    return res
+
+def read(db, _id):
+    """
+    READ method for reading a users' report by object id
+    INVARIANT: Each report has unique <user_id, feature_name> pair.
+
+    Parameters
+    ----------
+    db: a database instance
+    _id: the object id of a report instance
+
+    Returns
+    -------
+    Boolean: True if successfully create. Otherwise, false.
+
+    """
+    report = db.Reports.find_one({'_id': ObjectId(_id)})
+    if report is None:
+        print("Cannot find the report with object id " + _id)
+        return False
+    return report
+
 
 def update_report(db, user_id_in, feature_name_in, **kwargs):
     '''
@@ -58,14 +95,14 @@ def update_report(db, user_id_in, feature_name_in, **kwargs):
             print('Unsupported updating field in report.')
             return False
     # Update
-    update_res = db.Reports.update_one(            \
-                 {'feature_name': feature_name_in, \
-                 'user_id': user_id_in}, {'$set': kwargs})
+    update_res = db.Reports.update_one( \
+        {'feature_name': feature_name_in, \
+         'user_id': user_id_in}, {'$set': kwargs})
     if update_res.matched_count == 1:
         return True
     else:
         return False
-    
+
 
 def delete_report(db, user_id_in, feature_name_in):
     '''
@@ -83,8 +120,8 @@ def delete_report(db, user_id_in, feature_name_in):
     Boolean: True if deletion succeeds, otherwise false.
 
     '''
-    find_res = db.Reports.find_one_and_delete( \
-               {'user_id': user_id_in, 'feature_name': feature_name_in})
+    find_res = db.Reports.find_one_and_delete(
+        {'user_id': user_id_in, 'feature_name': feature_name_in})
     if find_res is None:
         print('Can not find the report to delete.')
         return False
@@ -93,11 +130,13 @@ def delete_report(db, user_id_in, feature_name_in):
     db.Features.update_many({}, {'$pullAll': {'feature_reports': [del_obj_id]}})
     return True
 
+
 # Simple test
 if __name__ == '__main__':
     client = MongoClient('mongodb+srv://username:password@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
     db = client.hiking
-    create_report(db, 'mountain', ['wet', 'rock'], 'ann arbor', 9999)
+    reportID = create_report(db, 'mountain', ['wet', 'rock'], 'ann arbor', 9999)
+    print(read(db, reportID))
     if delete_report(db, 9999, 'mountain'):
         print('Successful update!')
     else:
