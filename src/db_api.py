@@ -1,7 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-
 def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwargs):
     """
     CREATE method for creating a users' report
@@ -68,7 +67,7 @@ def read_report(db, _id):
     return report
 
 
-def update_report(db, user_id_in, feature_name_in, **kwargs):
+def update_report(db, _id, **kwargs):
     '''
     UPDATE method for updating users' reports
     INVARIANT: Each report has unique <user_id, feature_name> pair.
@@ -76,8 +75,8 @@ def update_report(db, user_id_in, feature_name_in, **kwargs):
     Parameters
     ----------
     db: report collection instance
-    user_id_in: user_id of the report to be updated
-    feature_name_in: name of the report to be updated
+    #user_id_in: user_id of the report to be updated
+    #feature_name_in: name of the report to be updated
     kwargs: update content
         Possible update fields: feature_name, tags, photos
 
@@ -96,8 +95,7 @@ def update_report(db, user_id_in, feature_name_in, **kwargs):
             return False
     # Update
     update_res = db.Reports.update_one( \
-        {'feature_name': feature_name_in, \
-         'user_id': user_id_in}, {'$set': kwargs})
+        {'_id': ObjectId(_id)}, {'$set': kwargs})
     if update_res.matched_count == 1:
         return True
     else:
@@ -133,7 +131,7 @@ def delete_report(db, user_id_in, feature_name_in):
 
 # Simple test
 if __name__ == '__main__':
-    client = MongoClient('mongodb+srv://username:password@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
+    client = MongoClient('mongodb+srv://user:pass@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
     db = client.hiking
     reportID = create_report(db, 'mountain', ['wet', 'rock'], 'ann arbor', 9999)
     print(read_report(db, reportID))
