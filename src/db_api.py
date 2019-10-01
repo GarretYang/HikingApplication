@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 
@@ -46,7 +45,7 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
         return _id
 
 
-def read_report(db, _id):
+def read_report(db, report_id):
     """
     READ method for reading a users' report by object id
     INVARIANT: Each report has unique <user_id, feature_name> pair.
@@ -54,38 +53,37 @@ def read_report(db, _id):
     Parameters
     ----------
     db: a database instance
-    _id: the object id of a report instance
+    report_id: the object id of a report instance
 
     Returns
     -------
-    Boolean: True if successfully create. Otherwise, false.
+    Report: Otherwise None.
 
     """
-    report = db.Reports.find_one({'_id': ObjectId(_id)})
+    report = db.Reports.find_one({'_id': ObjectId(report_id)})
     if report is None:
-        print("Cannot find the report with object id " + _id)
-        return False
+        print("Cannot find the report with object id " + report_id)
+        return False, None
     return report
 
 
-def update_report(db, user_id_in, feature_name_in, **kwargs):
-    '''
+def update_report(db, report_id, **kwargs):
+    """
     UPDATE method for updating users' reports
     INVARIANT: Each report has unique <user_id, feature_name> pair.
 
     Parameters
     ----------
     db: report collection instance
-    user_id_in: user_id of the report to be updated
-    feature_name_in: name of the report to be updated
+    report_id: _id of the report to be updated
     kwargs: update content
         Possible update fields: feature_name, tags, photos
 
     Returns
     -------
-    Boolean: True if successfully update. Otherwise, false.
+    Boolean: True if successfully updated. Otherwise, False.
 
-    '''
+    """
     supp_fields = ['feature_name', 'tags', 'photos']
     # Empty case
     if not bool(kwargs):
@@ -96,32 +94,30 @@ def update_report(db, user_id_in, feature_name_in, **kwargs):
             return False
     # Update
     update_res = db.Reports.update_one( \
-        {'feature_name': feature_name_in, \
-         'user_id': user_id_in}, {'$set': kwargs})
+        {'_id': ObjectId(report_id)}, {'$set': kwargs})
     if update_res.matched_count == 1:
         return True
     else:
         return False
 
 
-def delete_report(db, user_id_in, feature_name_in):
-    '''
+def delete_report(db, report_id):
+    """
     DELETE method for deleting specific report. 
     The corresponding foreign keys in Features will also be deleted.
 
     Parameters
     ----------
     db: report collection instance
-    user_id_in: user_id of the report to be deleted
-    feature_name_in: feature_name of the report to be deleted
+    report_id: _id of the report to be deleted
 
     Returns
     -------
-    Boolean: True if deletion succeeds, otherwise false.
+    Boolean: True if deletion succeeds, otherwise False.
 
-    '''
+    """
     find_res = db.Reports.find_one_and_delete(
-        {'user_id': user_id_in, 'feature_name': feature_name_in})
+        {'_id': report_id})
     if find_res is None:
         print('Can not find the report to delete.')
         return False
@@ -131,13 +127,26 @@ def delete_report(db, user_id_in, feature_name_in):
     return True
 
 
-# Simple test
-if __name__ == '__main__':
-    client = MongoClient('mongodb+srv://username:password@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
-    db = client.hiking
-    reportID = create_report(db, 'mountain', ['wet', 'rock'], 'ann arbor', 9999)
-    print(read_report(db, reportID))
-    if delete_report(db, 9999, 'mountain'):
-        print('Successful update!')
-    else:
-        print('Update fails!')
+def find_report(db, **kwargs):
+    """
+    Method for finding all reports matching certain criteria
+
+    Parameters
+    ----------
+    db: report collection instance
+    kwargs: update content
+        Possible update fields: feature_name, user_id, location
+
+    Returns
+    -------
+    Cursor: Cursor of all matching results.
+
+    """
+    query_fields = ['feature_name', 'user_id', 'location']
+
+    for query_field in kwargs:
+        if query_field not in query_fields:
+            print('Unsupported field in report query.')
+            return None
+
+    return db.Reports.find(kwargs)
