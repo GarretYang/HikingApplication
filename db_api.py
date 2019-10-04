@@ -2,6 +2,7 @@ from bson.objectid import ObjectId
 from bson import Binary
 import base64
 
+
 def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwargs):
     """
     CREATE method for creating a users' report

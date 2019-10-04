@@ -1,0 +1,30 @@
+body {
+  font-family: "helvetica", sans-serif;
+  text-align: center;
+  background-color: lightblue;
+  margin: 0.25in;
+}
+
+h1 {
+  border-left: 5px solid red;
+  margin : 0.25in;
+}
+
+h2 {
+  border-left: 4px solid blue;
+  margin: 0.25in;
+}
+
+h3 {
+  border-left: 4px solid blue;
+  margin: 0.25in;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
