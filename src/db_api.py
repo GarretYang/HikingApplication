@@ -1,5 +1,6 @@
 from bson.objectid import ObjectId
-
+from bson import Binary
+import base64
 
 def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwargs):
     """
@@ -27,7 +28,7 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
         'user_id': user_id_in,
     }
     if 'photos' in kwargs:
-        report.append({'photos': kwargs.get('photo')})
+        report['photos'] = create_photo(db, kwargs['photos'])
     try:
         _id = db.Reports.insert_one(report).inserted_id
         existed_report = db.Features.find_one({'feature_name': feature_name_in})
@@ -70,7 +71,6 @@ def read_report(db, report_id):
 def update_report(db, report_id, **kwargs):
     """
     UPDATE method for updating users' reports
-    INVARIANT: Each report has unique <user_id, feature_name> pair.
 
     Parameters
     ----------
@@ -150,3 +150,71 @@ def find_report(db, **kwargs):
             return None
 
     return db.Reports.find(kwargs)
+
+
+def create_photo(db, photo_paths):
+    """
+    Method for inserting new photo into Photos collection
+
+    Parameters
+    ----------
+    db: pymongo db instance
+    photo_paths: array of local file system path for inserted photos
+
+    Returns
+    -------
+    ObjectId: Array of object Ids of inserted photos.
+
+    """
+    new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0)} for p in photo_paths]
+    result = db.Photos.insert_many(new_photos)
+    print(result.inserted_ids)
+    return result.inserted_ids
+
+
+def find_or_create_user(db, name, email):
+    """
+    Method for finding the user_id based on user's name, email
+    Create one user if there is no matching user
+
+    Parameters
+    ----------
+    db: pymongo db instance
+    name: user's name
+    email: user's email
+
+    Returns
+    -------
+    ObjectId: Object Id of created/found user.
+
+    """
+    mongo_user_id = db.Users.find_one({'email': email,
+                                       'name': name})
+    if mongo_user_id is None:
+        mongo_user_id = db.Users.insert_one({'email': email,
+                                             'name': name}).inserted_id
+    else:
+        mongo_user_id = mongo_user_id['_id']
+    return mongo_user_id
+
+
+def find_photo(db, photo_ids):
+    """
+    Method for finding an array of decoded images
+    corresponding to the specific report
+
+    Parameters
+    ----------
+    db: pymongo db instance
+    photo_ids: array of photo object id
+
+    Returns
+    -------
+    ObjectId: Arrary of decoded raw images
+
+    """
+    ret = []
+    for p in photo_ids:
+        for x in db.Photos.find({'_id': p}):
+            ret.append(x['encode_raw'].decode('ascii'))
+    return ret
