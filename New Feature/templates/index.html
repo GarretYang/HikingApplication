@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <title>Yang's Web App Example</title>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBr8rUcWwfIv9f22ACzPPIJoWV6jc9KECQ",
+        authDomain: "yanghu-yh-codelab-practice496.firebaseapp.com",
+        databaseURL: "https://yanghu-yh-codelab-practice496.firebaseio.com",
+        projectId: "yanghu-yh-codelab-practice496",
+        storageBucket: "yanghu-yh-codelab-practice496.appspot.com",
+        messagingSenderId: "317116116350",
+        appId: "1:317116116350:web:00dd67f4b7146f4a5e972f",
+        measurementId: "G-EQVJQDQ0QR"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <script>
+    if (typeof firebase === 'undefined') {
+      const msg = "Please paste the Firebase initialization snippet into index.html. See https://console.firebase.google.com > Overview > Add Firebase to your web app.";
+      console.log(msg);
+      alert(msg);
+    }
+  </script>
+  <!-- [START gae_python37_auth_include_firebaseui] -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
+  <!-- [END gae_python37_auth_include_firebaseui] -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+</head>
+<body>
+
+<h3>Create New Feature</h3> 
+
+<!-- <div id="new_feature">
+  <p>Input New Feature Name and Location: 
+    <input id="new_feature" name="new_feature_name" type=“text” class="validate" required>
+    <input id="new_location" name="new_location_address" type=“text” class="validate" required>
+    <button onclick="add()">Submit</button>
+</div> -->
+
+<form action="https://yanghu-yh-codelab-practice496.appspot.com" method="post">
+  <div>
+    <label for="new_feature">What is the name of the new feature?</label>
+    <input name="new_feature" id="new_feature" value="">
+  </div>
+  <div>
+    <label for="location">Where is the location of this feature?</label>
+    <input name="location" id="location" value="">
+  </div>
+  <div>
+    <button>Submit</button>
+  </div>
+  <div id="feature_id" hidden=true>
+      Here is the feature_id in our database:
+      <dt>feature_id</dt><dd>{{ feature_id }}</dd>
+  </div>
+</form>
+
+
+    <p>New Feature Name:</p>
+    <input type="text" id="new_feature_in">
+    <input type="text" id="new_location_in">
+
+    <button type="button" id="add_feature">
+        Try Add
+    </button>
+
+    <p id="reply_submission" hidden=true>
+        Yeah! {{ status }} </p>
+
+
+<!-- [START gae_python37_auth_firebase_html] -->
+<!-- <div id="firebaseui-auth-container"></div>
+
+<button id="sign-out" hidden=true>Sign Out</button>
+
+<div id="login-info" hidden=true>
+  <h2>Login info:</h2>
+  {% if user_data %}
+    <dl>
+      <dt>Name</dt><dd>{{ user_data['name'] }}</dd>
+      <dt>Email</dt><dd>{{ user_data['email'] }}</dd>
+      <dt>Last 10 visits</dt><dd>
+	{% for time in times %}
+          <p>{{ time['timestamp'] }}</p>
+        {% endfor %} </dd>
+    </dl>
+  {% elif error_message %}
+    <p>Error: {{ error_message }}</p>
+  {% endif %}
+</div> -->
+<!-- [END gae_python37_auth_firebase_html] -->
+
+</body>
+</html>
