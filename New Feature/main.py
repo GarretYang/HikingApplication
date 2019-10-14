@@ -37,7 +37,7 @@ datastore_client = datastore.Client()
 app = Flask(__name__)
 
 # Mongodb client
-client = pymongo.MongoClient("mongodb+srv://YangHu-yh:Fhsjzzx.48@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority")
+client = pymongo.MongoClient('mongodb+srv://TeamTwo:team12345two@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
 db = client['hiking']
 
 
@@ -107,8 +107,8 @@ if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
 
 
-# # [END gae_python37_datastore_store_and_fetch_user_times]
-# app = Flask(__name__)
+# [END gae_python37_datastore_store_and_fetch_user_times]
+
 
 
 
@@ -130,27 +130,6 @@ def createFeature():
     else:
         submit = "You just successfully created feature: "+new_feature_in+" at " +new_location_in+"!"
     return submit
-
-
-# # Mongodb client
-# client = MongoClient("mongodb+srv://YangHu-yh:Fhsjzzx.48@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority")
-# db = client['hiking']
-
-# # [END gae_python37_datastore_store_and_fetch_user_times]
-# app = Flask(__name__)
-
-
-
-# @app.route('/new_feature', methods=['GET', 'POST'])
-# def new_feature():
-#     # get input feature from user/admin
-#     return render_template('index.html', feature_id=create_feature(db, request.form['new_feature'], request.form['location'])
-
-# def root():
-#     # Add to Mongodb about feature
-#     feature_id = create_feature(db, request.form['new_feature'], request.form['location'])
-#     if feature is not None:
-#         return render_template('index.html', feature_id)
 
 
 

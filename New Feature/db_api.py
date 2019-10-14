@@ -255,15 +255,15 @@ def find_photo(db, photo_ids):
             ret.append(x['encode_raw'].decode('ascii'))
     return ret
 
-
-if __name__ == "__main__":
-
-    client = pymongo.MongoClient('mongodb+srv://YangHu-yh:Fhsjzzx.48@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
-    db = client['hiking']
-    create_result = create_feature(db, "kayak", "Austin")
-    if create_result is False:
-        print("There is an error!")
-    elif create_result == -1:
-        print("The feature already exist!")
-    else:
-        print('Successful update!')
+# Test on using create features
+# if __name__ == "__main__":
+#
+#     client = pymongo.MongoClient('mongodb+srv://TeamTwo:team12345two@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
+#     db = client['hiking']
+#     create_result = create_feature(db, "360Bridge", "Austin")
+#     if create_result is False:
+#         print("There is an error!")
+#     elif create_result == -1:
+#         print("The feature already exist!")
+#     else:
+#         print('Successful update!')
