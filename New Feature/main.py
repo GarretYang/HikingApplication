@@ -25,6 +25,8 @@ from flask import Flask, render_template, request
 from google.auth.transport import requests
 from google.cloud import datastore
 import google.oauth2.id_token
+import pymongo
+from db_api import create_feature
 
 firebase_request_adapter = requests.Request()
 
@@ -33,6 +35,10 @@ datastore_client = datastore.Client()
 
 # [END gae_python37_datastore_store_and_fetch_user_times]
 app = Flask(__name__)
+
+# Mongodb client
+client = pymongo.MongoClient("mongodb+srv://YangHu-yh:Fhsjzzx.48@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority")
+db = client['hiking']
 
 
 # [START gae_python37_datastore_store_and_fetch_user_times]
@@ -59,41 +65,33 @@ def fetch_times(email, limit):
 # [START gae_python37_datastore_render_user_times]
 @app.route('/')
 def root():
-    # # Verify Firebase auth.
-    # id_token = request.cookies.get("token")
-    # error_message = None
-    # claims = None
-    # times = None
+    # Verify Firebase auth.
+    id_token = request.cookies.get("token")
+    error_message = None
+    claims = None
+    times = None
 
-    # if id_token:
-    #     try:
-    #         # Verify the token against the Firebase Auth API. This example
-    #         # verifies the token on each page load. For improved performance,
-    #         # some applications may wish to cache results in an encrypted
-    #         # session store (see for instance
-    #         # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
-    #         claims = google.oauth2.id_token.verify_firebase_token(
-    #             id_token, firebase_request_adapter)
+    if id_token:
+        try:
+            # Verify the token against the Firebase Auth API. This example
+            # verifies the token on each page load. For improved performance,
+            # some applications may wish to cache results in an encrypted
+            # session store (see for instance
+            # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
+            claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
 
-    #         store_time(claims['email'], datetime.datetime.now())
-    #         times = fetch_times(claims['email'], 10)
+            store_time(claims['email'], datetime.datetime.today())
+            times = fetch_times(claims['email'], 10)
 
-    #     except ValueError as exc:
-    #         # This will be raised if the token is expired or any other
-    #         # verification checks fail.
-    #         error_message = str(exc)
-
-    # Add New Feature to Mongo Database
-    submit = None
-    print(request.cookies)
-    new_feature_in = request.cookies.get('feature_name')
-    new_location_in = request.cookie.get('feature_loca')
-    if new_feature_in is not None:
-        submit = "Success added "+new_feature_in+"!"
+        except ValueError as exc:
+            # This will be raised if the token is expired or any other
+            # verification checks fail.
+            error_message = str(exc)
 
     return render_template(
-        'index.html', status=submit)
-        # user_data=claims, error_message=error_message, times=times)
+        'index.html',
+        user_data=claims, error_message=error_message, times=times)
 # [END gae_python37_datastore_render_user_times]
 
 
@@ -109,8 +107,33 @@ if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
 
 
+# # [END gae_python37_datastore_store_and_fetch_user_times]
+# app = Flask(__name__)
+
+
+
+
+
+
+@app.route('/createFeature', methods=['POST'])
+def createFeature():
+    # Add New Feature to Mongo Database
+    # submit = ""
+    # cookies = request.cookies
+    new_feature_in = request.form.get('feature_name')
+    new_location_in = request.form.get('location')
+    new_feature_result = create_feature(db, new_feature_in, new_location_in)
+    if new_feature_result is False:
+        submit = "There is an error!"
+    elif new_feature_result == -1:
+        submit = "The feature already exist!"
+    else:
+        submit = "You just successfully created feature: "+new_feature_in+" at " +new_location_in+"!"
+    return submit
+
+
 # # Mongodb client
-# client = pymongo.MongoClient("mongodb+srv://username:password@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority")
+# client = MongoClient("mongodb+srv://YangHu-yh:Fhsjzzx.48@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority")
 # db = client['hiking']
 
 # # [END gae_python37_datastore_store_and_fetch_user_times]

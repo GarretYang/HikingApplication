@@ -16,72 +16,87 @@
 'use strict';
 
 window.addEventListener('load', function () {
-  // [START add_feature]
-  // get the new features's name and new feature's location from HTML
-  document.getElementById('add_feature').onclick = function () {
-    var feature_name = document.getElementById("new_feature_in").value;
-    var feature_loca = document.getElementById("new_location_in").value;
-    cookie_string = "feature_name=" + feature_name + "; feature_loca=" + feature_loca;
-    document.cookie = cookie_string;
-    // document.cookie = "feature_name="+ feature_name;
-    document.getElementById("reply_submission").hidden = false;
-  }
-  // [END add_feature]
+//   // [START add_feature]
+//   // get the new features's name and new feature's location from HTML
+//   this.document.getElementById('add_feature').onclick = function () {
+//     var feature_name = document.getElementById("new_feature_in").value;
+//     var feature_loca = document.getElementById("new_location_in").value;
+//     cookie_string = "feature_name=" + feature_name + "; feature_loca=" + feature_loca+";";
+//     document.cookie = "feature_name=" + feature_name + "; feature_loca=" + feature_loca;
+//     // document.cookie = "feature_name="+ feature_name;
+//     document.getElementById("reply_submission").hidden = false;
+//     document.getElementById("new_feature_submission").hidden = true;
+//   }
+//   // [END add_feature]
+
+//   // Add another feature
+//   this.document.getElementById('another_feature').onclick = function() {
+//     document.getElementById("reply_submission").hidden = true;
+//     document.getElementById("new_feature_submission").hidden = false;
+//     // Clear the feature information
+//     document.cookie = "feature_name=";
+//   }
+
+//   // go to feature page
+//   this.document.getElementById('another_feature').onclick = function() {
+//     document.getElementById("reply_submission").hidden = true;
+//     document.getElementById("new_feature_submission").hidden = false;
+//   }
   
 
   
-//   // [START gae_python37_auth_signout]
-//   document.getElementById('sign-out').onclick = function () {
-//     firebase.auth().signOut();
-//   };
-//   // [END gae_python37_auth_signout]
+  // [START gae_python37_auth_signout]
+  document.getElementById('sign-out').onclick = function () {
+    firebase.auth().signOut();
+  };
+  // [END gae_python37_auth_signout]
 
-//   // [START gae_python37_auth_UIconfig_variable]
-//   // FirebaseUI config.
-//   var uiConfig = {
-//     signInSuccessUrl: '/',
-//     signInOptions: [
-//       // Remove any lines corresponding to providers you did not check in
-//       // the Firebase console.
-//       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-//       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-//     ],
-//     // Terms of service url.
-//     tosUrl: '<your-tos-url>'
-//   };
-//   // [END gae_python37_auth_UIconfig_variable]
+  // [START gae_python37_auth_UIconfig_variable]
+  // FirebaseUI config.
+  var uiConfig = {
+    signInSuccessUrl: '/',
+    signInOptions: [
+      // Remove any lines corresponding to providers you did not check in
+      // the Firebase console.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+    // Terms of service url.
+    tosUrl: '<your-tos-url>'
+  };
+  // [END gae_python37_auth_UIconfig_variable]
 
-//   // [START gae_python37_auth_request]
-//   firebase.auth().onAuthStateChanged(function (user) {
-//     if (user) {
-//       // User is signed in, so display the "sign out" button and login info.
-//       document.getElementById('sign-out').hidden = false;
-//       document.getElementById('login-info').hidden = false;
-//       console.log(`Signed in as ${user.displayName} (${user.email})`);
-//       user.getIdToken().then(function (token) {
-//         // Add the token to the browser's cookies. The server will then be
-//         // able to verify the token against the API.
-//         // SECURITY NOTE: As cookies can easily be modified, only put the
-//         // token (which is verified server-side) in a cookie; do not add other
-//         // user information.
-//         document.cookie = "token=" + token;
-//       });
-//     } else {
-//       // User is signed out.
-//       // Initialize the FirebaseUI Widget using Firebase.
-//       var ui = new firebaseui.auth.AuthUI(firebase.auth());
-//       // Show the Firebase login button.
-//       ui.start('#firebaseui-auth-container', uiConfig);
-//       // Update the login state indicators.
-//       document.getElementById('sign-out').hidden = true;
-//       document.getElementById('login-info').hidden = true;
-//       // Clear the token cookie.
-//       document.cookie = "token=";
-//     }
-//   }, function (error) {
-//     console.log(error);
-//     alert('Unable to log in: ' + error)
-//   });
+  // [START gae_python37_auth_request]
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      // User is signed in, so display the "sign out" button and login info.
+      document.getElementById('sign-out').hidden = false;
+      document.getElementById('login-info').hidden = false;
+      console.log(`Signed in as ${user.displayName} (${user.email})`);
+      user.getIdToken().then(function (token) {
+        // Add the token to the browser's cookies. The server will then be
+        // able to verify the token against the API.
+        // SECURITY NOTE: As cookies can easily be modified, only put the
+        // token (which is verified server-side) in a cookie; do not add other
+        // user information.
+        document.cookie = "token=" + token;
+      });
+    } else {
+      // User is signed out.
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // Show the Firebase login button.
+      ui.start('#firebaseui-auth-container', uiConfig);
+      // Update the login state indicators.
+      document.getElementById('sign-out').hidden = true;
+      document.getElementById('login-info').hidden = true;
+      // Clear the token cookie.
+      document.cookie = "token=";
+    }
+  }, function (error) {
+    console.log(error);
+    alert('Unable to log in: ' + error)
+  });
   // [END gae_python37_auth_request]
 
 

@@ -43,8 +43,8 @@
 <body>
 
 <h3>Create New Feature</h3> 
-    
-    <!-- <div id="new_feature_submission">
+
+    <div id="new_feature_submission">
         <p>New Feature Name:</p>
         <input type="text" id="new_feature_in" value="">
         <p>New Feature Location:</p>
@@ -53,42 +53,18 @@
         <button type="button" id="add_feature">
             Submit
         </button>
-    </div> -->
+    </div>
 
-    <form method="POST" action='/createFeature' >
-        <div class="field">
-            <label class="label">New Feature Name</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Feature Name" name="feature_name">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">New Location</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Location" name="location">
-            </div>
-        </div>
-
-        <div class="field is-grouped">
-            <div class="control">
-                <button type="submit" class="button is-primary">Submit</button>
-            </div>
-            <div class="control">
-                <button class="button is-text">Cancel</button>
-            </div>
-        </div>
-    </form>
-
-    <!-- <p id="reply_submission" hidden=true>
+    <p id="reply_submission" hidden=true>
         Wow! {{ status }} 
         <button type="button" id="another_feature">
             Create Another Feature
         </button>
-    </p> -->
+    </p>
 
 
 <!-- [START gae_python37_auth_firebase_html] -->
-<div id="firebaseui-auth-container"></div>
+<!-- <div id="firebaseui-auth-container"></div>
 
 <button id="sign-out" hidden=true>Sign Out</button>
 
@@ -107,7 +83,7 @@
     <p>Error: {{ error_message }}</p>
   {% endif %}
 </div> -->
-<!-- [END gae_python37_auth_firebase_html]
+<!-- [END gae_python37_auth_firebase_html] -->
 
 </body>
 </html>

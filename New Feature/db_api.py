@@ -1,6 +1,7 @@
 from bson.objectid import ObjectId
 from bson import Binary
 import base64
+import pymongo
 
 
 def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwargs):
@@ -59,29 +60,28 @@ def create_feature(db, feature_name_in, location_in):
 
     Returns
     -------
-    Boolean: object id of the report if successfully created. Otherwise, false.
+    object id of the report if successfully created.
+    -1 if the feature existed already.
+    Otherwise, false.
 
     """
     feature = {
         'feature_name': feature_name_in,
         'feature_location': location_in,
+        'feature_reports': []
     }
     try:
-        feature_id = db.Features.insert_one(feature).inserted_id
         existed_feature = db.Features.find_one({'feature_name': feature_name_in})
-        existed_location = db.Features.find_one({'feature_location': location_in})
-        if (existed_feature is None) and (existed_location is None):
-            db.Features.insert_one({'feature_name': feature_name_in, 'feature_reports': []})
-        elif existed_feature is not None:
-            feature_id = existed_feature
+        if (existed_feature is None):
+            feature_id = db.Features.insert_one(feature).inserted_id
         else:
-            feature_id = existed_location
+            return -1
     except AssertionError as error:
         print(error)
         return False
     else:
         return feature_id
-
+        
 
 def read_report(db, report_id):
     """
@@ -254,3 +254,16 @@ def find_photo(db, photo_ids):
         for x in db.Photos.find({'_id': p}):
             ret.append(x['encode_raw'].decode('ascii'))
     return ret
+
+
+if __name__ == "__main__":
+
+    client = pymongo.MongoClient('mongodb+srv://YangHu-yh:Fhsjzzx.48@cluster0-tohqa.mongodb.net/test?retryWrites=true&w=majority')
+    db = client['hiking']
+    create_result = create_feature(db, "kayak", "Austin")
+    if create_result is False:
+        print("There is an error!")
+    elif create_result == -1:
+        print("The feature already exist!")
+    else:
+        print('Successful update!')
