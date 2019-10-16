@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+  <title>New Feature</title>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBr8rUcWwfIv9f22ACzPPIJoWV6jc9KECQ",
+        authDomain: "yanghu-yh-codelab-practice496.firebaseapp.com",
+        databaseURL: "https://yanghu-yh-codelab-practice496.firebaseio.com",
+        projectId: "yanghu-yh-codelab-practice496",
+        storageBucket: "yanghu-yh-codelab-practice496.appspot.com",
+        messagingSenderId: "317116116350",
+        appId: "1:317116116350:web:00dd67f4b7146f4a5e972f",
+        measurementId: "G-EQVJQDQ0QR"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <script>
+    if (typeof firebase === 'undefined') {
+      const msg = "Please paste the Firebase initialization snippet into index.html. See https://console.firebase.google.com > Overview > Add Firebase to your web app.";
+      console.log(msg);
+      alert(msg);
+    }
+  </script>
+  <!-- [START gae_python37_auth_include_firebaseui] -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
+  <!-- [END gae_python37_auth_include_firebaseui] -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+</head>
+<body>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                New Report
+            </h1>
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                <div class="level-item">
+                    <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
+                        <ul>
+                        <li><a href="https://aptproject-t2.appspot.com/">Home</a></li>
+                        <li><a href="https://aptproject-t2.appspot.com/personal">Manage</a></li>
+                        <li><a href="https://aptproject-t2.appspot.com/newFeature">New Feature</a></li>
+                        <li><a href="https://aptproject-t2.appspot.com/newReport">New Report</a></li>
+                        </ul>
+                    </nav>
+                    </div>
+                </div>
+                <!-- Right side -->
+                <div class="level-right">
+                    <div class="field">
+                        <!-- <a class="button is-success is-rounded">Rounded</a> -->
+                        <div class="control">
+                            <div class="columns is-mobile">
+                                <a class="button is-info">Search</a>
+                                <input class="input is-info" type="text" placeholder="Success input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>        
+        </div> 
+    </section>
+
+<!-- [START gae_python37_auth_firebase_html] -->
+<div id="firebaseui-auth-container"></div>
+
+<div id="login-info" hidden=true>
+
+  <section>
+    <div class="report-body">
+      <div class="container has-text-centered">
+          <div class="columns is-vcentered">
+
+              <div class="column is-5">
+                    <h2 class="title is-2">
+                        {{ status }} 
+                    </h2>
+                    <!-- <form>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-text"><a href="https://aptproject-t2.appspot.com/newFeature">Create Another Feature</a></button>
+                            </div>
+                        </div>
+                            <div class="control">
+                                <button class="button is-text">Create A Report</button>
+                            </div>
+                        <div class="control">
+                            <button class="button is-text"><a href="https://aptproject-t2.appspot.com/">Back</a></button>
+                        </div>
+                    </form>
+
+                    <form action='/newReport'>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="submit" class="button is-text">Create A Report</button>
+                            </div>
+                        </div>
+                    </form> -->
+                    <div class="buttons has-addons">
+                        <span class="button is-success is-selected"><a href="https://aptproject-t2.appspot.com/newFeature">Create Another Feature</a></span>
+                        <span class="button"><a href="https://aptproject-t2.appspot.com/newReport">New Report</a></span>
+                        <span class="button"><a href="https://aptproject-t2.appspot.com/">Back</a></span>
+                    </div>
+              </div>
+
+
+              <div class="column is-6 is-offset-1">
+                  <h1 class="title is-2">
+                      Welcome, {{ user_data['name'] }}
+                  </h1>
+                  <h2 class="subtitle is-4">
+                      This is your Hiking WebApp
+                  </h2>
+                  <br>
+                  <h2 class="subtitle is-4">
+                      You can add another feature or a report!
+                  </h2>
+              </div>
+          </div>
+      </div>
+  </div>
+  </section>
+</div>
+
+<button id="sign-out" hidden=true><a class="button is-medium is-info is-outlined">Sign Out</a></button>
+
+</body>
+
+</html>

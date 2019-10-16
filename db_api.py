@@ -7,7 +7,6 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
     """
     CREATE method for creating a users' report
     INVARIANT: Each report has unique <user_id, feature_name> pair.
-
     Parameters
     ----------
     db: a database instance
@@ -16,11 +15,9 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
     location_in: location information (possibly coordinates)
     user_id_in: user_id of the creator of the report
     **kwargs: optional input, possibly an array of photos for the report
-
     Returns
     -------
     Boolean: object id of the report if successfully created. Otherwise, false.
-
     """
     report = {
         'feature_name': feature_name_in,
@@ -46,21 +43,70 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
     else:
         return _id
 
+def create_feature(db, feature_name_in, location_in):
+    """
+    CREATE FEATURE method for creating a theme for users
+
+    Parameters
+    ----------
+    db: a database instance
+    feature_name_in: the name of the feature being created
+    feature_location: the location of the feature being created
+
+    Returns
+    -------
+    object id of the report if successfully created.
+    -1 if the feature existed already.
+    Otherwise, false.
+
+    """
+    feature = {
+        'feature_name': feature_name_in,
+        'feature_location': location_in,
+        'feature_reports': []
+    }
+    try:
+        existed_feature = db.Features.find_one({'feature_name': feature_name_in})
+        if (existed_feature is None):
+            feature_id = db.Features.insert_one(feature).inserted_id
+        else:
+            return -1
+    except AssertionError as error:
+        print(error)
+        return False
+    else:
+        return feature_id
+
+    
+
+def read_all_features(db):
+    """
+    READ method for reading all features to display on theme management page
+    INVARIANT: Each report has unique <user_id, feature_name> pair.
+    Parameters
+    ----------
+    db: a database instance
+    Returns
+    -------
+    Report: Otherwise None.
+    """
+    themes = db.Features.find( {} )
+    if themes is None:
+        print("No themes available")
+        return False
+    return themes
 
 def read_report(db, report_id):
     """
     READ method for reading a users' report by object id
     INVARIANT: Each report has unique <user_id, feature_name> pair.
-
     Parameters
     ----------
     db: a database instance
     report_id: the object id of a report instance
-
     Returns
     -------
     Report: Otherwise None.
-
     """
     report = db.Reports.find_one({'_id': ObjectId(report_id)})
     if report is None:
@@ -72,18 +118,15 @@ def read_report(db, report_id):
 def update_report(db, report_id, **kwargs):
     """
     UPDATE method for updating users' reports
-
     Parameters
     ----------
     db: report collection instance
     report_id: _id of the report to be updated
     kwargs: update content
         Possible update fields: feature_name, tags, photos
-
     Returns
     -------
     Boolean: True if successfully updated. Otherwise, False.
-
     """
     supp_fields = ['feature_name', 'tags', 'photos']
     # Empty case
@@ -106,16 +149,13 @@ def delete_report(db, report_id):
     """
     DELETE method for deleting specific report. 
     The corresponding foreign keys in Features will also be deleted.
-
     Parameters
     ----------
     db: report collection instance
     report_id: _id of the report to be deleted
-
     Returns
     -------
     Boolean: True if deletion succeeds, otherwise False.
-
     """
     find_res = db.Reports.find_one_and_delete(
         {'_id': report_id})
@@ -131,17 +171,14 @@ def delete_report(db, report_id):
 def find_report(db, **kwargs):
     """
     Method for finding all reports matching certain criteria
-
     Parameters
     ----------
     db: report collection instance
     kwargs: update content
         Possible update fields: feature_name, user_id, location
-
     Returns
     -------
     Cursor: Cursor of all matching results.
-
     """
     query_fields = ['feature_name', 'user_id', 'location']
 
@@ -156,16 +193,13 @@ def find_report(db, **kwargs):
 def create_photo(db, photo_paths):
     """
     Method for inserting new photo into Photos collection
-
     Parameters
     ----------
     db: pymongo db instance
     photo_paths: array of local file system path for inserted photos
-
     Returns
     -------
     ObjectId: Array of object Ids of inserted photos.
-
     """
     new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0)} for p in photo_paths]
     result = db.Photos.insert_many(new_photos)
@@ -177,17 +211,14 @@ def find_or_create_user(db, name, email):
     """
     Method for finding the user_id based on user's name, email
     Create one user if there is no matching user
-
     Parameters
     ----------
     db: pymongo db instance
     name: user's name
     email: user's email
-
     Returns
     -------
     ObjectId: Object Id of created/found user.
-
     """
     mongo_user_id = db.Users.find_one({'email': email,
                                        'name': name})
@@ -203,16 +234,13 @@ def find_photo(db, photo_ids):
     """
     Method for finding an array of decoded images
     corresponding to the specific report
-
     Parameters
     ----------
     db: pymongo db instance
     photo_ids: array of photo object id
-
     Returns
     -------
     ObjectId: Arrary of decoded raw images
-
     """
     ret = []
     for p in photo_ids:
