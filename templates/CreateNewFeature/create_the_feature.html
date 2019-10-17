@@ -1,13 +1,19 @@
 <!doctype html>
 <html>
+
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
   <title>New Feature</title>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
 
   <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
 
   <script>
     // Your web app's Firebase configuration
@@ -21,33 +27,14 @@
         appId: "1:317116116350:web:00dd67f4b7146f4a5e972f",
         measurementId: "G-EQVJQDQ0QR"
     };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
   </script>
-  <script>
-    if (typeof firebase === 'undefined') {
-      const msg = "Please paste the Firebase initialization snippet into index.html. See https://console.firebase.google.com > Overview > Add Firebase to your web app.";
-      console.log(msg);
-      alert(msg);
-    }
-  </script>
-  <!-- [START gae_python37_auth_include_firebaseui] -->
   <script src="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
-  <!-- [END gae_python37_auth_include_firebaseui] -->
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
-  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
-  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
 </head>
+
 <body>
 
     <section class="section">
@@ -61,10 +48,10 @@
                 <div class="level-item">
                     <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
                         <ul>
-                        <li><a href="https://aptproject-t2.appspot.com/">Home</a></li>
-                        <li><a href="https://aptproject-t2.appspot.com/personal">Manage</a></li>
-                        <li><a href="https://aptproject-t2.appspot.com/newFeature">New Feature</a></li>
-                        <li><a href="https://aptproject-t2.appspot.com/newReport">New Report</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/personal">Manage</a></li>
+                        <li><a href="/newFeature">New Feature</a></li>
+                        <li><a href="/newReport">New Report</a></li>
                         </ul>
                     </nav>
                     </div>
