@@ -75,7 +75,8 @@
                                     <p class="title theme-name" style="padding-bottom: 5%">{{ name }}</p>
                                     <figure class="image is-16by9">
                                 </a>
-                                <img src="https://bulma.io/images/placeholders/640x480.png">
+                                <!-- style="width:250px;height:300px;" -->
+                                <img src="data:image/jpg;charset=utf-8;base64,{{ user_input['feature_imgs'][loop.index - 1] }}">
                                 </figure>
                             </article>
                         </div>

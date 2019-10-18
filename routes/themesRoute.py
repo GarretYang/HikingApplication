@@ -1,5 +1,6 @@
+import random
 from flask import Blueprint, render_template
-from db_api import read_all_features
+from db_api import read_all_features, find_report, find_photo
 from mongoDatabase import db
 
 themes_api = Blueprint('themes_api', __name__)
@@ -16,13 +17,25 @@ def getThemes():
     
     feature_names = []
     feature_id = []
+    feature_imgs = []
     for t in mongo_all_themes:
         feature_names.append(t['feature_name'])
         feature_id.append(t['_id'])
-
+        reports = find_report(db, feature_name=t['feature_name'])
+        report_imgs = []
+        if reports is not None:
+            for report in reports:
+                if 'photos' in report and len(report['photos']) > 0:
+                    report_imgs = find_photo(db, report['photos'])
+                    break
+        if len(report_imgs) != 0:        
+            feature_imgs.append(random.choice(report_imgs))
+        else:
+            feature_imgs.append("0")
     theme_input['feature_names'] = feature_names
     theme_input['feature_id'] = feature_id
-    
+    theme_input['feature_imgs'] = feature_imgs
+    print(len(feature_imgs))
     return render_template(
         'ThemeManagement/theme_management.html',
         user_data=claims,
