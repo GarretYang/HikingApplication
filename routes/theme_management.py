@@ -37,7 +37,7 @@ def getThemes():
     theme_input['feature_imgs'] = feature_imgs
     print(len(feature_imgs))
     return render_template(
-        'ThemeManagement/theme_management.html',
+        'theme_management.html',
         user_data=claims,
         error_message=error_message,
         user_input=theme_input)    

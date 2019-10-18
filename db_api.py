@@ -26,7 +26,7 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
         'user_id': user_id_in,
     }
     if 'photos' in kwargs:
-        report['photos'] = create_photo(db, kwargs['photos'])
+        report['photos'] = create_photo(db, kwargs['photos'], feature_name_in)
     try:
         _id = db.Reports.insert_one(report).inserted_id
         existed_report = db.Features.find_one({'feature_name': feature_name_in})
@@ -190,7 +190,7 @@ def find_report(db, **kwargs):
     return db.Reports.find(kwargs)
 
 
-def create_photo(db, photo_paths):
+def create_photo(db, photo_paths, feature_name_in):
     """
     Method for inserting new photo into Photos collection
     Parameters
@@ -201,7 +201,7 @@ def create_photo(db, photo_paths):
     -------
     ObjectId: Array of object Ids of inserted photos.
     """
-    new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0)} for p in photo_paths]
+    new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0) , 'theme': feature_name_in} for p in photo_paths]
     result = db.Photos.insert_many(new_photos)
     print(result.inserted_ids)
     return result.inserted_ids

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> 
     <link rel = "stylesheet" type = "text/css" href = ".\bootstrap\css\bootstrap-iso.css" />
+    <script type="text/javascript" src="theme_management.js"></script>  
   </head>
   <body>
     <section class="section">
@@ -20,7 +21,7 @@
                 <div class="level-item">
                     <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
                         <ul>
-                        <li><a href="#">Manage</a></li>
+                        <li><a href="https://aptproject-t2.appspot.com/personal">Manage</a></li>
                         <li><a href="#">Create</a></li>
                         <li class="is-active"><a href="#" aria-current="page">View</a></li>
                         <li><a href="#">Social</a></li>
@@ -34,8 +35,8 @@
                         <!-- <a class="button is-success is-rounded">Rounded</a> -->
                         <div class="control">
                             <div class="columns is-mobile">
-                                <a class="button is-info">Search</a>
-                                <input class="input is-info" type="text" placeholder="Success input">
+                                <a class="button is-info" onclick="searchFilter()">Search</a>
+                                <input class="input is-info" type="text" placeholder="Success input" onkeyup="searchFilter()"/>
                             </div>
                         </div>
                     </div>
@@ -88,9 +89,14 @@
                     </div>
             {% endif %}
         </div>
-    </div>      
+    </div>  
   </body>
-
-  <script type="text/javascript" src="theme_management.js"></script>
-
+  <script type="text/javascript" src="{{ url_for('static', filename='js/theme_management.js') }}"></script>  
+  <!-- <script>
+        function searchFilter(){
+            console.log("hello")
+            // input = document.getElementsByClassName("theme-name");
+            // console.log(input);
+        }      
+  </script> -->
 </html>
