@@ -82,14 +82,15 @@
           <div class="columns is-vcentered">
 
               <div class="column is-5">
-                    <form method="POST" action="/newcreatereport">
+                    <form method="POST" action="/newcreatereport" enctype="multipart/form-data">
                         <div class="field">
                             <label class="label">Feature</label>
                             <div class="control">
                                 <div class="select">
                                     <select name="feature">
-                                        <option>Hiking</option>
-                                        <option>Swimming</option>
+                                        {% for feature in features %}
+                                            <option>{{ feature['feature_name'] }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -98,6 +99,18 @@
                             <label class="label">Location</label>
                             <div class="control">
                                 <input class="input" type="text" placeholder="Location" name="location">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Date</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Date" name="date">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <div class="control">
+                                <input class="textarea" type="text" placeholder="Description" name="description">
                             </div>
                         </div>
                         <div class="field">
@@ -113,12 +126,12 @@
                         </div>
                         <div class="file">
                             <label class="file-label">
-                                <input class="file-input" type="file" name="photo">
-                                <span class="file-cta">
-                                    <span class="file-icon"><i class="fas fa-upload"></i></span>
-                                    <span class="file-label">Choose a photo…</span>
-                                </span>
-                            </label>
+                            <input class="file-input" type="file" name="photo" multiple=true" accept="image/*">
+                            <span class="file-cta">
+                                <span class="file-icon"><i class="fas fa-upload"></i></span>
+                                <span class="file-label">Choose a photo…</span>
+                            </span>
+                        </label>
                         </div>
                         <div class="field is-grouped">
                             <div class="control">

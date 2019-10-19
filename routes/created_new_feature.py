@@ -44,5 +44,5 @@ def newCreatedFeature():
         submit = "The feature already exist!"
     else:
         submit = "You just successfully created feature: "+new_feature_in+" at " +new_location_in+"!"
-    return render_template('created_the_feature.html', status=submit, user_data=claims, error_message=error_message, times=times)
+    return render_template('created_new_feature.html', status=submit, user_data=claims, error_message=error_message, times=times)
 # [END createthefeature]

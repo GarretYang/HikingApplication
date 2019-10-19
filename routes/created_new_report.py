@@ -9,14 +9,35 @@ import random
 newcreatereport_api = Blueprint('newcreatereport_api', __name__)
 
 # [START createdReport]
-@newcreatereport_api.route('/newcreatereport', methods=['GET', 'POST'])
+@newcreatereport_api.route('/newcreatereport', methods=['POST'])
 def newcreatereport():
-    print(request.form)
+    # Verify Firebase auth.
+    id_token = request.cookies.get("token")
+    error_message = None
+    claims = None
+    times = None
+    if id_token:
+        try:
+            # Verify the token against the Firebase Auth API. This example
+            # verifies the token on each page load. For improved performance,
+            # some applications may wish to cache results in an encrypted
+            # session store (see for instance
+            # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
+            claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+
+        except ValueError as exc:
+            # This will be raised if the token is expired or any other
+            # verification checks fail.
+            error_message = str(exc)
+
+    photos = request.files.getlist('photo')
     feature = request.form.get('feature')
     location = request.form.get('location')
     tags = request.form.getlist('tag')
-    photo = request.form.get('photo')
-    print(feature, location, tags, photo)
-    create_report(db, feature, tags, location, 'test-user')
+    description = request.form.get('description')
+    date = request.form.get('date')
+    user = find_or_create_user(db, claims['name'], claims['email'])
+    create_report(db, feature, tags, location, description, date, user, photos=photos)
     return 'personal management page w/ successfully create the report'
 # [END createReport]

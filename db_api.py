@@ -3,7 +3,7 @@ from bson import Binary
 import base64
 
 
-def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwargs):
+def create_report(db, feature_name_in, tags_in, location_in, description_in, date_in, user_id_in, **kwargs):
     """
     CREATE method for creating a users' report
     INVARIANT: Each report has unique <user_id, feature_name> pair.
@@ -23,6 +23,8 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
         'feature_name': feature_name_in,
         'tags': tags_in,
         'location': location_in,
+        'description': description_in,
+        'date_in': date_in,
         'user_id': user_id_in,
     }
     if 'photos' in kwargs:
@@ -190,18 +192,19 @@ def find_report(db, **kwargs):
     return db.Reports.find(kwargs)
 
 
-def create_photo(db, photo_paths, feature_name_in):
+def create_photo(db, photos, feature_name_in):
     """
     Method for inserting new photo into Photos collection
     Parameters
     ----------
     db: pymongo db instance
-    photo_paths: array of local file system path for inserted photos
+    photos: array of photos FileReaders passed to REST API POST request
     Returns
     -------
     ObjectId: Array of object Ids of inserted photos.
     """
-    new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0) , 'theme': feature_name_in} for p in photo_paths]
+    print(photos)
+    new_photos = [{'encode_raw': Binary(base64.b64encode(p.read()), 0) , 'theme': feature_name_in} for p in photos]
     result = db.Photos.insert_many(new_photos)
     print(result.inserted_ids)
     return result.inserted_ids

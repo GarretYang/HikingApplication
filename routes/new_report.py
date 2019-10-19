@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request
 from google.auth.transport import requests
 from google.cloud import datastore
 import google.oauth2.id_token
-from db_api import *
+from db_api import read_all_features
 from mongoDatabase import db, firebase_request_adapter
 import random
 
@@ -16,6 +16,8 @@ def newReport():
     error_message = None
     claims = None
     times = None
+    features = list(read_all_features(db))
+
     if id_token:
         try:
             # Verify the token against the Firebase Auth API. This example
@@ -33,6 +35,7 @@ def newReport():
 
     return render_template(
         'new_report.html',
+        features=features,
         user_data=claims,
         error_message=error_message)
 # [END gae_python37_datastore_render_user_times]
