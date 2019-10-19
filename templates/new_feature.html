@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
   <title>New Feature</title>
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
@@ -34,13 +35,12 @@
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
 </head>
 
-
 <body>
 
     <section class="section">
         <div class="container">
             <h1 class="title">
-                New Report
+                New Feature
             </h1>
             <nav class="level">
                 <!-- Left side -->
@@ -83,35 +83,29 @@
           <div class="columns is-vcentered">
 
               <div class="column is-5">
-                    <h2 class="title is-2">
-                        {{ status }} 
-                    </h2>
-                    <!-- <form>
-                        <div class="field is-grouped">
+                    <form method="POST" action='/newCreatedFeature' >
+                        <div class="field">
+                            <label class="label">New Feature Name</label>
                             <div class="control">
-                                <button class="button is-text"><a href="https://aptproject-t2.appspot.com/newFeature">Create Another Feature</a></button>
+                                <input class="input" type="text" placeholder="Feature Name" name="feature_name">
                             </div>
                         </div>
+                        <div class="field">
+                            <label class="label">New Location</label>
                             <div class="control">
-                                <button class="button is-text">Create A Report</button>
+                                <input class="input" type="text" placeholder="Location" name="location">
                             </div>
-                        <div class="control">
-                            <button class="button is-text"><a href="https://aptproject-t2.appspot.com/">Back</a></button>
+                        </div>
+
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="submit" class="button is-primary">Submit</button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-text"><a href="https://aptproject-t2.appspot.com/">Cancel</a></button>
+                            </div>
                         </div>
                     </form>
-
-                    <form action='/newReport'>
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button type="submit" class="button is-text">Create A Report</button>
-                            </div>
-                        </div>
-                    </form> -->
-                    <div class="buttons has-addons">
-                        <span class="button is-success is-selected"><a href="https://aptproject-t2.appspot.com/newFeature">Create Another Feature</a></span>
-                        <span class="button"><a href="https://aptproject-t2.appspot.com/newReport">New Report</a></span>
-                        <span class="button"><a href="https://aptproject-t2.appspot.com/">Back</a></span>
-                    </div>
               </div>
 
 
@@ -124,7 +118,7 @@
                   </h2>
                   <br>
                   <h2 class="subtitle is-4">
-                      You can add another feature or a report!
+                      You can add a new feature here!
                   </h2>
               </div>
           </div>
@@ -136,5 +130,4 @@
 <button id="sign-out" hidden=true><a class="button is-medium is-info is-outlined">Sign Out</a></button>
 
 </body>
-
 </html>

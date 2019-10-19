@@ -32,7 +32,7 @@ def newReport():
             error_message = str(exc)
 
     return render_template(
-        'CreateNewReport/create_new_report.html',
+        'new_report.html',
         user_data=claims,
         error_message=error_message)
 # [END gae_python37_datastore_render_user_times]

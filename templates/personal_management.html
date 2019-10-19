@@ -3,9 +3,9 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <title>Hiking Web App</title>
+  <title>Personal Management Page</title>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
 
@@ -15,17 +15,17 @@
   <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
 
   <script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyAYyRqarEE5s8IQoEjo7k2ZL4_CV26t7j4",
-    authDomain: "aptproject-t2.firebaseapp.com",
-    databaseURL: "https://aptproject-t2.firebaseio.com",
-    projectId: "aptproject-t2",
-    storageBucket: "aptproject-t2.appspot.com",
-    messagingSenderId: "1033688098409",
-    appId: "1:1033688098409:web:ce469a3cf3671faff364f8",
-    measurementId: "G-F1Y9BCVGPJ"
-  };
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBr8rUcWwfIv9f22ACzPPIJoWV6jc9KECQ",
+        authDomain: "yanghu-yh-codelab-practice496.firebaseapp.com",
+        databaseURL: "https://yanghu-yh-codelab-practice496.firebaseio.com",
+        projectId: "yanghu-yh-codelab-practice496",
+        storageBucket: "yanghu-yh-codelab-practice496.appspot.com",
+        messagingSenderId: "317116116350",
+        appId: "1:317116116350:web:00dd67f4b7146f4a5e972f",
+        measurementId: "G-EQVJQDQ0QR"
+    };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
@@ -35,110 +35,123 @@
 </head>
 <body>
 
-<h1>Welcome to Hiking Web App Site</h1>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                Personal Management Page
+            </h1>
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                <div class="level-item">
+                    <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
+                        <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/personal">Manage</a></li>
+                        <li><a href="/newFeature">New Feature</a></li>
+                        <li><a href="/newReport">New Report</a></li>
+                        </ul>
+                    </nav>
+                    </div>
+                </div>
+                <!-- Right side -->
+                <div class="level-right">
+                    <div class="field">
+                        <!-- <a class="button is-success is-rounded">Rounded</a> -->
+                        <div class="control">
+                            <div class="columns is-mobile">
+                                <a class="button is-info">Search</a>
+                                <input class="input is-info" type="text" placeholder="Success input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>        
+        </div> 
+    </section>
 
 <div id="firebaseui-auth-container"></div>
 
-<button id="sign-out" hidden=true><a class="button is-medium is-info is-outlined">Sign Out</a></button>
-
 <div id="login-info" hidden=true>
 
-<section>
-  <div class="navbar-menu">
-    <nav class="navbar is-right">
-        <div class="container">
-            <div id="navbarMenu" class="navbar-menu">
-                <div class="navbar-end">
-                    <div class="tabs is-right">
-                        <ul>
-                            <li class="is-active"><a>Manage</a></li>
-                            <li><a href="">Create</a></li>
-                            <li><a href="">View</a></li>
-                            <li><a href="">Search</a></li>
-                            <li><a href="">Social</a></li>
-                        </ul>
-                    </div>
+  <section>
+    <div class="report-body">
+        <div class="container has-text-centered">
+            <div class="columns is-vcentered">
+
+                <div class="column is-5">
+                    <!-- Report info -->
+                    <h2 class="subtitle is-3"><b>Your reports</b></h2>
+                    
+                    {% if user_input['reports_theme']|length > 0 %}
+
+                        {% for imgs in user_input['reports_img'] %}
+
+                            <p><b>Report {{ loop.index }}</b></p>
+
+                            <p><b>Theme</b>: {{ user_input['reports_theme'][loop.index - 1] }}</p>
+
+                            {% for img in imgs %}
+                                <p><img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:250px;height:300px;"><p>
+                            {% endfor %}
+
+                        {% endfor %}
+
+                    {% else %}
+                            
+                        <p>You don't have any report stored in our Mongo Database</p>
+
+                    {% endif %}
+
+                    <hr size="10" noshade> 
+
+                    <h2 class="subtitle is-3"><b>Subscribed themes</b></h2>
+
+                    {% if user_input['themes_name']|length > 0 %}
+
+                        {% for t in user_input['themes_name'] %}
+
+                            <p><b>Theme</b>: {{ t }}</p>
+
+                            <p><img src="data:image/jpg;charset=utf-8;base64,{{ user_input['themes_img'][loop.index - 1] }}" style="width:250px;height:300px;"><p>
+
+                        {% endfor %}
+
+                    {% else %}
+                            
+                        <p>You don't have any theme stored in our Mongo Database</p>
+
+                    {% endif %}
+                
+                
+                </div>
+
+
+                <div class="column is-6 is-offset-1">
+                    <h1 class="title is-2">
+                        Welcome, {{ user_data['name'] }}
+                    </h1>
+                    <h2 class="subtitle is-4">
+                        This is your Hiking WebApp
+                    </h2>
+                    <br>
+                    <h2 class="subtitle is-4">
+                        Feel free to manage your content
+                    </h2>
+                    <!-- <p class="has-text-centered">
+                        <a class="button is-medium is-info is-outlined">
+                            Learn more
+                        </a>
+                    </p> -->
                 </div>
             </div>
         </div>
-    </nav>
-  </div>
-
-  <div class="report-body">
-      <div class="container has-text-centered">
-          <div class="columns is-vcentered">
-
-              <div class="column is-5">
-                  <!-- Report info -->
-                  <h2 class="subtitle is-3"><b>Your reports</b></h2>
-                  
-                  {% if user_input['reports_theme']|length > 0 %}
-
-                      {% for imgs in user_input['reports_img'] %}
-
-                          <p><b>Report {{ loop.index }}</b></p>
-
-                          <p><b>Theme</b>: {{ user_input['reports_theme'][loop.index - 1] }}</p>
-
-                          {% for img in imgs %}
-                              <p><img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:250px;height:300px;"><p>
-                          {% endfor %}
-
-                      {% endfor %}
-
-                  {% else %}
-                          
-                      <p>You don't have any report stored in our Mongo Database</p>
-
-                  {% endif %}
-
-                  <hr size="10" noshade> 
-
-                  <h2 class="subtitle is-3"><b>Subscribed themes</b></h2>
-
-                  {% if user_input['themes_name']|length > 0 %}
-
-                      {% for t in user_input['themes_name'] %}
-
-                          <p><b>Theme</b>: {{ t }}</p>
-
-                          <p><img src="data:image/jpg;charset=utf-8;base64,{{ user_input['themes_img'][loop.index - 1] }}" style="width:250px;height:300px;"><p>
-
-                      {% endfor %}
-
-                  {% else %}
-                          
-                      <p>You don't have any theme stored in our Mongo Database</p>
-
-                  {% endif %}
-              
-              
-              </div>
-
-
-              <div class="column is-6 is-offset-1">
-                  <h1 class="title is-2">
-                      Welcome, {{ user_data['name'] }}
-                  </h1>
-                  <h2 class="subtitle is-4">
-                      This is your Hiking WebApp
-                  </h2>
-                  <br>
-                  <h2 class="subtitle is-4">
-                      Feel free to manage your content
-                  </h2>
-                  <!-- <p class="has-text-centered">
-                      <a class="button is-medium is-info is-outlined">
-                          Learn more
-                      </a>
-                  </p> -->
-              </div>
-          </div>
-      </div>
-  </div>
-
-</section>
+    </div>
+  </section>
   
 </div>
+
+<button id="sign-out" hidden=true><a class="button is-medium is-info is-outlined">Sign Out</a></button>
+
 </body>
 </html>

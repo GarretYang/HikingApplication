@@ -20,12 +20,12 @@
                 <div class="level-left">
                 <div class="level-item">
                     <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
-                        <ul>
-                        <li><a href="https://aptproject-t2.appspot.com/personal">Manage</a></li>
-                        <li><a href="#">Create</a></li>
-                        <li class="is-active"><a href="#" aria-current="page">View</a></li>
-                        <li><a href="#">Social</a></li>
-                        </ul>
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/personal">Manage</a></li>
+                                <li><a href="/newFeature">New Feature</a></li>
+                                <li><a href="/newReport">New Report</a></li>
+                            </ul>
                     </nav>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         <div class="control">
                             <div class="columns is-mobile">
                                 <a class="button is-info" onclick="searchFilter()">Search</a>
-                                <input class="input is-info" type="text" placeholder="Success input" onkeyup="searchFilter()"/>
+                                <input class="input is-info" type="text" placeholder="Success input"/>
                             </div>
                         </div>
                     </div>
@@ -92,11 +92,4 @@
     </div>  
   </body>
   <script type="text/javascript" src="{{ url_for('static', filename='js/theme_management.js') }}"></script>  
-  <!-- <script>
-        function searchFilter(){
-            console.log("hello")
-            // input = document.getElementsByClassName("theme-name");
-            // console.log(input);
-        }      
-  </script> -->
 </html>
