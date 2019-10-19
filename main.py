@@ -18,6 +18,7 @@ from routes.new_report import newreport_api
 from routes.created_new_report import newcreatereport_api
 from routes.new_feature import newfeature_api
 from routes.created_new_feature import newcreatedfeature_api
+from routes.single_theme import singletheme_api
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -27,6 +28,7 @@ app.register_blueprint(newreport_api)
 app.register_blueprint(newcreatereport_api)
 app.register_blueprint(newfeature_api)
 app.register_blueprint(newcreatedfeature_api)
+app.register_blueprint(singletheme_api)
  
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

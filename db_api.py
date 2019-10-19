@@ -314,4 +314,23 @@ def get_all_tags(db):
     return mongo_tags
 
 
+def find_userinfo_by_id(db, user_id):
+    """
+    Method for finding an array of userinfo
+    corresponding to the specific user_id
 
+    Parameters
+    ----------
+    db: pymongo db instance
+    user_id: user_id
+
+    Returns
+    -------
+    ObjectId: Array of userinfo
+
+    """
+    user_info = db.Users.find_one({'_id': user_id})
+    if user_info is None:
+        print("Cannot find the user with object id " + user_id)
+        return False, None
+    return user_info
