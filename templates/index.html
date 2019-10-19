@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+  <title>Shiyu's Simple Web App</title>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCycujng3bX-rD-JthysAw9wUK18f1veEE",
+    authDomain: "shiyu-ee382v-hw5.firebaseapp.com",
+    databaseURL: "https://shiyu-ee382v-hw5.firebaseio.com",
+    projectId: "shiyu-ee382v-hw5",
+    storageBucket: "shiyu-ee382v-hw5.appspot.com",
+    messagingSenderId: "619002933508",
+    appId: "1:619002933508:web:aaf8222c0c2ba7c7332051",
+    measurementId: "G-LBRPQ48ZQ8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
+</head>
+<body>
+<h1>Welcome to Shiyu's Simple Web App Site</h1>
+
+<div id="firebaseui-auth-container"></div>
+
+<button id="sign-out" hidden=true>Sign Out</button>
+
+<div id="login-info" hidden=true>
+
+  {% if error_message %}
+    <p>Error: {{ error_message }}</p>
+  {% else %}
+    <div align="left">
+
+        <h1>Welcome to Hiking WebApp</h1>
+
+        <h3>Manage your content</h3>
+        
+        <hr size="10" noshade> 
+
+        <!-- Report info -->
+        <h2>Your reports</h2>
+
+        {% if user_input['reports_theme']|length > 0 %}
+
+            {% for imgs in user_input['reports_img'] %}
+
+                <p><b>Report {{ loop.index }}</b></p>
+
+                <p><b>Theme</b>: {{ user_input['reports_theme'][loop.index - 1] }}</p>
+
+                {% for img in imgs %}
+                    <p><img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:250px;height:300px;"><p>
+                {% endfor %}
+
+            {% endfor %}
+
+        {% else %}
+                
+            <p>You don't have any report stored in our Mongo Database</p>
+
+        {% endif %}
+
+        <hr size="10" noshade> 
+
+        <h2>Subscribed themes</h2>
+
+        {% if user_input['themes_name']|length > 0 %}
+
+            {% for t in user_input['themes_name'] %}
+
+                <p><b>Theme</b>: {{ t }}</p>
+
+                <p><img src="data:image/jpg;charset=utf-8;base64,{{ user_input['themes_img'][loop.index - 1] }}" style="width:250px;height:300px;"><p>
+
+            {% endfor %}
+
+        {% else %}
+                
+            <p>You don't have any theme stored in our Mongo Database</p>
+
+        {% endif %}
+
+
+    </div>
+  {% endif %}
+  
+</div>
+</body>
+</html>
