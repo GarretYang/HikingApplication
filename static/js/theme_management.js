@@ -1,4 +1,3 @@
-
 function searchFilter(){
     input = document.getElementById("search-input").value.toUpperCase();
     themes = document.getElementsByClassName("theme-box");
