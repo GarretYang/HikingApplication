@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request
 from google.auth.transport import requests
 from google.cloud import datastore
 import google.oauth2.id_token
-from db_api import read_all_features
+from db_api import read_all_features, get_all_tags
 from mongoDatabase import db, firebase_request_adapter
 import random
 
@@ -17,6 +17,7 @@ def newReport():
     claims = None
     times = None
     features = list(read_all_features(db))
+    tags = list(get_all_tags(db))
 
     if id_token:
         try:
@@ -36,6 +37,7 @@ def newReport():
     return render_template(
         'new_report.html',
         features=features,
+        tags=tags,
         user_data=claims,
         error_message=error_message)
 # [END gae_python37_datastore_render_user_times]

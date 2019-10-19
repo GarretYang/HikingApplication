@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-  <title>New Report</title>
+  <title>New Feature</title>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -33,6 +33,7 @@
   <script src="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
 </head>
+
 
 <body>
 
@@ -82,63 +83,13 @@
           <div class="columns is-vcentered">
 
               <div class="column is-5">
-                    <form method="POST" action="/newcreatereport" enctype="multipart/form-data">
-                        <div class="field">
-                            <label class="label">Feature</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select name="feature">
-                                        {% for feature in features %}
-                                            <option>{{ feature['feature_name'] }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Location</label>
-                            <div class="control">
-                                <input class="input" type="text" placeholder="Location" name="location">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Date</label>
-                            <div class="control">
-                                <input class="input" type="text" placeholder="Date" name="date">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Description</label>
-                            <div class="control">
-                                <input class="textarea" type="text" placeholder="Description" name="description">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Tags</label>
-                            <div class="control">
-                                {% for tag in tags %}
-                                    <input type="checkbox" name="tag" value="{{tag['name']}}">{{ tag['name'] }}</input><br>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="file">
-                            <label class="file-label">
-                            <input class="file-input" type="file" name="photo" multiple=true" accept="image/*">
-                            <span class="file-cta">
-                                <span class="file-icon"><i class="fas fa-upload"></i></span>
-                                <span class="file-label">Choose a photo…</span>
-                            </span>
-                        </label>
-                        </div>
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button type="submit" class="button is-primary">Submit</button>
-                            </div>
-                            <div class="control">
-                                <button class="button is-text"><a href="https://aptproject-t2.appspot.com/">Cancel</a></button>
-                            </div>
-                        </div>
-                    </form>
+                    <h2 class="title is-2">
+                        {{ status }} 
+                    </h2>
+                    <div class="buttons has-addons">
+                        <span class="button"><a href="/newReport">Create Another New Report</a></span>
+                        <span class="button"><a href="/">Back</a></span>
+                    </div>
               </div>
 
 
@@ -151,7 +102,7 @@
                   </h2>
                   <br>
                   <h2 class="subtitle is-4">
-                      You can add a new report here!
+                      You can add another report!
                   </h2>
               </div>
           </div>
@@ -163,4 +114,5 @@
 <button id="sign-out" hidden=true><a class="button is-medium is-info is-outlined">Sign Out</a></button>
 
 </body>
+
 </html>

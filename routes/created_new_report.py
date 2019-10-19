@@ -38,6 +38,11 @@ def newcreatereport():
     description = request.form.get('description')
     date = request.form.get('date')
     user = find_or_create_user(db, claims['name'], claims['email'])
-    create_report(db, feature, tags, location, description, date, user, photos=photos)
-    return 'personal management page w/ successfully create the report'
+    new_report_result = create_report(db, feature, tags, location, description, date, user, photos=photos)
+
+    if new_report_result is False:
+        submit = "There is an error!"
+    else:
+        submit = "You just successfully created a report for: "+feature+" at " +location+"!"
+    return render_template('created_new_report.html', status=submit, user_data=claims, error_message=error_message)
 # [END createReport]

@@ -27,6 +27,7 @@ def create_report(db, feature_name_in, tags_in, location_in, description_in, dat
         'date_in': date_in,
         'user_id': user_id_in,
     }
+
     if 'photos' in kwargs:
         report['photos'] = create_photo(db, kwargs['photos'], feature_name_in)
     try:
@@ -43,6 +44,9 @@ def create_report(db, feature_name_in, tags_in, location_in, description_in, dat
         print(error)
         return False
     else:
+        # create each tag that didn't exist and associate each existing tag with this report
+        for tag in tags_in:
+            update_or_create_tag(db, tag, _id)
         return _id
 
 def create_feature(db, feature_name_in, location_in):
@@ -250,3 +254,64 @@ def find_photo(db, photo_ids):
         for x in db.Photos.find({'_id': p}):
             ret.append(x['encode_raw'].decode('ascii'))
     return ret
+
+def update_or_create_tag(db, name, report_id):
+    """
+    Method for updating or creating a tag based on its name and a new report
+    Create one tag if there is no matching tag
+    Updates tag with additional report if there is an existing tag
+    Parameters
+    ----------
+    db: pymongo db instance
+    name: tag name
+    report: report that uses this tag
+    Returns
+    -------
+    Boolean: success or failure.
+    """
+    mongo_tag = db.Tags.find_one({'name': name})
+    print(mongo_tag)
+    if mongo_tag is None:
+        mongo_tag = db.Tags.insert_one({'name': name, 'reports': [report_id]})
+    #Update
+    else:
+        mongo_tag['reports'].append(report_id)
+        query = {'_id': ObjectId(mongo_tag['_id'])}
+        new_values = {'$set': {"reports": mongo_tag['reports']}}
+        update_res = db.Tags.update_one(query, new_values)
+        if update_res.matched_count == 1:
+            return True
+        else:
+            return False
+
+
+def get_tag(db, name):
+    """
+    Method for finding a tag object by its name
+    Parameters
+    ----------
+    db: pymongo db instance
+    name: tag name
+    Returns
+    -------
+    tag (name, list[reports]) dictionary.
+    """
+    mongo_tag = db.Tags.find_one({'name': name})
+    return mongo_tag
+
+
+def get_all_tags(db):
+    """
+    Method for finding a tag object by its name
+    Parameters
+    ----------
+    db: pymongo db instance
+    Returns
+    -------
+    List of tag (name, list[reports]) dictionary.
+    """
+    mongo_tags = db.Tags.find( {} )
+    return mongo_tags
+
+
+
