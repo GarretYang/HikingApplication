@@ -36,7 +36,7 @@
                         <div class="control">
                             <div class="columns is-mobile">
                                 <a class="button is-info" onclick="searchFilter()">Search</a>
-                                <input class="input is-info" type="text" placeholder="Success input"/>
+                                <input class="input is-info" id="search-input" type="text" placeholder="Success input" onkeyup="clearFilter()"/>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
 
             {% if user_input['feature_names']|length > 0 %}
                 {% for name in user_input['feature_names'] %}
-                    <div class="column is-4">
+                    <div class="column is-4 theme-box">
                         <div class="tile is-parent">
                             <article class="tile is-child box">
                                 <a href="/reports?theme={{ name }}">
