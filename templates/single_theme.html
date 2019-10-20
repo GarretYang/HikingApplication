@@ -95,7 +95,7 @@
                                 <!-- <a class="button is-success is-rounded">Rounded</a> -->
                                 <div class="control">
                                     <div class="columns is-mobile">
-                                        <a class="button is-info">Search</a>
+                                        <a class="button is-info" onclick="search()">Search</a>
                                         <input class="input is-info" id="search-input" type="text" placeholder="Success input"/>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
                 {% if reports[0]|length>0 %}
                 <div class="columns is-desktop is-multiline">
                     {% for r in reports %}
-                    <div class="card column is-4 theme-box">
+                    <div class="card column is-4 report-box">
                         <div class="card-image">
                             <figure class="image is-4by3">
                             <img src="data:image/jpg;charset=utf-8;base64,{{ report_images[loop.index-1][0] }}" alt="Placeholder image">
@@ -148,9 +148,11 @@
                             </div>
                             </div>
 
-                            <div class="content">
+                            <div class="content report-description">
                             {{ r['description'] }}
                             <br>
+                            </div>
+                            <div class="content">
                             {% for tag in r['tags'] %}
                                 <span class="tag is-dark">{{ tag }}</span>
                             {% endfor %}</p>
@@ -173,5 +175,7 @@
 			slidesToShow: 4
 		});
 		</script>
+        <script></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/single_theme.js') }}"></script>
     </body>
 </html>
