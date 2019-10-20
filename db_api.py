@@ -231,7 +231,8 @@ def find_or_create_user(db, name, email):
                                        'name': name})
     if mongo_user_id is None:
         mongo_user_id = db.Users.insert_one({'email': email,
-                                             'name': name}).inserted_id
+                                             'name': name,
+                                             'subscribe_feature': []}).inserted_id
     else:
         mongo_user_id = mongo_user_id['_id']
     return mongo_user_id
