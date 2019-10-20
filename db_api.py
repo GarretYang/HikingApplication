@@ -3,7 +3,7 @@ from bson import Binary
 import base64
 
 
-def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwargs):
+def create_report(db, feature_name_in, tags_in, location_in, description_in, date_in, user_id_in, **kwargs):
     """
     CREATE method for creating a users' report
     INVARIANT: Each report has unique <user_id, feature_name> pair.
@@ -23,8 +23,11 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
         'feature_name': feature_name_in,
         'tags': tags_in,
         'location': location_in,
+        'description': description_in,
+        'date_in': date_in,
         'user_id': user_id_in,
     }
+
     if 'photos' in kwargs:
         report['photos'] = create_photo(db, kwargs['photos'], feature_name_in)
     try:
@@ -41,6 +44,9 @@ def create_report(db, feature_name_in, tags_in, location_in, user_id_in, **kwarg
         print(error)
         return False
     else:
+        # create each tag that didn't exist and associate each existing tag with this report
+        for tag in tags_in:
+            update_or_create_tag(db, tag, _id)
         return _id
 
 def create_feature(db, feature_name_in, location_in):
@@ -190,18 +196,18 @@ def find_report(db, **kwargs):
     return db.Reports.find(kwargs)
 
 
-def create_photo(db, photo_paths, feature_name_in):
+def create_photo(db, photos, feature_name_in):
     """
     Method for inserting new photo into Photos collection
     Parameters
     ----------
     db: pymongo db instance
-    photo_paths: array of local file system path for inserted photos
+    photos: array of photos FileReaders passed to REST API POST request
     Returns
     -------
     ObjectId: Array of object Ids of inserted photos.
     """
-    new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0) ,'theme': feature_name_in} for p in photo_paths]
+    new_photos = [{'encode_raw': Binary(base64.b64encode(p.read()), 0) , 'theme': feature_name_in} for p in photos]
     result = db.Photos.insert_many(new_photos)
     print(result.inserted_ids)
     return result.inserted_ids
@@ -247,3 +253,83 @@ def find_photo(db, photo_ids):
         for x in db.Photos.find({'_id': p}):
             ret.append(x['encode_raw'].decode('ascii'))
     return ret
+
+def update_or_create_tag(db, name, report_id):
+    """
+    Method for updating or creating a tag based on its name and a new report
+    Create one tag if there is no matching tag
+    Updates tag with additional report if there is an existing tag
+    Parameters
+    ----------
+    db: pymongo db instance
+    name: tag name
+    report: report that uses this tag
+    Returns
+    -------
+    Boolean: success or failure.
+    """
+    mongo_tag = db.Tags.find_one({'name': name})
+    print(mongo_tag)
+    if mongo_tag is None:
+        mongo_tag = db.Tags.insert_one({'name': name, 'reports': [report_id]})
+    #Update
+    else:
+        mongo_tag['reports'].append(report_id)
+        query = {'_id': ObjectId(mongo_tag['_id'])}
+        new_values = {'$set': {"reports": mongo_tag['reports']}}
+        update_res = db.Tags.update_one(query, new_values)
+        if update_res.matched_count == 1:
+            return True
+        else:
+            return False
+
+
+def get_tag(db, name):
+    """
+    Method for finding a tag object by its name
+    Parameters
+    ----------
+    db: pymongo db instance
+    name: tag name
+    Returns
+    -------
+    tag (name, list[reports]) dictionary.
+    """
+    mongo_tag = db.Tags.find_one({'name': name})
+    return mongo_tag
+
+
+def get_all_tags(db):
+    """
+    Method for finding a tag object by its name
+    Parameters
+    ----------
+    db: pymongo db instance
+    Returns
+    -------
+    List of tag (name, list[reports]) dictionary.
+    """
+    mongo_tags = db.Tags.find( {} )
+    return mongo_tags
+
+
+def find_userinfo_by_id(db, user_id):
+    """
+    Method for finding an array of userinfo
+    corresponding to the specific user_id
+
+    Parameters
+    ----------
+    db: pymongo db instance
+    user_id: user_id
+
+    Returns
+    -------
+    ObjectId: Array of userinfo
+
+    """
+    user_info = db.Users.find_one({'_id': user_id})
+    if user_info is None:
+        print("Cannot find the user with object id " + user_id)
+        return False, None
+    return user_info
