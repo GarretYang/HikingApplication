@@ -10,6 +10,7 @@ function search(){
             reports[i].style.display = "none";
         }
     }
+    document.getElementById('reports').scrollIntoView();
 }
 
 
