@@ -38,7 +38,7 @@
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-            <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
+                <img src="{{ url_for('static', filename='logo.png') }}" width=auto height="40" style="padding-left: 30px;">
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -101,118 +101,93 @@
   <section>
     <div class="report-body">
         <div class="container has-text-centered">
-            <div class="columns is-vcentered">
+            <h1 class="title is-2">
+               Welcome, {{ user_data['name'] }}
+            </h1>
+            
+            <!-- Report info -->
+            <h2 class="subtitle is-3"><b>Your reports</b></h2>
+            
+            {% if user_input['reports_theme']|length > 0 %}
 
-                <div class="column is-5">
-                    <!-- Report info -->
-                    <h2 class="subtitle is-3"><b>Your reports</b></h2>
-                    
-                    {% if user_input['reports_theme']|length > 0 %}
-
-                        {% for imgs in user_input['reports_img'] %}
-
-                          <article class="tile is-child box">
-
-                            <div class="columns is-mobile">
-
-                                    <div class="column"><b>Report {{ loop.index }}</b>
-
+                {% for imgs in user_input['reports_img'] %}
+                    <div class="box">
+                            <div class="columns">
+                                <div class="column is-one-third" style="text-align:left">
+                                    <b>Report {{ loop.index }}</b>
                                     <br><b>Theme</b>: {{ user_input['reports_theme'][loop.index - 1] }}
-        
                                     <br><b>Date</b>: {{ user_input['reports_date'][loop.index - 1] }}
-
                                     <br><b>Location</b>: {{ user_input['reports_loc'][loop.index - 1] }}
+                                    <br><b>Description</b>: <p>{{ user_input['reports_desc'][loop.index - 1] }}</p>
+                                </div>
 
-                                    <br><b>Description</b>: <p>{{ user_input['reports_desc'][loop.index - 1] }}</p></div>
-
+                                <div class="column" style="text-align:center;">
                                     {% for img in imgs %}
-                                        <div class="column"><img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:{{ 250/(imgs|length) }}px;height:{{ 300/(imgs|length) }}px;"></div>
+                                        <img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="height:auto;width:90%;display:inline">
                                     {% endfor %}
-
-                            </div>
-
-                          </article>
-
-                        {% endfor %}
-
-                    {% else %}
-                            
-                        <p>You don't have any report stored in our Mongo Database</p>
-
-                    {% endif %}
-
-                    <hr size="10" noshade> 
-
-                    <h2 class="subtitle is-3"><b>Subscribed themes</b></h2>
-
-                    {% if user_input['themes_name']|length > 0 %}
-
-                        {% for t in user_input['themes_name'] %}
-
-                        <article class="tile is-child box">
-
-                            <p><b>Theme</b>: <a href="/reports?theme={{ t }}">{{ t }}</a></p>
-
-                            <p><img src="data:image/jpg;charset=utf-8;base64,{{ user_input['themes_img'][loop.index - 1] }}" style="width:250px;height:300px;"><p>
-
-                            <p><a href="/unsubscribe?theme={{ t }}">Unsubscribe</a></p>
-                            
-                        </article>
-
-                        {% endfor %}
-
-                    {% else %}
-                            
-                        <p>You don't have any theme stored in our Mongo Database</p>
-
-                    {% endif %}
-
-                    <hr size="10" noshade> 
-
-                    <h2 class="subtitle is-3"><b>Subscribe new theme</b></h2>
-                        <form method="POST" action="/subscribe" enctype="multipart/form-data">
-                            <div class="field">
-                                <label class="label">Feel free to subscribe any available theme!</label>
-                                <div class="control">
-                                    <div class="field has-addons has-addons-centered">
-                                        <div class="select">
-                                            <select name="feature">
-                                                {% for feature in features %}
-                                                    <option>{{ feature['feature_name'] }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="field is-grouped has-addons has-addons-centered">
-                                <div class="control">
-                                    <button type="submit" class="button is-primary">Subscribe now</button>
-                                </div>
-                            </div>
-                        </form>
-                
-                </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>You don't have any report stored in our Mongo Database</p>
+            {% endif %}
 
+            <hr size="10" noshade> 
 
-                <div class="column is-6 is-offset-1">
-                    <h1 class="title is-2">
-                        Welcome, {{ user_data['name'] }}
-                    </h1>
-                    <h2 class="subtitle is-4">
-                        This is your Hiking WebApp
-                    </h2>
-                    <br>
-                    <h2 class="subtitle is-4">
-                        Feel free to manage your content
-                    </h2>
-                    <!-- <p class="has-text-centered">
-                        <a class="button is-medium is-info is-outlined">
-                            Learn more
-                        </a>
-                    </p> -->
-                </div>
+            <h2 class="subtitle is-3"><b>Subscribed themes</b></h2>
+
+            <div class="columns is-desktop is-multiline ">
+            {% if user_input['themes_name']|length > 0 %}
+
+                {% for t in user_input['themes_name'] %}
+                    
+                    <div class="column is-4 theme-box">
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <p><b>Theme</b>: <a href="/reports?theme={{ t }}">{{ t }}</a></p>
+                                <p><a href="/unsubscribe?theme={{ t }}">Unsubscribe</a></p>
+                                <figure class="image is-16by9">
+                                    <img src="data:image/jpg;charset=utf-8;base64,{{ user_input['themes_img'][loop.index - 1] }}"><img/>
+                                </figure>
+                            </article>
+                        </div>
+                    </div> 
+                {% endfor %}
+            {% else %}
+                    
+                <p>You don't have any theme stored in our Mongo Database</p>
+
+            {% endif %}
             </div>
+
+            <hr size="10" noshade> 
+
+            <h2 class="subtitle is-3"><b>Subscribe new theme</b></h2>
+                <form method="POST" action="/subscribe" enctype="multipart/form-data">
+                    <div class="field">
+                        <label class="label">Feel free to subscribe any available theme!</label>
+                        <div class="control">
+                            <div class="field has-addons has-addons-centered">
+                                <div class="select">
+                                    <select name="feature">
+                                        {% for feature in features %}
+                                            <option>{{ feature['feature_name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped has-addons has-addons-centered">
+                        <div class="control">
+                            <button type="submit" class="button is-light is-success">Subscribe now</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+        
         </div>
     </div>
   </section>

@@ -37,7 +37,7 @@
         <nav class="navbar is-info" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
-                <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
+                    <img src="{{ url_for('static', filename='logo.png') }}" width=auto height="40" style="padding-left: 30px;">
                 </a>
     
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -108,30 +108,16 @@
 
         <div class="feature" style="margin-bottom:50px">
             {% if theme_image %}
-                <div>
-                    <figure class="image is-3by1">
-                        <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[-1] }}">
-                    </figure>
+                <div style="display: flex; justify-content: center; align-items: center; overflow: hidden; height:450px">
+                    <img style="flex-shrink: 0; min-width: 100%; min-height: 100%" src="data:image/jpg;charset=utf-8;base64,{{ theme_image[1] }}">
                 </div>
-                <!--<div id="carousel-demo" class="carousel">
-                    
-                    <div class="item-1">
-                        <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[-1] }}" style="width:auto; height: 600px">
-                    </div>
-                    <div class="item-2">
-                        <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[1] }}" style="width:auto; height: 600px">
-                    </div>
-                    <div class="item-3">
-                        <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[2] }}" style="width:auto; height: 600px">
-                    </div>
-                </div>-->
             {% endif %}
         </div>
 
         <div class="container">
             <div class="all_tags" style="padding:20px 80px 30px 80px;">
                 {% if theme_tags %}
-                    <div class="field is-grouped is-grouped-multiline">
+                    <!-- <div class="field is-grouped is-grouped-multiline">
                         {% for tag in theme_tags %}
                         <div class="control">
                             <div class="tags has-addons">
@@ -140,7 +126,7 @@
                             </div>
                         </div>
                         {% endfor %}
-                    </div>
+                    </div> -->
                 {% endif %}
             </div>
 

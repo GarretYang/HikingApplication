@@ -14,7 +14,7 @@ def getThemes():
     theme_input = {}
     # Get all themes/features in db
     mongo_all_themes = read_all_features(db)
-    
+
     feature_names = []
     feature_id = []
     feature_imgs = []
@@ -40,4 +40,4 @@ def getThemes():
         'theme_management.html',
         user_data=claims,
         error_message=error_message,
-        user_input=theme_input)    
+        user_input=theme_input)
