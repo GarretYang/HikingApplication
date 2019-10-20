@@ -1,5 +1,4 @@
 function search(){
-    alert("search");
     input = document.getElementById("search-input").value.toUpperCase();
     reports = document.getElementsByClassName("report-box");
 
