@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from google.auth.transport import requests
 from google.cloud import datastore
 import google.oauth2.id_token
@@ -93,7 +93,10 @@ def unsubscribeTheme():
             new_feature_array.remove(unsub_theme)
             db.Users.update_one({'name': claims['name'], 'email': claims['email']},
                                 {'subscribe_feature': new_feature_array})
-
+        except ValueError as exc:
+            # This will be raised if the token is expired or any other
+            # verification checks fail.
+            error_message = str(exc)
     print('Finish unsubscribing the theme for user')
     # Redirect to the personal management URL
     return redirect('/personal', code=302)
@@ -126,8 +129,10 @@ def subscribeTheme():
                 new_feature_array.append(sub_theme)
                 db.Users.update_one({'name': claims['name'], 'email': claims['email']},
                                     {'subscribe_feature': new_feature_array})
-
+        except ValueError as exc:
+            # This will be raised if the token is expired or any other
+            # verification checks fail.
+            error_message = str(exc)
     print('Finish adding new theme for the user')
-
     # Redirect to the personal management URL
     return redirect('/personal', code=302)
