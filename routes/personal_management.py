@@ -34,14 +34,23 @@ def getPersonal():
             # mongo_reports = db.Reports.find({'user_id': mongo_user_id})
             reports_img = []
             reports_theme = []
+            reports_date = []
+            reports_loc = []
+            reports_desc = []
             for r in mongo_reports:
                 reports_theme.append(r['feature_name'])
+                reports_date.append(r['date_in'])
+                reports_loc.append(r['location'])
+                reports_desc.append(r['description'])
                 report_img = []
                 if 'photos' in r and len(r['photos']) > 0:
                     report_img = find_photo(db, r['photos'])
                 reports_img.append(report_img)
             user_input['reports_img'] = reports_img
             user_input['reports_theme'] = reports_theme
+            user_input['reports_date'] = reports_date
+            user_input['reports_loc'] = reports_loc
+            user_input['reports_desc'] = reports_desc
             display_theme = list(set(reports_theme))
             display_theme_img = []
             # Randomly pick a cover photo for each theme

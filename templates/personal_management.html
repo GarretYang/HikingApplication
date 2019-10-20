@@ -87,13 +87,27 @@
 
                         {% for imgs in user_input['reports_img'] %}
 
-                            <p><b>Report {{ loop.index }}</b></p>
+                          <article class="tile is-child box">
 
-                            <p><b>Theme</b>: {{ user_input['reports_theme'][loop.index - 1] }}</p>
+                            <div class="columns is-mobile">
 
-                            {% for img in imgs %}
-                                <p><img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:250px;height:300px;"><p>
-                            {% endfor %}
+                                    <div class="column"><b>Report {{ loop.index }}</b>
+
+                                    <br><b>Theme</b>: {{ user_input['reports_theme'][loop.index - 1] }}
+        
+                                    <br><b>Date</b>: {{ user_input['reports_date'][loop.index - 1] }}
+
+                                    <br><b>Location</b>: {{ user_input['reports_loc'][loop.index - 1] }}
+
+                                    <br><b>Description</b>: <p>{{ user_input['reports_desc'][loop.index - 1] }}</p></div>
+
+                                    {% for img in imgs %}
+                                        <div class="column"><img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:{{ 250/(imgs|length) }}px;height:{{ 300/(imgs|length) }}px;"></div>
+                                    {% endfor %}
+
+                            </div>
+
+                          </article>
 
                         {% endfor %}
 
@@ -111,9 +125,13 @@
 
                         {% for t in user_input['themes_name'] %}
 
+                        <article class="tile is-child box">
+
                             <p><b>Theme</b>: {{ t }}</p>
 
                             <p><img src="data:image/jpg;charset=utf-8;base64,{{ user_input['themes_img'][loop.index - 1] }}" style="width:250px;height:300px;"><p>
+
+                        </article>
 
                         {% endfor %}
 
