@@ -69,27 +69,36 @@
 
             <div class="reports">
                 {% if reports[0]|length>0 %}
+                <div class="columns is-desktop is-multiline">
                     {% for r in reports %}
-                    <div class="single-report" style="margin-bottom:100px">
-                        <p>Name: {{ user_name[loop.index-1] }}</p>
-                        <p>Date: {{ r['date_in'] }}</p>
-                        <p>Description: {{ r['description'] }}</p>
-                        
-                        <div>
-                            <p>Tags: 
+                    <div class="card column is-4 theme-box">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                            <img src="data:image/jpg;charset=utf-8;base64,{{ report_images[loop.index-1][0] }}" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                            
+                            <div class="media-content">
+                                <p class="title is-4">{{ user_name[loop.index-1] }}</p>
+                                <p class="subtitle is-6">{{ r['date_in'] }}</p>
+                            </div>
+                            </div>
+
+                            <div class="content">
+                            {{ r['description'] }}
+                            <br>
                             {% for tag in r['tags'] %}
                                 <span class="tag is-dark">{{ tag }}</span>
                             {% endfor %}</p>
+                            </div>
                         </div>
-
-                        {% for img in report_images[loop.index-1] %}
-                            <img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:auto;height:300px;margin-top=20px">
-                        {% endfor %}
-                        <hr>
                     </div>
                     {% endfor %}
                 {% else %}
                     <p>There is no related report stored in our Mongo Database</p>
+                </div>
                 {% endif %}
             </div>
         </div>
