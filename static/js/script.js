@@ -42,8 +42,27 @@ window.addEventListener('load', function () {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in, so display the "sign out" button and login info.
-      document.getElementById('sign-out').hidden = false;
-      document.getElementById('login-info').hidden = false;
+      if (document.getElementById('sign-out')!= undefined) {
+        document.getElementById('sign-out').hidden = false;
+      }
+      if (document.getElementById('login-info') != undefined) {
+        document.getElementById('login-info').hidden = false;
+      }
+      if (document.getElementById('login-button') != undefined) {
+        document.getElementById('login-button').style.display = "none";
+      }
+      if (document.getElementById('post-login-button') != undefined) {
+        document.getElementById('post-login-button').style.display = "";
+      }
+      if (document.getElementById('add-buttons') != undefined) {
+        document.getElementById('add-buttons').style.display = "";
+      }
+      if (document.getElementById('add-feature') != undefined) {
+        document.getElementById('add-feature').href = "/newFeature";
+      }
+      if (document.getElementById('add-report') != undefined) {
+        document.getElementById('add-report').href = "/newReport";
+      }      
       console.log(`Signed in as ${user.displayName} (${user.email})`);
       user.getIdToken().then(function (token) {
         // Add the token to the browser's cookies. The server will then be
@@ -60,8 +79,27 @@ window.addEventListener('load', function () {
       // Show the Firebase login button.
       ui.start('#firebaseui-auth-container', uiConfig);
       // Update the login state indicators.
-      document.getElementById('sign-out').hidden = true;
-      document.getElementById('login-info').hidden = true;
+      if (document.getElementById('sign-out')!= undefined) {
+        document.getElementById('sign-out').hidden = true;
+      }
+      if (document.getElementById('login-info') != undefined) {
+        document.getElementById('login-info').hidden = true;
+      }
+      if (document.getElementById('login-button') != undefined) {
+        document.getElementById('login-button').style.display = "";
+      }
+      if (document.getElementById('post-login-button') != undefined) {
+        document.getElementById('post-login-button').style.display = "none";
+      }
+      if (document.getElementById('add-buttons') != undefined) {
+        document.getElementById('add-buttons').style.display = "none";
+      }
+      if (document.getElementById('add-feature') != undefined) {
+        document.getElementById('add-feature').href = "/login";
+      }
+      if (document.getElementById('add-report') != undefined) {
+        document.getElementById('add-report').href = "/login";
+      }     
       // Clear the token cookie.
       document.cookie = "token=";
     }
