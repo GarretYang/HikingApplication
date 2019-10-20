@@ -44,6 +44,10 @@ window.addEventListener('load', function () {
       // User is signed in, so display the "sign out" button and login info.
       document.getElementById('sign-out').hidden = false;
       document.getElementById('login-info').hidden = false;
+      document.getElementById('login-button').style.display = "none";
+      document.getElementById('add-buttons').style.display = "";
+      document.getElementById('add-feature').href = "/newFeature";
+      document.getElementById('add-report').href = "/newReport";
       console.log(`Signed in as ${user.displayName} (${user.email})`);
       user.getIdToken().then(function (token) {
         // Add the token to the browser's cookies. The server will then be
@@ -62,6 +66,10 @@ window.addEventListener('load', function () {
       // Update the login state indicators.
       document.getElementById('sign-out').hidden = true;
       document.getElementById('login-info').hidden = true;
+      document.getElementById('login-button').style.display = "";    
+      document.getElementById('add-buttons').style.display = "none";    
+      document.getElementById('add-feature').setAttribute('href',"/login");
+      document.getElementById('add-report').setAttribute('href', "/login");       
       // Clear the token cookie.
       document.cookie = "token=";
     }

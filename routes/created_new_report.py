@@ -17,6 +17,6 @@ def newcreatereport():
     tags = request.form.getlist('tag')
     photo = request.form.get('photo')
     print(feature, location, tags, photo)
-    create_report(db, feature, tags, location, 'test-user')
+    create_report(db, feature, tags, location, 'test-user', photos=photo)
     return 'personal management page w/ successfully create the report'
 # [END createReport]

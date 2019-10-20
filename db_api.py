@@ -201,7 +201,7 @@ def create_photo(db, photo_paths, feature_name_in):
     -------
     ObjectId: Array of object Ids of inserted photos.
     """
-    new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0) , 'theme': feature_name_in} for p in photo_paths]
+    new_photos = [{'encode_raw': Binary(base64.b64encode(open(p, "rb").read()), 0) ,'theme': feature_name_in} for p in photo_paths]
     result = db.Photos.insert_many(new_photos)
     print(result.inserted_ids)
     return result.inserted_ids

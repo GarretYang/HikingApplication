@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from routes.theme_management import themes_api
+from routes.log_in import login_api
 from routes.personal_management import personal_api
 from routes.new_report import newreport_api
 from routes.created_new_report import newcreatereport_api
@@ -21,6 +22,7 @@ from routes.created_new_feature import newcreatedfeature_api
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+app.register_blueprint(login_api)
 app.register_blueprint(themes_api)
 app.register_blueprint(personal_api)
 app.register_blueprint(newreport_api)

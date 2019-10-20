@@ -88,8 +88,11 @@
                             <div class="control">
                                 <div class="select">
                                     <select name="feature">
-                                        <option>Hiking</option>
-                                        <option>Swimming</option>
+                                        {% if user_input['feature_names']|length > 0 %}
+                                            {% for name in user_input['feature_names'] %}
+                                                <option>{{ name }}</option>
+                                            {% endfor %}
+                                        {% endif %}
                                     </select>
                                 </div>
                             </div>

@@ -4,13 +4,77 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hiking Report</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> 
-    <link rel = "stylesheet" type = "text/css" href = ".\bootstrap\css\bootstrap-iso.css" />
-    <script type="text/javascript" src="theme_management.js"></script>  
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New Report</title>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+  
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+  
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+          apiKey: "AIzaSyBr8rUcWwfIv9f22ACzPPIJoWV6jc9KECQ",
+          authDomain: "yanghu-yh-codelab-practice496.firebaseapp.com",
+          databaseURL: "https://yanghu-yh-codelab-practice496.firebaseio.com",
+          projectId: "yanghu-yh-codelab-practice496",
+          storageBucket: "yanghu-yh-codelab-practice496.appspot.com",
+          messagingSenderId: "317116116350",
+          appId: "1:317116116350:web:00dd67f4b7146f4a5e972f",
+          measurementId: "G-EQVJQDQ0QR"
+      };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    </script>
+  </head>    
   </head>
   <body>
-    <section class="section">
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+            <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
+            </a>
+
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons"> 
+                    <div id="login-button">
+                        <a class="button is-light" href="/login">
+                            <i class="fab fa-google" style="padding-right:5%"></i>  
+                            Log in
+                        </a>
+                    </div>
+                    <div id="login-info" hidden=true>
+                        <a class="button is-light" href="/personal">  
+                            My Profile
+                        </a>  
+                        <a class="button is-light" id="sign-out" href="/">  
+                            Sign Out
+                        </a>                          
+                    </div>                                                                            
+                </div>            
+            </div>
+            </div>
+        </div>
+    </nav>        
+    <section class="section">       
         <div class="container">
             <h1 class="title">
                 Theme Views
@@ -18,16 +82,16 @@
             <nav class="level">
                 <!-- Left side -->
                 <div class="level-left">
-                <div class="level-item">
-                    <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li><a href="/personal">Manage</a></li>
-                                <li><a href="/newFeature">New Feature</a></li>
-                                <li><a href="/newReport">New Report</a></li>
-                            </ul>
-                    </nav>
-                    </div>
+                    <div class="buttons" id="add-buttons">
+                        <a class="button is-light is-success" id="add-feature" href="/login" >  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Feature
+                        </a>  
+                        <a class="button is-light is-success" id="add-report" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Report
+                        </a>    
+                    </div>                
                 </div>
                 <!-- Right side -->
                 <div class="level-right">
@@ -44,24 +108,6 @@
             </nav>        
         </div> 
     </section>
-
-    <!-- Pagination -->
-    <div class="container">
-        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-            <a class="pagination-previous">Previous</a>
-            <a class="pagination-next">Next page</a>
-            <ul class="pagination-list">
-                <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-                <li><span class="pagination-ellipsis">&hellip;</span></li>
-                <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-                <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-                <li><span class="pagination-ellipsis">&hellip;</span></li>
-                <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-            </ul>
-        </nav>
-    </div>
-    <br />
 
     <!-- Themes -->
     <div class="container">
