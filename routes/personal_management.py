@@ -8,11 +8,11 @@ import random
 
 personal_api = Blueprint('personal_api', __name__)
 
-# this route shows the loggin user's own reports and themes
+# this route shows the login user's own reports and themes
 @personal_api.route('/personal', methods=['GET', 'POST'])
 def getPersonal():
     # Verify Firebase auth.
-    id_token = request.cookies.get("token")
+    id_token = request.cookies.get('token')
     error_message = None
     claims = None
     user_input = {}
@@ -73,3 +73,61 @@ def getPersonal():
         user_data=claims,
         error_message=error_message,
         user_input=user_input)
+
+
+# This route unsubscribes login user's one specific theme
+@personal_api.route('/unsubscribe', methods=['GET', 'POST'])
+def unsubscribeTheme():
+    unsub_theme = request.args.get('theme')
+    id_token = request.cookies.get('token')
+    print('Unsubscribe theme: ' + unsub_theme)
+    claims = None
+    if id_token:
+        try:
+            claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+
+            user_info = db.Users.find_one({'name': claims['name'], 'email': claims['email']})
+            # Delete specific theme from user's subscribe_feature
+            new_feature_array = user_info['subscribe_feature']
+            new_feature_array.remove(unsub_theme)
+            db.Users.update_one({'name': claims['name'], 'email': claims['email']},
+                                {'subscribe_feature': new_feature_array})
+
+    print('Finish unsubscribing the theme for user')
+    # Redirect to the personal management URL
+    return redirect('/personal', code=302)
+
+
+# This route subscribes one specific theme for the login user
+@personal_api.route('/subscribe', methods=['GET', 'POST'])
+def subscribeTheme():
+    print('Subscribe new theme for the user')
+    sub_theme = request.form.get('feature')
+    id_token = request.cookies.get('token')
+    claims = None
+
+    if id_token:
+        try:
+            # Verify the token against the Firebase Auth API. This example
+            # verifies the token on each page load. For improved performance,
+            # some applications may wish to cache results in an encrypted
+            # session store (see for instance
+            # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
+
+            # Only for testing purpose
+            claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+
+            user_info = db.Users.find_one({'name': claims['name'], 'email': claims['email']})
+            # Insert new theme into user's subscribe_feature
+            if sub_theme not in user_info['subscribe_feature']:
+                new_feature_array = user_info['subscribe_feature']
+                new_feature_array.append(sub_theme)
+                db.Users.update_one({'name': claims['name'], 'email': claims['email']},
+                                    {'subscribe_feature': new_feature_array})
+
+    print('Finish adding new theme for the user')
+
+    # Redirect to the personal management URL
+    return redirect('/personal', code=302)
