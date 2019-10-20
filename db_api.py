@@ -193,7 +193,7 @@ def find_report(db, **kwargs):
             print('Unsupported field in report query.')
             return None
 
-    return db.Reports.find(kwargs)
+    return db.Reports.find(kwargs).sort([("date_in", -1)])
 
 
 def create_photo(db, photos, feature_name_in):
