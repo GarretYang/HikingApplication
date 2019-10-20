@@ -45,4 +45,5 @@ def getReports():
         user_name=user_name,
         report_images=report_img,
         theme_image=all_images,
-        theme_tags=all_tags)
+        theme_tags=all_tags,
+        selected_feature=selected_feature)
