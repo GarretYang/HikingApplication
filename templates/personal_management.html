@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>   
   <title>Personal Management Page</title>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
@@ -34,7 +35,42 @@
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
 </head>
 <body>
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+            <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
+            </a>
 
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons"> 
+                    <div id="login-button">
+                        <a class="button is-light" href="/login">
+                            <i class="fab fa-google" style="padding-right:5%"></i>  
+                            Log in
+                        </a>
+                    </div>
+                    <div id="post-login-button" style="display: none">
+                        <a class="button is-light" href="/personal">  
+                            My Profile
+                        </a>  
+                        <a class="button is-light" id="sign-out" href="/">  
+                            Sign Out
+                        </a>                          
+                    </div>                                                                            
+                </div>            
+            </div>
+            </div>
+        </div>
+    </nav>  
     <section class="section">
         <div class="container">
             <h1 class="title">
@@ -43,31 +79,19 @@
             <nav class="level">
                 <!-- Left side -->
                 <div class="level-left">
-                <div class="level-item">
-                    <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
-                        <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/personal">Manage</a></li>
-                        <li><a href="/newFeature">New Feature</a></li>
-                        <li><a href="/newReport">New Report</a></li>
-                        </ul>
-                    </nav>
-                    </div>
-                </div>
-                <!-- Right side -->
-                <div class="level-right">
-                    <div class="field">
-                        <!-- <a class="button is-success is-rounded">Rounded</a> -->
-                        <div class="control">
-                            <div class="columns is-mobile">
-                                <a class="button is-info">Search</a>
-                                <input class="input is-info" type="text" placeholder="Success input">
-                            </div>
-                        </div>
-                    </div>
+                    <div class="buttons" id="add-buttons">
+                        <a class="button is-light is-success" id="add-feature" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Feature
+                        </a>  
+                        <a class="button is-light is-success" id="add-report" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Report
+                        </a>    
+                    </div>                
                 </div>
             </nav>        
-        </div> 
+        </div>
     </section>
 
 <div id="firebaseui-auth-container"></div>

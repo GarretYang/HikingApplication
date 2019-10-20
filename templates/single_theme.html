@@ -3,48 +3,74 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Single Theme Page</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-
-        <script src="../static/js/script.js"></script>
-
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
         <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
-
+      
         <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
+           https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
-
+      
         <script>
-            // Your web app's Firebase configuration
-            var firebaseConfig = {
-                apiKey: "AIzaSyDsD4q4i4JG25oubZs2dwv0V3wddWekBpk",
-                authDomain: "apt-assignment-5-254402.firebaseapp.com",
-                databaseURL: "https://apt-assignment-5-254402.firebaseio.com",
-                projectId: "apt-assignment-5-254402",
-                storageBucket: "apt-assignment-5-254402.appspot.com",
-                messagingSenderId: "446297609093",
-                appId: "1:446297609093:web:c152e2bb4ecc5066402aec",
-                measurementId: "G-EM0XSW1ELE"
-            };
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            firebase.analytics();
-        </script>
-
-        <script>
-            if (typeof firebase === 'undefined') {
-            const msg = "Please paste the Firebase initialization snippet into index.html. See https://console.firebase.google.com > Overview > Add Firebase to your web app.";
-            console.log(msg);
-            alert(msg);
-            }
-        </script>
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+              apiKey: "AIzaSyBr8rUcWwfIv9f22ACzPPIJoWV6jc9KECQ",
+              authDomain: "yanghu-yh-codelab-practice496.firebaseapp.com",
+              databaseURL: "https://yanghu-yh-codelab-practice496.firebaseio.com",
+              projectId: "yanghu-yh-codelab-practice496",
+              storageBucket: "yanghu-yh-codelab-practice496.appspot.com",
+              messagingSenderId: "317116116350",
+              appId: "1:317116116350:web:00dd67f4b7146f4a5e972f",
+              measurementId: "G-EQVJQDQ0QR"
+          };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        </script>        
     </head>
     <body>
-            <section class="section">
+        <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                    <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
+                    </a>
+        
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    </a>
+                </div>
+        
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons"> 
+                            <div id="login-button">
+                                <a class="button is-light" href="/login">
+                                    <i class="fab fa-google" style="padding-right:5%"></i>  
+                                    Log in
+                                </a>
+                            </div>
+                            <div id="post-login-button" style="display: none">
+                                <a class="button is-light" href="/personal">  
+                                    My Profile
+                                </a>  
+                                <a class="button is-light" id="sign-out" href="/">  
+                                    Sign Out
+                                </a>                          
+                            </div>                                                                            
+                        </div>            
+                    </div>
+                    </div>
+                </div>
+            </nav>        
+            <section class="section">       
                 <div class="container">
                     <h1 class="title">
                         Theme Views
@@ -52,16 +78,16 @@
                     <nav class="level">
                         <!-- Left side -->
                         <div class="level-left">
-                        <div class="level-item">
-                            <nav class="breadcrumb has-dot-separator" aria-label="breadcrumbs">
-                                    <ul>
-                                        <li><a href="/">Home</a></li>
-                                        <li><a href="/personal">Manage</a></li>
-                                        <li><a href="/newFeature">New Feature</a></li>
-                                        <li><a href="/newReport">New Report</a></li>
-                                    </ul>
-                            </nav>
-                            </div>
+                            <div class="buttons" id="add-buttons">
+                                <a class="button is-light is-success" id="add-feature" href="/login" >  
+                                    <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                                    New Feature
+                                </a>  
+                                <a class="button is-light is-success" id="add-report" href="/login">  
+                                    <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                                    New Report
+                                </a>    
+                            </div>                
                         </div>
                         <!-- Right side -->
                         <div class="level-right">
@@ -69,8 +95,8 @@
                                 <!-- <a class="button is-success is-rounded">Rounded</a> -->
                                 <div class="control">
                                     <div class="columns is-mobile">
-                                        <a class="button is-info" onclick="searchFilter()">Search</a>
-                                        <input class="input is-info" id="search-input" type="text" placeholder="Success input" onkeyup="clearFilter()"/>
+                                        <a class="button is-info">Search</a>
+                                        <input class="input is-info" id="search-input" type="text" placeholder="Success input"/>
                                     </div>
                                 </div>
                             </div>
@@ -79,53 +105,55 @@
                 </div> 
             </section>
 
-        <div class="feature" style="margin-bottom:100px">
-            {% if theme_image %}
-                <div id="carousel-demo" class="carousel">
-					<div class="item-1">
-						<img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[0] }}" style="width:auto; height: 600px">
-					</div>
-					<div class="item-2">
-						<img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[1] }}" style="width:auto; height: 600px">
-					</div>
-					<div class="item-3">
-						<img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[2] }}" style="width:auto; height: 600px">
-					</div>
-				</div>
-            {% endif %}
-            {% if theme_tags %}
-                <div class="top5-tags">
-                    {% for tag in theme_tags %}
-                    <span class="tag is-dark">{{ tag }}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-
-        <div class="reports">
-            {% if reports[0]|length>0 %}
-                {% for r in reports %}
-                <div class="single-report" style="margin-bottom:100px">
-                    <p>Name: {{ user_name[loop.index-1] }}</p>
-                    <p>Date: {{ r['date_in'] }}</p>
-                    <p>Description: {{ r['description'] }}</p>
-                    
-                    <div>
-                        <p>Tags: 
-                        {% for tag in r['tags'] %}
-                            <span class="tag is-dark">{{ tag }}</span>
-                        {% endfor %}</p>
+        <div class="container">
+            <div class="feature" style="margin-bottom:100px">
+                {% if theme_image %}
+                    <div id="carousel-demo" class="carousel">
+                        <div class="item-1">
+                            <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[0] }}" style="width:auto; height: 600px">
+                        </div>
+                        <div class="item-2">
+                            <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[1] }}" style="width:auto; height: 600px">
+                        </div>
+                        <div class="item-3">
+                            <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[2] }}" style="width:auto; height: 600px">
+                        </div>
                     </div>
+                {% endif %}
+                {% if theme_tags %}
+                    <div class="top5-tags">
+                        {% for tag in theme_tags %}
+                        <span class="tag is-dark">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
 
-                    {% for img in report_images[loop.index-1] %}
-                        <img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:auto;height:300px;margin-top=20px">
+            <div class="reports">
+                {% if reports[0]|length>0 %}
+                    {% for r in reports %}
+                    <div class="single-report" style="margin-bottom:100px">
+                        <p>Name: {{ user_name[loop.index-1] }}</p>
+                        <p>Date: {{ r['date_in'] }}</p>
+                        <p>Description: {{ r['description'] }}</p>
+                        
+                        <div>
+                            <p>Tags: 
+                            {% for tag in r['tags'] %}
+                                <span class="tag is-dark">{{ tag }}</span>
+                            {% endfor %}</p>
+                        </div>
+
+                        {% for img in report_images[loop.index-1] %}
+                            <img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:auto;height:300px;margin-top=20px">
+                        {% endfor %}
+                        <hr>
+                    </div>
                     {% endfor %}
-                    <hr>
-                </div>
-                {% endfor %}
-            {% else %}
-                <p>There is no related report stored in our Mongo Database</p>
-            {% endif %}
+                {% else %}
+                    <p>There is no related report stored in our Mongo Database</p>
+                {% endif %}
+            </div>
         </div>
 
 

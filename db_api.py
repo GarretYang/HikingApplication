@@ -207,7 +207,6 @@ def create_photo(db, photos, feature_name_in):
     -------
     ObjectId: Array of object Ids of inserted photos.
     """
-    print(photos)
     new_photos = [{'encode_raw': Binary(base64.b64encode(p.read()), 0) , 'theme': feature_name_in} for p in photos]
     result = db.Photos.insert_many(new_photos)
     print(result.inserted_ids)
