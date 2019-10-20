@@ -32,7 +32,8 @@ def getReports():
                 all_images.append(i)
         if 'tags' in r and len(r['tags']) > 0:
             for i in r['tags']:
-                all_tags.append(i)
+                if i not in all_tags:
+                    all_tags.append(i)
 
     mongo_reports = find_report(db, feature_name=selected_feature)
 
