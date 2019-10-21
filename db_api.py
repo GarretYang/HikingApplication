@@ -66,24 +66,29 @@ def create_feature(db, feature_name_in, location_in):
     Otherwise, false.
 
     """
-    feature = {
-        'feature_name': feature_name_in,
-        'feature_location': location_in,
-        'feature_reports': []
-    }
-    try:
-        existed_feature = db.Features.find_one({'feature_name': feature_name_in})
-        if (existed_feature is None):
-            feature_id = db.Features.insert_one(feature).inserted_id
-        else:
-            return -1
-    except AssertionError as error:
-        print(error)
+    if(len(feature_name_in) < 1):
+        return False
+    elif (len(location_in) < 1):
         return False
     else:
-        return feature_id
+        feature = {
+            'feature_name': feature_name_in,
+            'feature_location': location_in,
+            'feature_reports': []
+        }
+        try:
+            existed_feature = db.Features.find_one({'feature_name': feature_name_in})
+            existed_location = db.Feature.find_one({'feature_location': location_in})
+            if (existed_feature is None and existed_location is None):
+                feature_id = db.Features.insert_one(feature).inserted_id
+                return feature_id
+            else:
+                return -1
+        except AssertionError as error:
+            print(error)
+            return False
+        return False
 
-    
 
 def read_all_features(db):
     """
