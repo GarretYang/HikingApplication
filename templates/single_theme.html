@@ -110,7 +110,7 @@
         <div class="feature" style="margin-bottom:50px">
             {% if theme_image %}
                 <div style="display: flex; justify-content: center; align-items: center; overflow: hidden; height:450px">
-                    <img style="flex-shrink: 0; min-width: 100%; min-height: 100%" src="data:image/jpg;charset=utf-8;base64,{{ theme_image[1] }}">
+                    <img style="flex-shrink: 0; min-width: 100%; min-height: 100%" src="data:image/jpg;charset=utf-8;base64,{{ theme_image[0] }}">
                 </div>
             {% endif %}
         </div>
@@ -138,7 +138,7 @@
                     <div class="card column is-4 report-box" style="margin: 50px 80px;">
                         <div class="card-image">
                             <figure class="image is-4by3">
-                            <img src="data:image/jpg;charset=utf-8;base64,{{ report_images[loop.index-1][0] }}" alt="Placeholder image">
+                            <img src="data:image/jpg;charset=utf-8;base64,{{ report_images[loop.index-1][0] }}" alt="http://denrakaev.com/wp-content/uploads/2015/03/no-image-800x511.png">
                             </figure>
                         </div>
                         <div class="card-content">
