@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>   
+  <title>New Theme</title>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBr8rUcWwfIv9f22ACzPPIJoWV6jc9KECQ",
+        authDomain: "yanghu-yh-codelab-practice496.firebaseapp.com",
+        databaseURL: "https://yanghu-yh-codelab-practice496.firebaseio.com",
+        projectId: "yanghu-yh-codelab-practice496",
+        storageBucket: "yanghu-yh-codelab-practice496.appspot.com",
+        messagingSenderId: "317116116350",
+        appId: "1:317116116350:web:00dd67f4b7146f4a5e972f",
+        measurementId: "G-EQVJQDQ0QR"
+    };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css" />
+</head>
+
+
+<body>
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img src="{{ url_for('static', filename='logo.png') }}" width=auto height="40" style="padding-left: 30px;">
+            </a>
+
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons"> 
+                        <div id="login-button">
+                            <a class="button is-light" href="/login">
+                                <i class="fab fa-google" style="padding-right:5%"></i>  
+                                Log in
+                            </a>
+                        </div>
+                        <div id="post-login-button" style="display: none">
+                            <a class="button is-light" href="/personal">  
+                                My Profile
+                            </a>  
+                            <a class="button is-light" id="sign-out" href="/">  
+                                Sign Out
+                            </a>                          
+                        </div>                                                                            
+                    </div>            
+                </div>
+            </div>
+        </div>
+    </nav>  
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                New Theme
+            </h1>
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="buttons" id="add-buttons">
+                        <a class="button is-light is-success" id="add-feature" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Theme
+                        </a>  
+                        <a class="button is-light is-success" id="add-report" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Report
+                        </a>   
+                    </div>                
+                </div>
+            </nav>        
+        </div>
+    </section>
+
+<!-- [START gae_python37_auth_firebase_html] -->
+<div id="firebaseui-auth-container"></div>
+
+<div id="login-info" hidden=true>
+
+  <section>
+    <div class="report-body">
+      <div class="container has-text-centered">
+          <div class="columns is-vcentered">
+
+              <div class="column is-5">
+                    <h2 class="title is-2">
+                        {{ status }} 
+                    </h2>
+                    <div>
+                        <span class="button is-success is-light"><a href="/newFeature">Create Another Theme</a></span>
+                        <span class="button is-info is-light"><a href="/newReport">New Report</a></span>
+                        <span class="button is-info is-light"><a href="/">Back</a></span>
+                    </div>
+              </div>
+
+
+              <div class="column is-6 is-offset-1">
+                  <h1 class="title is-2">
+                      Welcome, {{ user_data['name'] }}
+                  </h1>
+                  <h2 class="subtitle is-4">
+                      This is your Hiking WebApp
+                  </h2>
+                  <br>
+                  <h2 class="subtitle is-4">
+                      You can add another theme or a report!
+                  </h2>
+              </div>
+          </div>
+      </div>
+  </div>
+  </section>
+</div>
+
+<button id="sign-out" hidden=true><a class="button is-medium is-info is-outlined">Sign Out</a></button>
+
+</body>
+
+</html>
