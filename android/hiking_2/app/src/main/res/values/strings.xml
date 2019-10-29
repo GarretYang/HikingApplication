@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">hiking_2</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_add">Add</string>
+    <string name="title_account">Account</string>
+
+    <!--single page-->
+    <string name="theme_name">Board Walk Trail</string>
+    <string name="search">search by tags</string>
+</resources>
