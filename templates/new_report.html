@@ -85,7 +85,11 @@
                         <a class="button is-light is-success" id="add-feature" href="/login">  
                             <i class="fas fa-plus-square" style="padding-right:5%"></i>
                             New Theme
-                        </a>    
+                        </a>  
+                        <a class="button is-light is-success" id="add-report" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Report
+                        </a>   
                     </div>                
                 </div>
             </nav>        
@@ -110,7 +114,7 @@
                                 <div class="select">
                                     <select name="feature">
                                         {% for feature in features %}
-                                            <option>{{ feature['feature_name'] }} at {{ feature['feature_location'] }} </option>
+                                            <option>{{ feature['feature_name'] }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

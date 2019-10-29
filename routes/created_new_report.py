@@ -33,7 +33,7 @@ def newcreatereport():
 
     photos = request.files.getlist('photo')
     feature = request.form.get('feature')
-    location = request.form.get('location')
+    location = get_feature_location(db, feature)
     tags = request.form.getlist('tag')
     description = request.form.get('description')
     date = request.form.get('date')

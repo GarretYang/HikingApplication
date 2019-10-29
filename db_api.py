@@ -89,6 +89,18 @@ def create_feature(db, feature_name_in, location_in):
             return False
         return False
 
+def get_feature_location(db, feature_name_in):
+    try:
+        existed_feature = db.Features.find_one({'feature_name': feature_name_in})
+    
+        if (existed_feature is None):
+            return False
+        else:
+            return existed_feature['feature_location']
+    
+    except AssertionError as error:
+        print(error)
+        return False
 
 def read_all_features(db):
     """
