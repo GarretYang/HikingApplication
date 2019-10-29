@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>   
-  <title>New Feature</title>
+  <title>New Theme</title>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -39,7 +39,7 @@
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-            <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
+                <img src="{{ url_for('static', filename='logo.png') }}" width=auto height="40" style="padding-left: 30px;">
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -72,12 +72,24 @@
             </div>
         </div>
     </nav>  
+
     <section class="section">
         <div class="container">
             <h1 class="title">
                 New Report
-            </h1>     
-        </div> 
+            </h1>
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="buttons" id="add-buttons">
+                        <a class="button is-light is-success" id="add-feature" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Theme
+                        </a>    
+                    </div>                
+                </div>
+            </nav>        
+        </div>
     </section>
 
 <!-- [START gae_python37_auth_firebase_html] -->
@@ -94,9 +106,9 @@
                     <h2 class="title is-2">
                         {{ status }} 
                     </h2>
-                    <div class="buttons has-addons">
-                        <span class="button"><a href="/newReport">Create Another New Report</a></span>
-                        <span class="button"><a href="/">Back</a></span>
+                    <div>
+                        <span class="button is-success is-light"><a href="/newReport">Create Another New Report</a></span>
+                        <span class="button is-info is-light"><a href="/">Back</a></span>
                     </div>
               </div>
 

@@ -36,123 +36,135 @@
     </head>
     <body>
         <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="/">
-                    <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
-                    </a>
-        
-                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    </a>
-                </div>
-        
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons"> 
-                            <div id="login-button">
-                                <a class="button is-light" href="/login">
-                                    <i class="fab fa-google" style="padding-right:5%"></i>  
-                                    Log in
-                                </a>
-                            </div>
-                            <div id="post-login-button" style="display: none">
-                                <a class="button is-light" href="/personal">  
-                                    My Profile
-                                </a>  
-                                <a class="button is-light" id="sign-out" href="/">  
-                                    Sign Out
-                                </a>                          
-                            </div>                                                                            
-                        </div>            
-                    </div>
-                    </div>
-                </div>
-            </nav>        
-            <section class="section">       
-                <div class="container">
-                    <h1 class="title">
-                        Theme Views
-                    </h1>
-                    <nav class="level">
-                        <!-- Left side -->
-                        <div class="level-left">
-                            <div class="buttons" id="add-buttons">
-                                <a class="button is-light is-success" id="add-feature" href="/login" >  
-                                    <i class="fas fa-plus-square" style="padding-right:5%"></i>
-                                    New Feature
-                                </a>  
-                                <a class="button is-light is-success" id="add-report" href="/login">  
-                                    <i class="fas fa-plus-square" style="padding-right:5%"></i>
-                                    New Report
-                                </a>    
-                            </div>                
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="{{ url_for('static', filename='logo.png') }}" width=auto height="40" style="padding-left: 30px;">
+                </a>
+    
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                </a>
+            </div>
+    
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons"> 
+                        <div id="login-button">
+                            <a class="button is-light" href="/login">
+                                <i class="fab fa-google" style="padding-right:5%"></i>  
+                                Log in
+                            </a>
                         </div>
-                        <!-- Right side -->
-                        <div class="level-right">
-                            <div class="field">
-                                <!-- <a class="button is-success is-rounded">Rounded</a> -->
-                                <div class="control">
-                                    <div class="columns is-mobile">
-                                        <a class="button is-info">Search</a>
-                                        <input class="input is-info" id="search-input" type="text" placeholder="Success input"/>
-                                    </div>
+                        <div id="post-login-button" style="display: none">
+                            <a class="button is-light" href="/personal">  
+                                My Profile
+                            </a>  
+                            <a class="button is-light" id="sign-out" href="/">  
+                                Sign Out
+                            </a>                          
+                        </div>                                                                            
+                    </div>            
+                </div>
+                </div>
+            </div>
+        </nav>
+
+        <section class="section">       
+            <div class="container">
+                <h1 class="title">
+                    {{ selected_feature }}
+                </h1>
+                <nav class="level">
+                    <!-- Left side -->
+                    <div class="level-left">
+                        <div class="buttons" id="add-buttons">
+                            <a class="button is-light is-success" id="add-feature" href="/login" >  
+                                <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                                New Theme
+                            </a>  
+                            <a class="button is-light is-success" id="add-report" href="/login">  
+                                <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                                New Report
+                            </a>    
+                        </div>                
+                    </div>
+                    <!-- Right side -->
+                    <div class="level-right">
+                        <div class="field">
+                            <!-- <a class="button is-success is-rounded">Rounded</a> -->
+                            <div class="control">
+                                <div class="columns is-mobile">
+                                    <a class="button is-info" onclick="search()">Search</a>
+                                    <input class="input is-info" id="search-input" type="text" placeholder="Success input"/>
                                 </div>
                             </div>
                         </div>
-                    </nav>        
-                </div> 
-            </section>
+                    </div>
+                </nav>        
+            </div> 
+        </section>
+
+        <div class="feature" style="margin-bottom:50px">
+            {% if theme_image %}
+                <div style="display: flex; justify-content: center; align-items: center; overflow: hidden; height:450px">
+                    <img style="flex-shrink: 0; min-width: 100%; min-height: 100%" src="data:image/jpg;charset=utf-8;base64,{{ theme_image[1] }}">
+                </div>
+            {% endif %}
+        </div>
 
         <div class="container">
-            <div class="feature" style="margin-bottom:100px">
-                {% if theme_image %}
-                    <div id="carousel-demo" class="carousel">
-                        <div class="item-1">
-                            <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[0] }}" style="width:auto; height: 600px">
-                        </div>
-                        <div class="item-2">
-                            <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[1] }}" style="width:auto; height: 600px">
-                        </div>
-                        <div class="item-3">
-                            <img src="data:image/jpg;charset=utf-8;base64,{{ theme_image[2] }}" style="width:auto; height: 600px">
-                        </div>
-                    </div>
-                {% endif %}
+            <div class="all_tags" style="padding:20px 80px 30px 80px;">
                 {% if theme_tags %}
-                    <div class="top5-tags">
+                    <!-- <div class="field is-grouped is-grouped-multiline">
                         {% for tag in theme_tags %}
-                        <span class="tag is-dark">{{ tag }}</span>
+                        <div class="control">
+                            <div class="tags has-addons">
+                            <a class="tag is-link">{{ tag }}</a>
+                            <a class="tag is-delete"></a>
+                            </div>
+                        </div>
                         {% endfor %}
-                    </div>
+                    </div> -->
                 {% endif %}
             </div>
 
-            <div class="reports">
+            <div class="reports" id="reports">
                 {% if reports[0]|length>0 %}
+                <div class="columns is-desktop is-multiline">
                     {% for r in reports %}
-                    <div class="single-report" style="margin-bottom:100px">
-                        <p>Name: {{ user_name[loop.index-1] }}</p>
-                        <p>Date: {{ r['date_in'] }}</p>
-                        <p>Description: {{ r['description'] }}</p>
-                        
-                        <div>
-                            <p>Tags: 
+                    <div class="card column is-4 report-box" style="margin: 50px 80px;">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                            <img src="data:image/jpg;charset=utf-8;base64,{{ report_images[loop.index-1][0] }}" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                            
+                            <div class="media-content">
+                                <p class="title is-4">{{ user_name[loop.index-1] }}</p>
+                                <p class="subtitle is-6">{{ r['date_in'] }}</p>
+                            </div>
+                            </div>
+
+                            <div class="content report-description">
+                            {{ r['description'] }}
+                            <br>
+                            </div>
+                            <div class="content">
                             {% for tag in r['tags'] %}
                                 <span class="tag is-dark">{{ tag }}</span>
                             {% endfor %}</p>
+                            </div>
                         </div>
-
-                        {% for img in report_images[loop.index-1] %}
-                            <img src="data:image/jpg;charset=utf-8;base64,{{ img }}" style="width:auto;height:300px;margin-top=20px">
-                        {% endfor %}
-                        <hr>
                     </div>
                     {% endfor %}
                 {% else %}
                     <p>There is no related report stored in our Mongo Database</p>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -165,5 +177,6 @@
 			slidesToShow: 4
 		});
 		</script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/single_theme.js') }}"></script>
     </body>
 </html>

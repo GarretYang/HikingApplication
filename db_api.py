@@ -66,24 +66,29 @@ def create_feature(db, feature_name_in, location_in):
     Otherwise, false.
 
     """
-    feature = {
-        'feature_name': feature_name_in,
-        'feature_location': location_in,
-        'feature_reports': []
-    }
-    try:
-        existed_feature = db.Features.find_one({'feature_name': feature_name_in})
-        if (existed_feature is None):
-            feature_id = db.Features.insert_one(feature).inserted_id
-        else:
-            return -1
-    except AssertionError as error:
-        print(error)
+    if(len(feature_name_in) < 1):
+        return False
+    elif (len(location_in) < 1):
         return False
     else:
-        return feature_id
+        feature = {
+            'feature_name': feature_name_in,
+            'feature_location': location_in,
+            'feature_reports': []
+        }
+        try:
+            existed_feature = db.Features.find_one({'feature_name': feature_name_in})
+            existed_location = db.Feature.find_one({'feature_location': location_in})
+            if (existed_feature is None and existed_location is None):
+                feature_id = db.Features.insert_one(feature).inserted_id
+                return feature_id
+            else:
+                return -1
+        except AssertionError as error:
+            print(error)
+            return False
+        return False
 
-    
 
 def read_all_features(db):
     """
@@ -193,7 +198,7 @@ def find_report(db, **kwargs):
             print('Unsupported field in report query.')
             return None
 
-    return db.Reports.find(kwargs)
+    return db.Reports.find(kwargs).sort([("date_in", -1)])
 
 
 def create_photo(db, photos, feature_name_in):
@@ -230,7 +235,8 @@ def find_or_create_user(db, name, email):
                                        'name': name})
     if mongo_user_id is None:
         mongo_user_id = db.Users.insert_one({'email': email,
-                                             'name': name}).inserted_id
+                                             'name': name,
+                                             'subscribe_feature': []}).inserted_id
     else:
         mongo_user_id = mongo_user_id['_id']
     return mongo_user_id

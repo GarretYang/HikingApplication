@@ -39,7 +39,7 @@
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-            <img src="https://www.notarycam.com/wp-content/uploads/2018/11/your-logo-here.png" width="112" height="28">
+                <img src="{{ url_for('static', filename='logo.png') }}" width=auto height="40" style="padding-left: 30px;">
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -72,12 +72,24 @@
             </div>
         </div>
     </nav>   
+
     <section class="section">
         <div class="container">
             <h1 class="title">
                 New Report
-            </h1>     
-        </div> 
+            </h1>
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="buttons" id="add-buttons">
+                        <a class="button is-light is-success" id="add-feature" href="/login">  
+                            <i class="fas fa-plus-square" style="padding-right:5%"></i>
+                            New Theme
+                        </a>    
+                    </div>                
+                </div>
+            </nav>        
+        </div>
     </section>
 
 <!-- [START gae_python37_auth_firebase_html] -->
@@ -93,27 +105,27 @@
               <div class="column is-5">
                     <form method="POST" action="/newcreatereport" enctype="multipart/form-data">
                         <div class="field">
-                            <label class="label">Feature</label>
+                            <label class="label">Theme</label>
                             <div class="control">
                                 <div class="select">
                                     <select name="feature">
                                         {% for feature in features %}
-                                            <option>{{ feature['feature_name'] }}</option>
+                                            <option>{{ feature['feature_name'] }} at {{ feature['feature_location'] }} </option>
                                         {% endfor %}
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="field">
+                        <!-- <div class="field">
                             <label class="label">Location</label>
                             <div class="control">
                                 <input class="input" type="text" placeholder="Location" name="location">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="field">
                             <label class="label">Date</label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="Date" name="date">
+                                <input class="input" type="text" placeholder="Date: mm/dd/yyyy" name="date">
                             </div>
                         </div>
                         <div class="field">
@@ -141,10 +153,10 @@
                         </div>
                         <div class="field is-grouped">
                             <div class="control">
-                                <button type="submit" class="button is-primary">Submit</button>
+                                <button type="submit" class="button is-success is-light">Submit</button>
                             </div>
                             <div class="control">
-                                <button class="button is-text"><a href="https://aptproject-t2.appspot.com/">Cancel</a></button>
+                                <button class="button is-info is-light"><a href="/">Cancel</a></button>
                             </div>
                         </div>
                     </form>

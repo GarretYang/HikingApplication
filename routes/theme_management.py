@@ -1,20 +1,22 @@
 import random
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify, request
 from db_api import read_all_features, find_report, find_photo
 from mongoDatabase import db
+from bson.json_util import dumps
 
 themes_api = Blueprint('themes_api', __name__)
 
 # this route shows the available themes of our page.
 # it is also the main page of the web
 @themes_api.route('/', methods=['GET', 'POST'])
+@themes_api.route('/json', methods=['GET', 'POST'])
 def getThemes():
     claims  = None
     error_message = None
     theme_input = {}
     # Get all themes/features in db
     mongo_all_themes = read_all_features(db)
-    
+
     feature_names = []
     feature_id = []
     feature_imgs = []
@@ -35,9 +37,12 @@ def getThemes():
     theme_input['feature_names'] = feature_names
     theme_input['feature_id'] = feature_id
     theme_input['feature_imgs'] = feature_imgs
-    print(len(feature_imgs))
-    return render_template(
-        'theme_management.html',
-        user_data=claims,
-        error_message=error_message,
-        user_input=theme_input)    
+
+    if (request.path == '/json'):
+        return dumps(theme_input)
+    else:
+        return render_template(
+            'theme_management.html',
+            user_data=claims,
+            error_message=error_message,
+            user_input=theme_input)

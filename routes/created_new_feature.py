@@ -37,6 +37,19 @@ def newCreatedFeature():
     # cookies = request.cookies
     new_feature_in = request.form.get('feature_name')
     new_location_in = request.form.get('location')
+
+    # try:
+    #     new_feature_result = create_feature(db, new_feature_in, new_location_in)
+    #     if new_feature_result is False:
+    #         submit = "There is an error!"
+    #     elif new_feature_result == -1:
+    #         submit = "The feature already exist!"
+    #     else:
+    #         submit = "You just successfully created feature: "+new_feature_in+" at " +new_location_in+"!"
+    #     return render_template('created_new_feature.html', status=submit, user_data=claims, error_message=error_message, times=times)
+    # except AssertionError as error:
+    #     return render_template('created_new_feature.html', status="There is an error!", user_data=claims, error_message=error_message, times=times)
+
     new_feature_result = create_feature(db, new_feature_in, new_location_in)
     if new_feature_result is False:
         submit = "There is an error!"

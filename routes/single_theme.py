@@ -2,12 +2,13 @@ import random
 from flask import Blueprint, render_template, request
 from db_api import read_all_features, find_report, find_photo, find_userinfo_by_id
 from mongoDatabase import db
+from bson.json_util import dumps
 
 singletheme_api = Blueprint('singletheme_api', __name__)
 
 # [START gae_python37_datastore_render_user_times]
-#@singletheme.route('/', methods=['GET', 'POST'])
 @singletheme_api.route('/reports', methods=['GET', 'POST'])
+@singletheme_api.route('/reports_json', methods=['GET', 'POST'])
 def getReports():
     # Verify Firebase auth.
     error_message = None
@@ -32,16 +33,22 @@ def getReports():
                 all_images.append(i)
         if 'tags' in r and len(r['tags']) > 0:
             for i in r['tags']:
-                all_tags.append(i)
+                if i not in all_tags:
+                    all_tags.append(i)
 
     mongo_reports = find_report(db, feature_name=selected_feature)
 
-    return render_template(
-        'single_theme.html',
-        user_data=claims,
-        error_message=error_message,
-        reports=mongo_reports,
-        user_name=user_name,
-        report_images=report_img,
-        theme_image=all_images,
-        theme_tags=all_tags)
+    if (request.path == '/reports_json'):
+        return dumps({'reports': mongo_reports, 'user_name': user_name, 'theme_tags':all_tags, 
+                    'selected_feature':selected_feature, 'report_images': report_img, 'theme_image':all_images})
+    else:
+        return render_template(
+            'single_theme.html',
+            user_data=claims,
+            error_message=error_message,
+            reports=mongo_reports,
+            user_name=user_name,
+            report_images=report_img,
+            theme_image=all_images,
+            theme_tags=all_tags,
+            selected_feature=selected_feature)
