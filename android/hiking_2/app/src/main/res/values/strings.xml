@@ -8,4 +8,5 @@
     <!--single page-->
     <string name="theme_name">Board Walk Trail</string>
     <string name="search">search by tags</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
