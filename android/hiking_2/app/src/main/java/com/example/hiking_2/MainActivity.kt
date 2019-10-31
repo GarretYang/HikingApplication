@@ -1,6 +1,8 @@
 package com.example.hiking_2
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -10,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.hiking_2.ui.MapsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +31,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    // Transition function to Google map
+    fun transitionToMap(view: View) {
+
+        val mapIntent = Intent(this, MapsActivity::class.java)
+
+        // Start new activity
+        startActivity(mapIntent)
     }
 
 

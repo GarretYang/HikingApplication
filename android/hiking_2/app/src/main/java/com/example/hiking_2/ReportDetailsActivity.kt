@@ -46,7 +46,6 @@ class ReportDetailsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textDesc).text = desc
 
         // Load image from remote
-        // TODO: Image API is still broken
         val url = "https://aptproject-255903.appspot.com/photo?photoId=5dab7995ce7dd0c300d1c1a8"
         Picasso.get()
             .load(url)
