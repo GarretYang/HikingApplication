@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#fff" >
+
+    <TextView
+        android:id="@+id/report_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"/>
+
+    <TextView
+        android:id="@+id/report_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"/>
+
+    <TextView
+        android:id="@+id/report_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"/>
+
+    <TextView
+        android:id="@+id/report_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"/>
+
+    <TextView
+        android:id="@+id/report_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click to see report details"
+        android:clickable="true"
+        android:textColor="#000"/>
+
+
+</LinearLayout>
