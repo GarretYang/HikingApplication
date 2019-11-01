@@ -20,16 +20,26 @@ def getThemes():
     feature_names = []
     feature_id = []
     feature_imgs = []
+
+    themeJson = []
+
     for t in mongo_all_themes:
         feature_names.append(t['feature_name'])
         feature_id.append(t['_id'])
         reports = find_report(db, feature_name=t['feature_name'])
         report_imgs = []
+
+        themeJson.append({
+            "feature_id": t['_id'],
+            "feature_name": t['feature_name'],
+            "feature_img": []
+        })
+
         if reports is not None:
             for report in reports:
                 if 'photos' in report and len(report['photos']) > 0:
                     report_imgs = find_photo(db, report['photos'])
-                    break
+                break
         if len(report_imgs) != 0:        
             feature_imgs.append(random.choice(report_imgs))
         else:
@@ -39,7 +49,7 @@ def getThemes():
     theme_input['feature_imgs'] = feature_imgs
 
     if (request.path == '/json'):
-        return dumps(theme_input)
+        return dumps(themeJson)
     else:
         return render_template(
             'theme_management.html',
