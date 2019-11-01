@@ -119,6 +119,7 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener,
 
                             val reportJson = response.getJSONObject(idx)
 
+                            // TODO: Change Flask API for returning photos array
                             val singleReport = InfoWindowData(
                                 reportJson.getJSONObject("location").getDouble("latitude"),
                                 reportJson.getJSONObject("location").getDouble("longitude"),
@@ -127,7 +128,8 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener,
                                 reportJson.getString("feature_name"),
                                 reportJson.getJSONObject("_id").getString("\$oid"),
                                 reportJson.getString("description"),
-                                reportJson.getJSONObject("user_id").getString("\$oid")
+                                reportJson.getJSONObject("user_id").getString("\$oid"),
+                                reportJson.getJSONArray("photos")
                             )
                             placeMarkerOnMap(singleReport)
                             ++idx
@@ -189,6 +191,14 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener,
 
         val reportDetailsIntent = Intent(this, ReportDetailsActivity::class.java)
 
+        val photoIdArray = arrayListOf<String>()
+
+        var idx = 0
+        while (idx < mInfoWindow?.mLocationPhotos!!.length()) {
+            photoIdArray.add(mInfoWindow?.mLocationPhotos.getJSONObject(idx).getString("\$oid"))
+            ++idx
+        }
+
         Log.i(TAG, mInfoWindow?.mLocatioName.toString())
         Log.i(TAG, mInfoWindow?.mLocationOid.toString())
 
@@ -202,20 +212,23 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener,
 
         reportDetailsIntent.putExtra(ReportDetailsActivity.LOCATION_DESC, mInfoWindow?.mLocationDesc)
 
+        reportDetailsIntent.putStringArrayListExtra(ReportDetailsActivity.LOCATION_PHOTOS, photoIdArray)
+
         // Start new activity
         startActivity(reportDetailsIntent)
     }
 
 }
 
-data class InfoWindowData(val mLocationLat: Double,    // Location latitude
-                          val mLocationLng: Double,    // Location longitude
-                          val mLocatioName: String,    // Location name
-                          val mLocationDate: String,   // Date of recording this report
-                          val mLocationTheme: String,  // Location theme
-                          val mLocationOid: String,    // Object ID of the report in Mongodb
-                          val mLocationDesc: String,   // Location description
-                          val mLocationUserId: String  // User who creates the report
+data class InfoWindowData(val mLocationLat: Double,      // Location latitude
+                          val mLocationLng: Double,      // Location longitude
+                          val mLocatioName: String,      // Location name
+                          val mLocationDate: String,     // Date of recording this report
+                          val mLocationTheme: String,    // Location theme
+                          val mLocationOid: String,      // Object ID of the report in Mongodb
+                          val mLocationDesc: String,     // Location description
+                          val mLocationUserId: String,   // User who creates the report
+                          val mLocationPhotos: JSONArray // Photo ids attached to the report
 )
 
 
