@@ -41,6 +41,5 @@ class MainActivity : AppCompatActivity() {
         // Start new activity
         startActivity(mapIntent)
     }
-git
 
 }

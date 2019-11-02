@@ -16,6 +16,10 @@ class ReportDetailsActivity : AppCompatActivity() {
 
     private var photoIdsArray = arrayListOf<String>()
 
+    private var photoIdx = 0
+
+    private val basePhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
+
     companion object {
         const val LOCATION_NAME = "NAME"
         const val LOCATION_THEME = "THEME"
@@ -52,7 +56,7 @@ class ReportDetailsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textDesc).text = desc
 
         // Load image from remote
-        val url = "https://aptproject-255903.appspot.com/photo?photoId=5dab7995ce7dd0c300d1c1a8"
+        val url = basePhotoUrl + photoIdsArray[photoIdx]
         Picasso.get()
             .load(url)
             .placeholder(R.drawable.common_google_signin_btn_icon_dark)
@@ -66,5 +70,26 @@ class ReportDetailsActivity : AppCompatActivity() {
 
         // Start new activity
         startActivity(mapIntent)
+    }
+
+
+    fun transitionToMainPage(view: View) {
+
+        val mainPageIntent = Intent(this, MainActivity::class.java)
+
+        // Start new activity
+        startActivity(mainPageIntent)
+    }
+
+
+    // Change to next displayed photo
+    fun nextPhoto(view: View) {
+        ++photoIdx
+        photoIdx %= photoIdsArray.size
+        val url = basePhotoUrl + photoIdsArray[photoIdx]
+        Picasso.get()
+            .load(url)
+            .placeholder(R.drawable.common_google_signin_btn_icon_dark)
+            .into(imageView)
     }
 }
