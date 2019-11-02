@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.home.SingleTheme">
 
 
     <ScrollView
@@ -61,7 +61,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/theme_name"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/themeImage"
