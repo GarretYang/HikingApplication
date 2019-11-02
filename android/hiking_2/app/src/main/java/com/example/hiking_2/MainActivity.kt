@@ -13,6 +13,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.hiking_2.ui.MapsActivity
+import com.example.hiking_2.ui.home.SingleTheme
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +41,15 @@ class MainActivity : AppCompatActivity() {
 
         // Start new activity
         startActivity(mapIntent)
+    }
+
+    // go to single theme page
+    fun goSingleTheme(view: View) {
+
+        val singlePage = Intent(this, SingleTheme::class.java)
+
+        // Start new activity
+        startActivity(singlePage)
     }
 
 }
