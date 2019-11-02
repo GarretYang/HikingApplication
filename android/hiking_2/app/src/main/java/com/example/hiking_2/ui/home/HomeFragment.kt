@@ -47,8 +47,8 @@ class HomeFragment : Fragment() {
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this.context)
-        val url = "http://10.0.2.2:8000/json"
-//        val url =  "https://aptproject-255903.appspot.com/locations"
+        //val url = "http://10.0.2.2:8000/json"
+        val url =  "https://aptproject-255903.appspot.com/json"
 
         val jsonGetRequest = JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener<JSONArray> { response ->
