@@ -1,6 +1,7 @@
 package com.example.hiking_2.ui.home
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -47,6 +49,7 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun getThemes() {
 
         // Instantiate the RequestQueue.
@@ -59,7 +62,7 @@ class HomeFragment : Fragment() {
                 while (idx < response.length()) {
                     val themeJson = response.getJSONObject(idx)
 
-                    var newCard = MaterialCardView(this.theme_linear_layout.context)
+                    var newCard = RelativeLayout(this.theme_linear_layout.context)
                     var newCardTextView = TextView(newCard.context)
                     var newImg = ImageView(newCard.context)
                     val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
@@ -67,8 +70,8 @@ class HomeFragment : Fragment() {
                     var PhotoUrl = basicPhotoUrl + photoID
                     var param: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT)
-                    param.topMargin = 25
-                    param.bottomMargin = 20
+                    param.topMargin = 50
+                    param.bottomMargin = 100
                     newCard.addView(newCardTextView)
                     newCard.addView(newImg)
                     newCard.layoutParams = param
@@ -82,6 +85,20 @@ class HomeFragment : Fragment() {
                     newImg.layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT
                     newImg.scaleType = ImageView.ScaleType.FIT_XY
                     newImg.adjustViewBounds = true
+
+                    //generate id
+                    newImg.id = ImageView.generateViewId()
+                    newCardTextView.id = TextView.generateViewId()
+
+                    //change layout
+                    var param1 = RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    param1.addRule(RelativeLayout.BELOW, newImg.id)
+                    param1.leftMargin = 50
+                    newCardTextView.setLayoutParams(param1)
+                    newCardTextView.textSize = 30F
 
                     param.bottomMargin = 20
 

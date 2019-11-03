@@ -26,6 +26,7 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.hiking_2.R
 import com.example.hiking_2.ReportDetailsActivity
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import kotlinx.android.synthetic.main.layout_custom_map_marker.view.*
 import org.json.JSONArray
 
@@ -82,6 +83,8 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener,
     }
 
     override fun onInfoWindowClick(p0: Marker?) {
+        if (p0?.tag == null)
+            return
         transitionToReportDetails(p0)
     }
 
@@ -141,7 +144,9 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener,
 
                 // Add marker for current location
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
-                mMap.addMarker(MarkerOptions().position(LatLng(lastLocation.latitude, lastLocation.longitude)))
+                mMap.addMarker(MarkerOptions()
+                    .position(LatLng(lastLocation.latitude, lastLocation.longitude))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)))
             }
         }
     }
@@ -242,6 +247,16 @@ class CustomInfoWindowGoogleMap(val context: Context) : GoogleMap.InfoWindowAdap
 
         val mInfoView = (context as Activity).layoutInflater.inflate(R.layout.layout_custom_map_marker, null)
         val mInfoWindow: InfoWindowData? = p0?.tag as InfoWindowData?
+
+        // Special case of user's current location
+        if (mInfoWindow == null) {
+            mInfoView.report_date.setText("This is your current location!")
+            mInfoView.report_name.setText("")
+            mInfoView.report_theme.setText("")
+            mInfoView.report_desc.setText("")
+            mInfoView.report_details.setText("")
+            return mInfoView
+        }
 
         mInfoView.report_date.setText("Date: " + mInfoWindow?.mLocationDate)
         mInfoView.report_name.setText("Location name: " + mInfoWindow?.mLocatioName)

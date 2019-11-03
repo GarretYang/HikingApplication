@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1033688098409-2gq35alro3913tk3nja59l2sqqi603ko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hiking_2",
+            "certificate_hash": "0a93ee34c1562e660822fe65945f939901db8874"
+          }
+        },
+        {
           "client_id": "1033688098409-ct4lgfp1c5okrms5map19kvl9ab73fe9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
