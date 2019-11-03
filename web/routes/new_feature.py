@@ -1,6 +1,4 @@
 from flask import Blueprint, render_template, request
-from google.auth.transport import requests
-from google.cloud import datastore
 import google.oauth2.id_token
 from db_api import *
 from mongoDatabase import db, firebase_request_adapter
