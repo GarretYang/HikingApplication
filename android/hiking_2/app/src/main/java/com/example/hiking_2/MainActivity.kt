@@ -47,5 +47,4 @@ class MainActivity : AppCompatActivity() {
         // Start new activity
         startActivity(singlePage)
     }
-
 }

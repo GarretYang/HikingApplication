@@ -1,5 +1,6 @@
 package com.example.hiking_2.ui.add
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,14 +18,17 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.hiking_2.R
+import kotlinx.android.synthetic.main.fragment_create_report.*
 import org.json.JSONArray
 import org.json.JSONObject
 
 
 class CreateReportFragment : Fragment() {
 
-    private lateinit var createReportViewModel: CreateReportViewModel
+    val REQUEST_TAKE_PHOTO = 0
     val REQUEST_IMAGE_CAPTURE = 1
+
+    private lateinit var createReportViewModel: CreateReportViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,19 +37,19 @@ class CreateReportFragment : Fragment() {
     ): View? {
         // set up variables
         createReportViewModel = ViewModelProviders.of(this).get(CreateReportViewModel::class.java)
-        val root = inflater.inflate(com.example.hiking_2.R.layout.fragment_create_report, container, false)
+        val root = inflater.inflate(R.layout.fragment_create_report, container, false)
         val createReport: Button = root.findViewById(R.id.submit_new_report)
-//        val cameraButton: Button = root.findViewById(R.id.camera)
-//        val galleryButton: Button = root.findViewById(R.id.gallery)
+        val cameraButton: Button = root.findViewById(R.id.camera)
+        val galleryButton: Button = root.findViewById(R.id.gallery)
 
-        //
         createReport.setOnClickListener { sendReport(root) }
-
+        //cameraButton.setOnClickListener {}
+        galleryButton.setOnClickListener { dispatchGetGalleryIntent() }
 
         return root
     }
 
-    fun sendReport(view: View) : Boolean {
+    private fun sendReport(view: View) : Boolean {
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
@@ -74,12 +78,10 @@ class CreateReportFragment : Fragment() {
         params.put("name", name)
         params.put("email", email)
 
-        val textView = view.findViewById<TextView>(R.id.textView_createReport)
-
         var jsonObjectRequest = JsonObjectRequest(
             Request.Method.POST, url, params,
             Response.Listener { response ->
-                textView.text = "Response: %s".format(response.toString())
+                Toast.makeText(context, "Response: %s".format(response.toString()), Toast.LENGTH_LONG)
             },
             Response.ErrorListener { error ->
                 Log.e("POST-REQUEST", error.toString())
@@ -89,5 +91,19 @@ class CreateReportFragment : Fragment() {
         queue.add(jsonObjectRequest)
 
         return true
+    }
+
+    private fun dispatchGetGalleryIntent() {
+        val pickPhoto = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(pickPhoto, REQUEST_IMAGE_CAPTURE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data?.data)
+            thumbnail_view.setImageBitmap(imageBitmap)
+        }
     }
 }
