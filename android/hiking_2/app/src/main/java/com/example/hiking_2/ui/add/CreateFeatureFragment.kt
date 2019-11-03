@@ -35,8 +35,8 @@ class CreateFeatureFragment : Fragment() {
 // button onclick listener
         val newThemeCreate = root.findViewById<Button>(R.id.submit_new_theme)
         newThemeCreate.setOnClickListener {
-            val newThemeName = root.findViewById<EditText>(R.id.new_theme_name)
-            val newLocation = root.findViewById<EditText>(R.id.new_theme_location)
+            val newThemeName = root.findViewById<EditText>(R.id.new_theme_name_text)
+            val newLocation = root.findViewById<EditText>(R.id.new_theme_location_text)
             if (!newThemeName.text.isEmpty() && !newLocation.text.isEmpty()) {
                 val correctT = Toast.makeText(root.getContext(), "Creating New Theme", Toast.LENGTH_LONG)
                 correctT.show()
