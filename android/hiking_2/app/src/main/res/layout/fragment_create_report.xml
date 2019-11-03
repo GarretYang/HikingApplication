@@ -7,66 +7,81 @@ android:layout_height="match_parent"
 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/select_feature"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Feature Name"
-            android:inputType="textPersonName" />
+            android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/select_feature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Feature Name"
+                android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/select_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="01/01/2019"
-            android:inputType="date" />
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="138dp"
-            android:ems="10"
-            android:hint="Description"
-            android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/select_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="01/01/2019"
+                android:inputType="date" />
 
-        <Button
-            android:id="@+id/gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gallery" />
+            <EditText
+                android:id="@+id/enter_description"
+                android:layout_width="match_parent"
+                android:layout_height="138dp"
+                android:ems="10"
+                android:hint="Description"
+                android:inputType="textMultiLine" />
 
-        <Button
-            android:id="@+id/camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Camera" />
+            <EditText
+                android:id="@+id/enter_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Location"
+                android:inputType="textPersonName" />
 
-        <ImageView
-            android:id="@+id/thumbnail_view"
-            android:layout_width="129dp"
-            android:layout_height="159dp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/select_tags"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/submit_new_report"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
+            <Button
+                android:id="@+id/gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gallery" />
 
+            <Button
+                android:id="@+id/camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Camera" />
 
+            <ImageView
+                android:id="@+id/thumbnail_view"
+                android:layout_width="129dp"
+                android:layout_height="159dp"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/submit_new_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
 
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
