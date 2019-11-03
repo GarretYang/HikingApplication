@@ -219,12 +219,12 @@ def create_photo(db, photos, feature_name_in, date_in):
     Parameters
     ----------
     db: pymongo db instance
-    photos: array of photos FileReaders passed to REST API POST request
+    photos: array of base64 encoded photos
     Returns
     -------
     ObjectId: Array of object Ids of inserted photos.
     """
-    new_photos = [{'encode_raw': Binary(base64.b64encode(p.read()), 0) , 'theme': feature_name_in, 'date_in': date_in} for p in photos]
+    new_photos = [{'encode_raw': p, 'theme': feature_name_in, 'date_in': date_in} for p in photos]
     result = db.Photos.insert_many(new_photos)
     print(result.inserted_ids)
     return result.inserted_ids

@@ -1,16 +1,58 @@
-from flask import Blueprint, render_template, request
-from google.auth.transport import requests
-from google.cloud import datastore
+from flask import Blueprint, render_template, request, Response
 import google.oauth2.id_token
 from db_api import *
 from mongoDatabase import db, firebase_request_adapter
-import random
 
 newcreatereport_api = Blueprint('newcreatereport_api', __name__)
 
 # [START createdReport]
 @newcreatereport_api.route('/newcreatereport', methods=['POST'])
+@newcreatereport_api.route('/newcreatereportjson', methods=['POST'])
 def newcreatereport():
+    if (request.path == '/newcreatereport'):
+        claims, error_message = firebase_auth(request)
+        photos = request.files.getlist('photo')
+        feature = request.form.get('feature')
+        location = get_feature_location(db, feature)
+        tags = request.form.getlist('tag')
+        description = request.form.get('description')
+        date = request.form.get('date')
+        user = find_or_create_user(db, claims['name'], claims['email'])
+        print(claims['name'])
+        print(claims['email'])
+        photos = [Binary(base64.b64encode(p.read()), 0) for p in photos]
+    else:
+        req = request.get_json()
+        print(req)
+        photos = req['photos']
+        print(photos)
+        photos = [Binary(bytes(p, 'UTF-8'), 0) for p in photos]
+        print(photos)
+        feature = req.get('feature')
+        location = req.get('location')
+        tags = req.get('tags')
+        description = req.get('description')
+        date = req.get('date')
+        user = find_or_create_user(db, req.get('name'), req.get('email'))
+
+    new_report_result = create_report(db, feature, tags, location, description, date, user, photos=photos)
+    #new_report_result = False
+
+    if new_report_result is False:
+        status = "Error creating new report!"
+        status_code = 202
+    else:
+        status = "Successfully created a report for: " + str(feature) + " at " + str(location) + "!"
+        status_code = 201
+
+    if request.path == '/newcreatereport':
+        return render_template('created_new_report.html', status=status, user_data=claims, error_message=error_message)
+    else:
+        return Response("{'status':'" + status + "'}", status=status_code, mimetype='application/json')
+# [END createReport]
+
+
+def firebase_auth(request):
     # Verify Firebase auth.
     id_token = request.cookies.get("token")
     error_message = None
@@ -31,18 +73,4 @@ def newcreatereport():
             # verification checks fail.
             error_message = str(exc)
 
-    photos = request.files.getlist('photo')
-    feature = request.form.get('feature')
-    location = get_feature_location(db, feature)
-    tags = request.form.getlist('tag')
-    description = request.form.get('description')
-    date = request.form.get('date')
-    user = find_or_create_user(db, claims['name'], claims['email'])
-    new_report_result = create_report(db, feature, tags, location, description, date, user, photos=photos)
-
-    if new_report_result is False:
-        submit = "There is an error!"
-    else:
-        submit = "You just successfully created a report for: "+feature+" at " +location+"!"
-    return render_template('created_new_report.html', status=submit, user_data=claims, error_message=error_message)
-# [END createReport]
+        return claims, error_message
