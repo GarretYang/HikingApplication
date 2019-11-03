@@ -11,8 +11,6 @@ import androidx.viewpager.widget.ViewPager
 import com.example.hiking_2.R
 import com.google.android.material.tabs.TabLayout
 
-
-
 class AddFragment : Fragment() {
 
     private lateinit var addViewModel: AddViewModel
