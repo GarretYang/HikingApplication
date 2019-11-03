@@ -49,7 +49,7 @@
                 android:onClick="goSingleTheme"
                 android:text="go to single theme" />
 
-            <com.google.android.material.card.MaterialCardView
+            <!--<com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/theme_name_txt_1" />
 
-            </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>-->
 
         </LinearLayout>
     </ScrollView>
