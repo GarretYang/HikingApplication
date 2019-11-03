@@ -1,17 +1,27 @@
 package com.example.hiking_2.ui.add
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.graphics.Bitmap
+import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.example.hiking_2.R
 import com.google.android.material.tabs.TabLayout
-
-
+import kotlinx.android.synthetic.main.activity_report_details.*
+import java.io.File
+import java.io.IOException
+import java.util.*
 
 class AddFragment : Fragment() {
 
