@@ -1,9 +1,16 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, send_file
 from google.auth.transport import requests
 import google.oauth2.id_token
 from db_api import find_or_create_user,find_report,find_photo, read_all_features, find_userinfo_by_id
 from mongoDatabase import db, firebase_request_adapter
 import random
+from flask import jsonify
+from bson.json_util import dumps
+from bson import ObjectId
+from bson import Binary
+import base64
+import io
+
 
 personal_api = Blueprint('personal_api', __name__)
 
@@ -140,3 +147,31 @@ def subscribeTheme():
     print('Finish adding new theme for the user')
     # Redirect to the personal management URL
     return redirect('/personal', code=302)
+
+
+@personal_api.route('/locations', methods=['GET', 'POST'])
+def getLocations():
+    reports = db.Reports.find({})
+    res = []
+    for r in reports:
+        if r['location'] and type(r['location']) is not str:
+            single_json = {}
+            single_json['_id'] = r['_id']
+            single_json['location'] = r['location']
+            single_json['date_in'] = r['date_in']
+            single_json['feature_name'] = r['feature_name']
+            single_json['user_id'] = r['user_id']
+            single_json['description'] = r['description']
+            single_json['photos'] = r['photos']
+            res.append(single_json)
+    return dumps(res)
+
+
+@personal_api.route('/photo', methods=['GET', 'POST'])
+def getPhoto():
+    report_id = request.args.get('photoId')
+    p = db.Photos.find_one({'_id': ObjectId(report_id)})
+    decode_img = base64.b64decode(p['encode_raw'])
+    # decode_img = p['encode_raw']
+    # return send_file(decode_img, mimetype='image/jpg')
+    return send_file(io.BytesIO(decode_img), mimetype='image/jpg')

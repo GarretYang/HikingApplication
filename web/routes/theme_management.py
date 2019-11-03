@@ -1,6 +1,6 @@
 import random
 from flask import Blueprint, render_template, jsonify, request
-from db_api import read_all_features, find_report, find_photo
+from db_api import read_all_features, find_report, find_photo, find_photos_by_theme
 from mongoDatabase import db
 from bson.json_util import dumps
 
@@ -20,18 +20,26 @@ def getThemes():
     feature_names = []
     feature_id = []
     feature_imgs = []
+
+    themeJson = []
+
     for t in mongo_all_themes:
         feature_names.append(t['feature_name'])
         feature_id.append(t['_id'])
-        reports = find_report(db, feature_name=t['feature_name'])
-        report_imgs = []
-        if reports is not None:
-            for report in reports:
-                if 'photos' in report and len(report['photos']) > 0:
-                    report_imgs = find_photo(db, report['photos'])
-                    break
-        if len(report_imgs) != 0:        
-            feature_imgs.append(random.choice(report_imgs))
+        report_imgs = find_photos_by_theme(db, t['feature_name'])
+        report_img_id = []
+
+        if report_imgs.count() != 0 :
+            report_img_id.append(report_imgs[0]['_id'])
+
+        themeJson.append({
+            "feature_id": t['_id'],
+            "feature_name": t['feature_name'],
+            "feature_img_id": report_img_id[0]
+        })
+
+        if report_imgs.count() != 0:        
+            feature_imgs.append(find_photo(db, report_img_id)[0])
         else:
             feature_imgs.append("0")
     theme_input['feature_names'] = feature_names
@@ -39,7 +47,7 @@ def getThemes():
     theme_input['feature_imgs'] = feature_imgs
 
     if (request.path == '/json'):
-        return dumps(theme_input)
+        return dumps(themeJson)
     else:
         return render_template(
             'theme_management.html',

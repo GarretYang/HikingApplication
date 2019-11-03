@@ -15,9 +15,20 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReportDetailsActivity"></activity>
+
+        <activity
+            android:name=".ui.add.AddReport"
+            android:label="@string/title_activity_add_report"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.add.AddTheme"
+            android:label="@string/title_activity_add_theme"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ReportDetailsActivity" />
+        <activity android:name=".ui.home.SingleTheme"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,7 +52,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- add new theme -->
+
     </application>
 
 </manifest>

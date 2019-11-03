@@ -70,6 +70,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="88dp"
         android:text="Back to main page"
+        android:onClick="transitionToMainPage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textDesc"
@@ -86,4 +87,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.307"
         app:srcCompat="@android:drawable/alert_light_frame" />
+
+    <Button
+        android:id="@+id/buttonNextPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:text="Next photo"
+        android:onClick="nextPhoto"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
