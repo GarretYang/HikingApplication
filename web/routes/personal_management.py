@@ -11,6 +11,7 @@ from bson import Binary
 import base64
 import io
 
+
 personal_api = Blueprint('personal_api', __name__)
 
 # this route shows the login user's own reports and themes
@@ -146,6 +147,24 @@ def subscribeTheme():
     print('Finish adding new theme for the user')
     # Redirect to the personal management URL
     return redirect('/personal', code=302)
+
+
+@personal_api.route('/locations', methods=['GET', 'POST'])
+def getLocations():
+    reports = db.Reports.find({})
+    res = []
+    for r in reports:
+        if r['location'] and type(r['location']) is not str:
+            single_json = {}
+            single_json['_id'] = r['_id']
+            single_json['location'] = r['location']
+            single_json['date_in'] = r['date_in']
+            single_json['feature_name'] = r['feature_name']
+            single_json['user_id'] = r['user_id']
+            single_json['description'] = r['description']
+            single_json['photos'] = r['photos']
+            res.append(single_json)
+    return dumps(res)
 
 
 @personal_api.route('/photo', methods=['GET', 'POST'])

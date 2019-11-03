@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                     newCard.addView(newCardTextView)
                     newCard.addView(newImg)
                     newCard.layoutParams = param
-//                    newCard.minimumHeight = 200
+                    newCard.minimumHeight = 200
                     newCardTextView.text = themeJson.getString("feature_name")
                     Picasso
                         .get()
