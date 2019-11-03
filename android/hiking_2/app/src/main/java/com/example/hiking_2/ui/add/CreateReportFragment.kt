@@ -121,6 +121,7 @@ class CreateReportFragment : Fragment() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, data?.data)
             thumbnail_view.setImageBitmap(imageBitmap)
+            image = imageBitmap
         }
 
         else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
