@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
                 while (idx < response.length()) {
                     val themeJson = response.getJSONObject(idx)
 
-                    var newCard = MaterialCardView(this.theme_linear_layout.context)
+                    var newCard = RelativeLayout(this.theme_linear_layout.context)
                     var newCardTextView = TextView(newCard.context)
                     var newImg = ImageView(newCard.context)
                     val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
@@ -67,6 +67,7 @@ class HomeFragment : Fragment() {
                     var PhotoUrl = basicPhotoUrl + photoID
                     var param: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT)
+
                     param.topMargin = 25
                     param.bottomMargin = 20
                     newCard.addView(newCardTextView)
