@@ -1,4 +1,5 @@
 *.pyc
 .coverage
 mongoDatabase.py
-.idea
+web/.idea/*
+web/venv
