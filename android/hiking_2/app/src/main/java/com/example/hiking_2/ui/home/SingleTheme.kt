@@ -17,7 +17,6 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.hiking_2.R
 import com.google.android.material.card.MaterialCardView
-import kotlinx.android.synthetic.main.content_add_theme.*
 import org.json.JSONArray
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.single_page.*
@@ -27,6 +26,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Build
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import org.w3c.dom.Text
 
@@ -208,7 +208,7 @@ class SingleTheme : AppCompatActivity() {
 
 
             },
-            Response.ErrorListener { textView.text = "That didn't work!" })
+            Response.ErrorListener { Toast.makeText(applicationContext, "That didn't work!", Toast.LENGTH_LONG) })
 
         // Add the request to the RequestQueue.
         queue.add(jsonGetRequest)

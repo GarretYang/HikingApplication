@@ -42,7 +42,7 @@ class CreateFeatureFragment : Fragment() {
                 correctT.show()
 
                 val queue = Volley.newRequestQueue(root.context)
-                val url = "http://http://aptproject-255903.appspot.com/newcreatereportjson"
+                val url = "http://10.0.2.2:5000/newCreatedFeatureJson"
                 var params = JSONObject()
                 params.put("feature_name", newThemeName.text)
                 params.put("feature_location", newLocation.text)
