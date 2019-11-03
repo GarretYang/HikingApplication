@@ -1,11 +1,15 @@
 package com.example.hiking_2.ui.add
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.android.volley.Request
@@ -20,15 +24,23 @@ import org.json.JSONObject
 class CreateReportFragment : Fragment() {
 
     private lateinit var createReportViewModel: CreateReportViewModel
+    val REQUEST_IMAGE_CAPTURE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        // set up variables
         createReportViewModel = ViewModelProviders.of(this).get(CreateReportViewModel::class.java)
-        val root = inflater.inflate(com.example.hiking_2.R.layout.fragment_create_feature, container, false)
+        val root = inflater.inflate(com.example.hiking_2.R.layout.fragment_create_report, container, false)
+        val createReport: Button = root.findViewById(R.id.submit_new_report)
+//        val cameraButton: Button = root.findViewById(R.id.camera)
+//        val galleryButton: Button = root.findViewById(R.id.gallery)
+
+        //
+        createReport.setOnClickListener { sendReport(root) }
+
 
         return root
     }
@@ -36,7 +48,7 @@ class CreateReportFragment : Fragment() {
     fun sendReport(view: View) : Boolean {
 
         // Instantiate the RequestQueue.
-        val queue = Volley.newRequestQueue(this)
+        val queue = Volley.newRequestQueue(context)
         val url = "http://10.0.2.2:5000/newcreatereportjson"
 
 

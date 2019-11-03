@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            app:tabSelectedTextColor="@color/colorAccent" />
+            app:tabSelectedTextColor="@color/cardview_light_background" />
 
     </androidx.viewpager.widget.ViewPager>
 
