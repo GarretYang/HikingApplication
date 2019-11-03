@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,7 +20,11 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.hiking_2.R
 import com.google.android.material.card.MaterialCardView
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_report_details.*
+import kotlinx.android.synthetic.main.activity_report_details.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.json.JSONArray
 
 class HomeFragment : Fragment() {
@@ -43,46 +48,46 @@ class HomeFragment : Fragment() {
     }
 
     private fun getThemes() {
-        println("hello world")
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this.context)
-        val url = "http://10.0.2.2:8000/json"
-//        val url =  "https://aptproject-255903.appspot.com/locations"
+        val url = "https://aptproject-255903.appspot.com/json"
 
         val jsonGetRequest = JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener<JSONArray> { response ->
-                println("Response: %s".format(response.toString()))
-                var idx = 0;
+                var idx = 0
                 while (idx < response.length()) {
-
                     val themeJson = response.getJSONObject(idx)
 
-//                    println(themeJson.getString("feature_name"))
-//                    print(themeJson.getJSONObject("feature_id").getString("\$oid"))
-//
-//                    println()
-                    ++idx
-
-                    var newCardTextView = TextView(this.context)
-                    newCardTextView.text = themeJson.getString("feature_name")
-
-                    var newImg = ImageView(this.context)
-//                    newImg.
-
-                    var newCard = MaterialCardView(this.context)
-                    newCard.addView(newCardTextView)
-
-
-                    newCard.addView(newImg)
-
+                    var newCard = MaterialCardView(this.theme_linear_layout.context)
+                    var newCardTextView = TextView(newCard.context)
+                    var newImg = ImageView(newCard.context)
+                    val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
+                    var photoID = themeJson.getJSONObject("feature_img_id").getString("\$oid")
+                    var PhotoUrl = basicPhotoUrl + photoID
                     var param: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                                                             RelativeLayout.LayoutParams.WRAP_CONTENT)
+                        RelativeLayout.LayoutParams.WRAP_CONTENT)
                     param.topMargin = 25
+                    param.bottomMargin = 20
+                    newCard.addView(newCardTextView)
+                    newCard.addView(newImg)
                     newCard.layoutParams = param
                     newCard.minimumHeight = 200
+                    newCardTextView.text = themeJson.getString("feature_name")
+                    Picasso
+                        .get()
+                        .load(PhotoUrl)
+                        .into(newImg)
+                    newImg.layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT
+                    newImg.layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT
+                    newImg.scaleType = ImageView.ScaleType.FIT_XY
+                    newImg.adjustViewBounds = true
+
+                    param.bottomMargin = 20
 
                     theme_linear_layout.addView(newCard)
+
+                    ++idx
                 }
 
             },

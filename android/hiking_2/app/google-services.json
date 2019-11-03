@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1033688098409",
+    "firebase_url": "https://aptproject-t2.firebaseio.com",
+    "project_id": "aptproject-t2",
+    "storage_bucket": "aptproject-t2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033688098409:android:160ab0e182a81ae7f364f8",
+        "android_client_info": {
+          "package_name": "com.example.hiking_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033688098409-ct4lgfp1c5okrms5map19kvl9ab73fe9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hiking_2",
+            "certificate_hash": "cb7e811079efb0ea018547368f1a8bc4121dbafd"
+          }
+        },
+        {
+          "client_id": "1033688098409-l5it4tl4gm2i66ooqipacj6tj8koip2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApoNRqvgHnHCAqadECIU2ROQeut4NJkyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033688098409-l5it4tl4gm2i66ooqipacj6tj8koip2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

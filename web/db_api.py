@@ -29,7 +29,7 @@ def create_report(db, feature_name_in, tags_in, location_in, description_in, dat
     }
 
     if 'photos' in kwargs:
-        report['photos'] = create_photo(db, kwargs['photos'], feature_name_in)
+        report['photos'] = create_photo(db, kwargs['photos'], feature_name_in, date_in)
     try:
         _id = db.Reports.insert_one(report).inserted_id
         existed_report = db.Features.find_one({'feature_name': feature_name_in})
@@ -213,7 +213,7 @@ def find_report(db, **kwargs):
     return db.Reports.find(kwargs).sort([("date_in", -1)])
 
 
-def create_photo(db, photos, feature_name_in):
+def create_photo(db, photos, feature_name_in, date_in):
     """
     Method for inserting new photo into Photos collection
     Parameters
@@ -224,7 +224,7 @@ def create_photo(db, photos, feature_name_in):
     -------
     ObjectId: Array of object Ids of inserted photos.
     """
-    new_photos = [{'encode_raw': Binary(base64.b64encode(p.read()), 0) , 'theme': feature_name_in} for p in photos]
+    new_photos = [{'encode_raw': Binary(base64.b64encode(p.read()), 0) , 'theme': feature_name_in, 'date_in': date_in} for p in photos]
     result = db.Photos.insert_many(new_photos)
     print(result.inserted_ids)
     return result.inserted_ids
@@ -271,6 +271,23 @@ def find_photo(db, photo_ids):
         for x in db.Photos.find({'_id': p}):
             ret.append(x['encode_raw'].decode('ascii'))
     return ret
+
+def find_photos_by_theme(db, theme):
+    """
+    Method for finding photos based on associated theme names and a new report
+    Parameters
+    ----------
+    db: pymongo db instance
+    theme: theme names
+    Returns
+    -------
+    Boolean: an array of photos with the input theme name.
+    """    
+    res = db.Photos.find( {"theme": theme} )
+    if res is None:
+        print("No themes available")
+        return False
+    return res.sort([("date_in", -1)])
 
 def update_or_create_tag(db, name, report_id):
     """
