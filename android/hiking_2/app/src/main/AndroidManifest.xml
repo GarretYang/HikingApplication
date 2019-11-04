@@ -24,6 +24,7 @@
 
         <activity android:name=".ReportDetailsActivity" />
         <activity android:name=".ui.home.SingleTheme"/>
+        <activity android:name=".ui.search.Search"/>
         <activity android:name=".ui.account.LoginActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

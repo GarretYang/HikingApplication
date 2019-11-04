@@ -1,5 +1,6 @@
 package com.example.hiking_2.ui.home
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +22,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.hiking_2.R
+import com.example.hiking_2.ui.home.SingleTheme.Companion.themeToPass
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_report_details.*
@@ -81,6 +83,17 @@ class HomeFragment : Fragment() {
                     newImg.layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT
                     newImg.scaleType = ImageView.ScaleType.FIT_XY
                     newImg.adjustViewBounds = true
+
+                    newImg.setOnClickListener() {
+                        val singlePage = Intent(context, SingleTheme::class.java)
+
+                        val toTheme = newCardTextView.text.toString()
+                        println(toTheme)
+                        singlePage.putExtra(themeToPass, newCardTextView.text.toString())
+
+                        // Start new activity
+                        startActivity(singlePage)
+                    }
 
                     //generate id
                     newImg.id = ImageView.generateViewId()
