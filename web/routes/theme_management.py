@@ -29,14 +29,20 @@ def getThemes():
         report_imgs = find_photos_by_theme(db, t['feature_name'])
         report_img_id = []
 
-        if report_imgs.count() != 0 :
+        if report_imgs.count() != 0:
             report_img_id.append(report_imgs[0]['_id'])
 
-        themeJson.append({
-            "feature_id": t['_id'],
-            "feature_name": t['feature_name'],
-            "feature_img_id": report_img_id[0]
-        })
+        if report_imgs.count() == 0:
+            themeJson.append({
+                "feature_id": t['_id'],
+                "feature_name": t['feature_name']
+            })
+        else:
+            themeJson.append({
+                "feature_id": t['_id'],
+                "feature_name": t['feature_name'],
+                "feature_img_id": report_img_id[0]
+            })
 
         if report_imgs.count() != 0:        
             feature_imgs.append(find_photo(db, report_img_id)[0])

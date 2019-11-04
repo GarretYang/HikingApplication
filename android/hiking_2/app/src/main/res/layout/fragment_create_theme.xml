@@ -28,36 +28,71 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.80" />
 
-
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/new_theme_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="Theme Name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:helperTextEnabled="true"
-        app:helperText="required"
-        android:inputType="textPersonName"
+        app:helperText="*Required"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_theme_name_text"
+            android:ems="10"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:helperTextEnabled="true"
+            app:helperText="required"
+            android:inputType="textPersonName" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/new_theme_location"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="Location"
-        android:inputType="textPersonName"
-        app:helperText="required"
         app:helperTextEnabled="true"
+        app:helperText="*Required"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintBottom_toTopOf="@+id/submit_new_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_theme_name" />
+        app:layout_constraintTop_toBottomOf="@+id/new_theme_name"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_theme_location_text"
+            android:ems="10"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:helperTextEnabled="true"
+            app:helperText="required"
+            android:inputType="textPersonName" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    <EditText-->
+<!--        android:id="@+id/new_theme_location"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Location"-->
+<!--        android:inputType="textPersonName"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/submit_new_theme"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/new_theme_name" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/submit_new_theme"

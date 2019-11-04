@@ -1,4 +1,4 @@
-package com.example.hiking_2.ui.home
+package com.example.hiking_2.ui.search
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -16,49 +16,40 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.hiking_2.R
-import com.google.android.material.card.MaterialCardView
 import org.json.JSONArray
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.single_page.*
+import kotlinx.android.synthetic.main.search.*
 import org.json.JSONObject
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Build
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
+import kotlinx.android.synthetic.main.single_page.*
 import org.w3c.dom.Text
 
 
-class SingleTheme : AppCompatActivity() {
+class Search : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.hiking_2.R.layout.single_page)
+        setContentView(R.layout.search)
+        println("connected to search !!!!!!!!")
 
-        getSingleTheme()
+        searchTag()
 
-    }
-
-    companion object {
-        const val themeToPass = "hh"
     }
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @SuppressLint("ResourceType")
-    private fun getSingleTheme() {
-        themeName.text = "nope"
+    private fun searchTag() {
+        //themeName.text = "nope"
         println("connected!!!!!!!!")
-
-        val themeToPass = "hh"
-        val themePassed = intent.getStringExtra(themeToPass)
-        println("value of themePassed is "+ themePassed)
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
-        //val url = "https://aptproject-255903.appspot.com/json/reports?theme=Kayaking"
-        val url = "https://aptproject-255903.appspot.com/json/reports?theme=" + themePassed
+        val url = "https://aptproject-255903.appspot.com/search?tag=hot"
         val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
 
         // Request a string response from the provided URL.
@@ -69,21 +60,12 @@ class SingleTheme : AppCompatActivity() {
                 var photoIDs = response.getJSONArray("theme_image")
                 var photoID = photoIDs.getJSONObject(0)
                 var photoUrl = basicPhotoUrl + photoID.getString("\$oid")
-                println(photoIDs.length())
-                println(photoUrl)
-                Picasso
-                    .get()
-                    .load(photoUrl)
-                    .into(themeImage)
 
-                val selected_feature = response.getString("selected_feature")
+
+                val selected_tag = response.getString("selected_tag")
                 val reports = response.getJSONArray("reports")
                 val user_name = response.getJSONArray("user_name")
 
-                themeName.text = "Response: %s".format(response.toString())
-                themeName.text = "$reports"
-                themeName.text = "$selected_feature"
-                println(themeName.id)
 
 
                 var i = 0
@@ -210,14 +192,14 @@ class SingleTheme : AppCompatActivity() {
 
 
 
-                    linear_layout.addView(newCard)
+                    theme_linear_layout.addView(newCard)
 
                     ++i
                 }
 
 
             },
-            Response.ErrorListener { Toast.makeText(applicationContext, "That didn't work!", Toast.LENGTH_LONG) })
+            Response.ErrorListener { text_search.text = "That didn't work!" })
 
         // Add the request to the RequestQueue.
         queue.add(jsonGetRequest)

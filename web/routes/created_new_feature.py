@@ -20,7 +20,7 @@ def newCreatedFeature():
         req = request.get_json()
         print(req)
         new_feature_in = req.get('feature_name')
-        new_location_in = req.get('location')
+        new_location_in = req.get('feature_location')
 
     new_feature_result = create_feature(db, new_feature_in, new_location_in)
 
