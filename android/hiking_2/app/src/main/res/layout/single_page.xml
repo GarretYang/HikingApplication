@@ -71,12 +71,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
-            <Button
+            <!--<Button
                 android:id="@+id/buttonMap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="transitionToMap"
-                android:text="View Nearby Reports" />
+                android:text="View Nearby Reports" />-->
 
 
 

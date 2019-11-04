@@ -42,12 +42,12 @@
                 android:onClick="transitionToMap"
                 android:text="View nearby reports" />
 
-            <Button
+            <!--<Button
                 android:id="@+id/singleTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="goSingleTheme"
-                android:text="go to single theme" />
+                android:text="go to single theme" />-->
 
             <!--<com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"

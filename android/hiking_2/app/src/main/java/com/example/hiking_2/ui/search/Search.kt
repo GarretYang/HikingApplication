@@ -1,6 +1,7 @@
 package com.example.hiking_2.ui.search
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
@@ -50,6 +51,11 @@ class Search : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @SuppressLint("ResourceType")
     private fun searchTag() {
+
+        val searchPage = Intent(this, empty_search::class.java)
+        searchView.setOnClickListener {
+            startActivity(searchPage)
+        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 

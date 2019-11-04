@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.hiking_2.R
+import com.example.hiking_2.ui.MapsActivity
 import com.example.hiking_2.ui.search.Search
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -32,6 +33,10 @@ class SearchFragment : Fragment() {
             textView.text = ""
         })
 
+        val mapIntent = Intent(context, MapsActivity::class.java)
+
+        // Start new activity
+        startActivity(mapIntent)
 
 
         return root
