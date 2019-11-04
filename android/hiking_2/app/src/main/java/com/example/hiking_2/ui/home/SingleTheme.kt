@@ -41,15 +41,24 @@ class SingleTheme : AppCompatActivity() {
 
     }
 
+    companion object {
+        const val themeToPass = "hh"
+    }
+
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @SuppressLint("ResourceType")
     private fun getSingleTheme() {
         themeName.text = "nope"
         println("connected!!!!!!!!")
 
+        val themeToPass = "hh"
+        val themePassed = intent.getStringExtra(themeToPass)
+        println("value of themePassed is "+ themePassed)
+
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
-        val url = "https://aptproject-255903.appspot.com/json/reports?theme=Kayaking"
+        //val url = "https://aptproject-255903.appspot.com/json/reports?theme=Kayaking"
+        val url = "https://aptproject-255903.appspot.com/json/reports?theme=" + themePassed
         val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
 
         // Request a string response from the provided URL.
