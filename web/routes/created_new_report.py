@@ -42,7 +42,10 @@ def newcreatereport():
         status = "Error creating new report!"
         status_code = 202
     else:
-        status = "Successfully created a report for: " + str(feature) + " at " + str(location) + "!"
+        if location and 'name' in location:
+            status = "Successfully created a report for: " + str(feature) + " at " + str(location['name']) + "!"
+        else:
+            status = "Successfully created a report for: " + str(feature) + " at " + str(location) + "!"
         status_code = 201
 
     if request.path == '/newcreatereport':

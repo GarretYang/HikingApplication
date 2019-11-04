@@ -63,11 +63,6 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <!--Tags Group Right here-->
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="addTags"></Button>
-
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/select_tags"
                 android:layout_width="match_parent"
@@ -126,17 +121,26 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
                     android:text="Cold" />
             </com.google.android.material.chip.ChipGroup>
 
-            <Button
-                android:id="@+id/gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gallery" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <Button
-                android:id="@+id/camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Camera" />
+                <Button
+                    android:id="@+id/gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gallery"
+                    android:layout_margin="@dimen/default_gap"/>
+
+                <Button
+                    android:id="@+id/camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Camera"
+                    android:layout_margin="@dimen/default_gap"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/thumbnail_view"
@@ -149,7 +153,8 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
                 android:id="@+id/submit_new_report"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit" />
+                android:text="Submit"
+                android:layout_margin="@dimen/default_gap"/>
 
         </LinearLayout>
     </ScrollView>
