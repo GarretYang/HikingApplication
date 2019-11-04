@@ -1,5 +1,6 @@
 package com.example.hiking_2.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -8,10 +9,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
@@ -23,6 +21,8 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.hiking_2.R
 import com.example.hiking_2.ui.home.SingleTheme.Companion.themeToPass
+import com.example.hiking_2.ui.search.Search
+import com.example.hiking_2.ui.search.empty_search
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_report_details.*
@@ -44,6 +44,16 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         getThemes()
+
+
+        val searchPage = Intent(context, empty_search::class.java)
+        val searchhh: SearchView = root.findViewById(R.id.searchView)
+
+        searchhh.setOnClickListener {
+            startActivity(searchPage)
+        }
+
+
         return root
     }
 
