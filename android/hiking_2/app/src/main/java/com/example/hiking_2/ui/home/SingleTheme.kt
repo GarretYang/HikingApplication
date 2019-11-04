@@ -1,6 +1,7 @@
 package com.example.hiking_2.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.hiking_2.ui.search.empty_search
 import org.w3c.dom.Text
 
 
@@ -50,6 +52,11 @@ class SingleTheme : AppCompatActivity() {
     private fun getSingleTheme() {
         themeName.text = "nope"
         println("connected!!!!!!!!")
+
+        val searchPage = Intent(this, empty_search::class.java)
+        searchView.setOnClickListener {
+            startActivity(searchPage)
+        }
 
         val themeToPass = "hh"
         val themePassed = intent.getStringExtra(themeToPass)

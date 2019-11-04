@@ -1,6 +1,7 @@
 package com.example.hiking_2.ui.search
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
@@ -25,9 +26,11 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Build
 import android.view.View
+import android.widget.SearchView
 import androidx.annotation.RequiresApi
-import kotlinx.android.synthetic.main.single_page.*
-import org.w3c.dom.Text
+import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.search.searchView
+import kotlinx.android.synthetic.main.search.text_search
 
 
 class Search : AppCompatActivity() {
@@ -41,15 +44,43 @@ class Search : AppCompatActivity() {
 
     }
 
+    companion object {
+        const val tagToPass = "hh"
+    }
+
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @SuppressLint("ResourceType")
     private fun searchTag() {
+
+        val searchPage = Intent(this, empty_search::class.java)
+        searchView.setOnClickListener {
+            startActivity(searchPage)
+        }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(s: String): Boolean {
+                println("I'm changing !!!!!!!")
+                return true
+            }
+
+            override fun onQueryTextSubmit(s: String): Boolean {
+                println("I submitted !!!!!!!!")
+                val whatItype = searchView.query.toString()
+                println(whatItype)
+                return true
+            }
+        })
+
         //themeName.text = "nope"
         println("connected!!!!!!!!")
 
+        val tagPassed = intent.getStringExtra(tagToPass)
+
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
-        val url = "https://aptproject-255903.appspot.com/search?tag=hot"
+        // val url = "https://aptproject-255903.appspot.com/search?tag=hot"
+        val url = "https://aptproject-255903.appspot.com/search?tag=" + tagPassed
         val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
 
         // Request a string response from the provided URL.

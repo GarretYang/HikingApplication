@@ -16,6 +16,9 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.hiking_2.R
+import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_create_theme.*
 import org.json.JSONObject
 import java.lang.reflect.Array
 
@@ -73,6 +76,18 @@ class CreateFeatureFragment : Fragment() {
                 val newToast = Toast.makeText(root.context, "Error!", Toast.LENGTH_SHORT)
                 newToast.show()
             }
+        }
+        var themeBtn: MaterialButton = root.findViewById(R.id.submit_new_theme)
+
+        if(FirebaseAuth.getInstance().currentUser != null){
+            // User is signed in
+            themeBtn.setEnabled(true)
+            themeBtn.setText("Submit")
+
+        }else{
+            // User is signed out
+            themeBtn.setEnabled(false)
+            themeBtn.setText("Please Login First")
         }
         return root
     }
