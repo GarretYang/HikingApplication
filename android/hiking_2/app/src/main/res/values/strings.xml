@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_add">Add</string>
-    <string name="title_account">Account</string>
+    <string name="title_account">Login</string>
     <string name="title_map">Map</string>
 
     <!--single page-->
