@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_create_report.*
 import org.json.JSONArray
 import org.json.JSONObject
 import android.util.Base64
+import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayOutputStream
 
 
@@ -48,6 +50,19 @@ class CreateReportFragment : Fragment() {
         createReport.setOnClickListener { sendReport(root) }
         cameraButton.setOnClickListener { dispatchTakePictureIntent() }
         galleryButton.setOnClickListener { dispatchGetGalleryIntent() }
+
+        var reportBtn: Button = root.findViewById(R.id.submit_new_report)
+
+        if(FirebaseAuth.getInstance().currentUser != null){
+            // User is signed in
+            reportBtn.setEnabled(true)
+            reportBtn.setText("Submit")
+
+        }else{
+            // User is signed out
+            reportBtn.setEnabled(false)
+            reportBtn.setText("PLEASE LOGIN FIRST")
+        }
 
         return root
     }
