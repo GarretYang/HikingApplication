@@ -16,16 +16,8 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/select_feature"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Feature Name"
-                android:inputType="textPersonName" />
-
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/select_feature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
