@@ -9,12 +9,28 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:paddingVertical="@dimen/activity_vertical_margin"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:text="Add New Report"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
             <EditText
                 android:id="@+id/select_feature"
@@ -53,10 +69,70 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
                 android:hint="Location"
                 android:inputType="textPersonName" />
 
+            <!--Tags Group Right here-->
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="addTags"></Button>
+
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/select_tags"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="#fafff7"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleLine="false"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/dry"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dry" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/wet"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wet" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/crowded"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crowded" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/not_busy"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Busy" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/hot"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hot" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/cold"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cold" />
+            </com.google.android.material.chip.ChipGroup>
 
             <Button
                 android:id="@+id/gallery"
@@ -72,9 +148,10 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ImageView
                 android:id="@+id/thumbnail_view"
-                android:layout_width="129dp"
+                android:layout_width="wrap_content"
                 android:layout_height="159dp"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
 
             <Button
                 android:id="@+id/submit_new_report"
