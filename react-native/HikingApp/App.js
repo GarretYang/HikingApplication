@@ -16,15 +16,14 @@ import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
  
-import HomeScreen from './components/HomeScreen';
-import SettingsScreen from './components/SettingsScreen';
-import DetailsScreen from './components/DetailsScreen';
-import ProfileScreen from './components/ProfileScreen';
+import ThemePage from './components/theme_page/ThemePage'
+import MapPage from './components/map/MapPage'
+import CreateOptionPage from './components/create_options_page/CreateOptionPage'
+import LogInPage from './components/log_in/LogInPage'
 const HomeStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
-    Home: { screen: HomeScreen },
-    Details: { screen: DetailsScreen },
+    Home: { screen: ThemePage },
   },
   {
     defaultNavigationOptions: {
@@ -38,12 +37,10 @@ const HomeStack = createStackNavigator(
     },
   }
 );
-const SettingsStack = createStackNavigator(
+const AddStack = createStackNavigator(
   {
-    //Defination of Navigaton from setting screen
-    Settings: { screen: SettingsScreen },
-    Details: { screen: DetailsScreen },
-    Profile: { screen: ProfileScreen },
+    //Defination of Navigaton from home screen
+    Add: { screen: CreateOptionPage }
   },
   {
     defaultNavigationOptions: {
@@ -52,7 +49,43 @@ const SettingsStack = createStackNavigator(
         backgroundColor: '#42f44b',
       },
       headerTintColor: '#FFFFFF',
-      title: 'Settings',
+      title: 'Add',
+      //Header title
+    },
+  }
+);
+
+const MapStack = createStackNavigator(
+  {
+    //Defination of Navigaton from setting screen
+    Map: { screen: MapPage },
+  },
+  {
+    defaultNavigationOptions: {
+      //Header customization of the perticular Screen
+      headerStyle: {
+        backgroundColor: '#42f44b',
+      },
+      headerTintColor: '#FFFFFF',
+      title: 'Map',
+      //Header title
+    },
+  }
+);
+
+const LoginStack = createStackNavigator(
+  {
+    //Defination of Navigaton from setting screen
+    Login: { screen: LogInPage },
+  },
+  {
+    defaultNavigationOptions: {
+      //Header customization of the perticular Screen
+      headerStyle: {
+        backgroundColor: '#42f44b',
+      },
+      headerTintColor: '#FFFFFF',
+      title: 'Login',
       //Header title
     },
   }
@@ -60,7 +93,9 @@ const SettingsStack = createStackNavigator(
 const App = createBottomTabNavigator(
   {
     Home: { screen: HomeStack },
-    Settings: { screen: SettingsStack },
+    Map: {screen: MapStack},
+    Add: {screen: AddStack},
+    Login: {screen: LoginStack},
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

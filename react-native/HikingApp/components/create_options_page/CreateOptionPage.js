@@ -4,23 +4,24 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
  
-export default class HomeScreen extends React.Component {
-  //Home Screen to show in Home Option
+export default class CreateOptionPage extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ marginTop: 50, fontSize: 25 }}>Home!</Text>
+        <Text style={{ marginTop: 50, fontSize: 25 }}>Create Themes/Reports</Text>
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => this.props.navigation.navigate('Settings')}>
-            <Text>Go to settng Tab</Text>
+            // onPress={() => this.props.navigation.navigate('Settings')}
+            >
+            <Text>Create Themes</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => this.props.navigation.navigate('Details')}>
-            <Text>Open Details Screen</Text>
+            // onPress={() => this.props.navigation.navigate('Details')}
+            >
+            <Text>Create Reports</Text>
           </TouchableOpacity>
         </View>
       </View>

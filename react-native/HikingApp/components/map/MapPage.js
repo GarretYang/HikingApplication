@@ -4,13 +4,22 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
  
-export default class DetailsScreen extends React.Component {
-  //Detail Screen to show from any Open detail button
+export default class MapPage extends React.Component {
+  //Home Screen to show in Home Option
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Details!</Text>
+        <Text style={{ marginTop: 50, fontSize: 25 }}>Map</Text>
       </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    width: 300,
+    marginTop: 16,
+  },
+});
