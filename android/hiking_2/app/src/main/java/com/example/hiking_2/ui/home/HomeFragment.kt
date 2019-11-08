@@ -74,8 +74,14 @@ class HomeFragment : Fragment() {
                     var newCardTextView = TextView(newCard.context)
                     var newImg = ImageView(newCard.context)
                     val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
-                    var photoID = themeJson.getJSONObject("feature_img_id").getString("\$oid")
-                    var PhotoUrl = basicPhotoUrl + photoID
+                    if (themeJson.getJSONObject("feature_img_id") != null) {
+                        var photoID = themeJson.getJSONObject("feature_img_id").getString("\$oid")
+                        var PhotoUrl = basicPhotoUrl + photoID
+                        Picasso
+                            .get()
+                            .load(PhotoUrl)
+                            .into(newImg)
+                    }
                     var param: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT)
                     param.topMargin = 50
@@ -85,10 +91,6 @@ class HomeFragment : Fragment() {
                     newCard.layoutParams = param
                     newCard.minimumHeight = 200
                     newCardTextView.text = themeJson.getString("feature_name")
-                    Picasso
-                        .get()
-                        .load(PhotoUrl)
-                        .into(newImg)
                     newImg.layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT
                     newImg.layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT
                     newImg.scaleType = ImageView.ScaleType.FIT_XY
