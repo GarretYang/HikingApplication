@@ -22,6 +22,10 @@ import ThemePage from './components/theme_page/ThemePage'
 import MapPage from './components/map/MapPage'
 import CreateOptionPage from './components/create_options_page/CreateOptionPage'
 import LogInPage from './components/log_in/LogInPage'
+
+import AddNewReport from './components/create_options_page/AddNewReport'
+import AddNewTheme from './components/create_options_page/AddNewTheme'
+
 const HomeStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
@@ -42,7 +46,9 @@ const HomeStack = createStackNavigator(
 const AddStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
-    Add: { screen: CreateOptionPage }
+    Add: { screen: CreateOptionPage },
+    AddReport: { screen: AddNewReport },
+    AddTheme: { screen: AddNewTheme }
   },
   {
     defaultNavigationOptions: {
