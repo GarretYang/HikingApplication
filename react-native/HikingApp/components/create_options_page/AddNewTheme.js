@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, Alert } from 'react-native'
 import { Input, Button } from 'react-native-elements';
 
-class createThemesPage extends React.Component {
+class AddNewTheme extends React.Component {
     
     constructor(props) {
         super(props);
@@ -82,4 +82,4 @@ class createThemesPage extends React.Component {
     }
 }
 
-export default createThemesPage
+export default AddNewTheme
