@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+//import { IonButton, IonIcon, IonContent } from '@ionic/react';
+
 //import Ionicons to show the icon for bottom options
  
 //For React Navigation 3+
@@ -29,7 +31,7 @@ const HomeStack = createStackNavigator(
     defaultNavigationOptions: {
       //Header customization of the perticular Screen
       headerStyle: {
-        backgroundColor: '#42f44b',
+        backgroundColor: '#009577',
       },
       headerTintColor: '#FFFFFF',
       title: 'Home',
@@ -46,7 +48,7 @@ const AddStack = createStackNavigator(
     defaultNavigationOptions: {
       //Header customization of the perticular Screen
       headerStyle: {
-        backgroundColor: '#42f44b',
+        backgroundColor: '#009577',
       },
       headerTintColor: '#FFFFFF',
       title: 'Add',
@@ -64,7 +66,7 @@ const MapStack = createStackNavigator(
     defaultNavigationOptions: {
       //Header customization of the perticular Screen
       headerStyle: {
-        backgroundColor: '#42f44b',
+        backgroundColor: '#009577',
       },
       headerTintColor: '#FFFFFF',
       title: 'Map',
@@ -82,7 +84,7 @@ const LoginStack = createStackNavigator(
     defaultNavigationOptions: {
       //Header customization of the perticular Screen
       headerStyle: {
-        backgroundColor: '#42f44b',
+        backgroundColor: '#009577',
       },
       headerTintColor: '#FFFFFF',
       title: 'Login',
@@ -101,18 +103,24 @@ const App = createBottomTabNavigator(
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
-        let IconComponent = Ionicons;
+        let IconComponent = MaterialCommunityIcons;
         let iconName;
         if (routeName === 'Home') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Settings') {
-          iconName = `ios-checkmark-circle${focused ? '' : '-outline'}`;
+          //<IonButton color="primary">Primary</IonButton>
+          iconName = `home${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Map') {
+          iconName = `map-marker${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Add') {
+          //<ion-icon name="add-circle-outline"></ion-icon>
+          iconName = `plus-box${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Login') {
+          iconName = `account${focused ? '' : '-outline'}`;
         }
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#42f44b',
+      activeTintColor: '#009577',
       inactiveTintColor: 'gray',
     },
   }
