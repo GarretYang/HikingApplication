@@ -3,15 +3,7 @@ import { Button, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //import Ionicons to show the icon for bottom options
- 
-//For React Navigation 3+
-//import {
-//  createStackNavigator,
-//  createBottomTabNavigator,
-//  createAppContainer,
-//} from 'react-navigation';
- 
-//For React Navigation 4+
+
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -19,7 +11,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import ThemePage from './components/theme_page/ThemePage'
 import MapPage from './components/map/MapPage'
 import CreateOptionPage from './components/create_options_page/CreateOptionPage'
+import CreateThemesPage from './components/create_themes/createThemesPage'
 import LogInPage from './components/log_in/LogInPage'
+import createThemesPage from './components/create_themes/createThemesPage';
+
 const HomeStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
@@ -37,10 +32,17 @@ const HomeStack = createStackNavigator(
     },
   }
 );
+
 const AddStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
-    Add: { screen: CreateOptionPage }
+    Add: { screen: CreateOptionPage },
+    AddThemes: { 
+      screen: CreateThemesPage,
+      navigationOptions: {
+        headerTitle: 'Add Themes',
+      },    
+    }
   },
   {
     defaultNavigationOptions: {
@@ -90,12 +92,13 @@ const LoginStack = createStackNavigator(
     },
   }
 );
+
 const App = createBottomTabNavigator(
   {
     Home: { screen: HomeStack },
-    Map: {screen: MapStack},
-    Add: {screen: AddStack},
-    Login: {screen: LoginStack},
+    Map: { screen: MapStack },
+    Add: { screen: AddStack },
+    Login: { screen: LoginStack },
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

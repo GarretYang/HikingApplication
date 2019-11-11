@@ -13,7 +13,7 @@ export default class CreateOptionPage extends React.Component {
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <TouchableOpacity
             style={styles.button}
-            // onPress={() => this.props.navigation.navigate('Settings')}
+            onPress={() => this.props.navigation.navigate('AddThemes')}
             >
             <Text>Create Themes</Text>
           </TouchableOpacity>
