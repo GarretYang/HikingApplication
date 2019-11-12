@@ -46,7 +46,12 @@ const AddStack = createStackNavigator(
         headerTitle: 'Add Theme',
       },    
     },
-    AddReport: { screen: AddNewReport },
+    AddReport: { 
+      screen: AddNewReport,
+      navigationOptions: {
+        headerTitle: 'Add Report',
+      },
+     },
   },
   {
     defaultNavigationOptions: {

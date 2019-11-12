@@ -1,19 +1,49 @@
 //This is an example code for Bottom Navigation//
 import React, { Component } from 'react';
 //import react in our code.
-import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, FlatList } from 'react-native';
 //import all the basic component we have used
 import { Dropdown } from 'react-native-material-dropdown';
- 
+//import ImagePicker from 'react-native-image-picker';
+
 export default class DetailsScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {text: ''};
+        this.state = {
+            text: '',
+            isLoading: true
+        };
     };
+
+    componentDidMount(){
+        return fetch('http://aptproject-255903.appspot.com/json')
+          .then((response) => response.json())
+          .then((responseJson) => {
+                var count = Object.keys(responseJson).length;
+                //console.log(count);
+                let drop_down_data = [];
+                for (var i=0; i<count; i++) {
+                    //console.log(responseJson[i].feature_name);
+                    drop_down_data.push({ value: responseJson[i].feature_name });
+                    //console.log(drop_down_data)
+                }
+
+                this.setState({
+                    isLoading: false,
+                    drop_down_data
+                }, function(){
+                    
+                });
+    
+          })
+          .catch((error) =>{
+            console.error(error);
+          });
+      }
 
     //Detail Screen to show from any Open detail button
     render() {
-        let data = [{
+        let themeName = [{
         value: 'Picnic',
         }, {
         value: 'Kayaking',
@@ -26,8 +56,8 @@ export default class DetailsScreen extends React.Component {
                 <Text>Add New Report</Text>
                 
                 <Dropdown
-                    label='THEME'
-                    data={data}
+                    label='Theme'
+                    data={this.state.drop_down_data}
                 />
 
                 <TextInput
@@ -36,9 +66,6 @@ export default class DetailsScreen extends React.Component {
                     onChangeText={(text) => this.setState({text})}
                     value={this.state.text}
                 />
-                <Text style={{padding: 10, fontSize: 42}}>
-                    {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
-                </Text>
 
                 <TextInput
                     style={{height: 40}}
@@ -99,15 +126,20 @@ export default class DetailsScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-     flex: 1,
-     justifyContent: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center', 
+        //alignItems: 'center', 
+        paddingLeft: '10%', 
+        paddingRight: '10%',
     },
     buttonContainer: {
-      margin: 20
+        margin: 20
     },
     alternativeLayoutButtonContainer: {
-      margin: 20,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
+        //margin: 20,
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 });
