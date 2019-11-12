@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, FlatList } from 'react-native';
 //import all the basic component we have used
 import { Dropdown } from 'react-native-material-dropdown';
-//import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker';
 
 export default class DetailsScreen extends React.Component {
     constructor(props) {
@@ -39,11 +39,19 @@ export default class DetailsScreen extends React.Component {
           .catch((error) =>{
             console.error(error);
           });
-      }
+    }
+
+    handleChoosePhoto = () => {
+        const options = {
+            noData: true,
+        };
+        ImagePicker.launchImageLibrary(options, response => {
+            console.log("response", response);
+        }); 
+    }
 
     //Detail Screen to show from any Open detail button
     render() {
-        
         return (
             <View style={ styles.container }>
                 <Text>Add New Report</Text>
@@ -103,7 +111,7 @@ export default class DetailsScreen extends React.Component {
 
                 <View style={styles.alternativeLayoutButtonContainer}>
                     <Button
-                        //onPress={this._onPressButton}
+                        onPress={this.handleChoosePhoto}
                         title="GALLERY"
                     />
                     <Button
@@ -112,7 +120,7 @@ export default class DetailsScreen extends React.Component {
                     />
                 </View>
 
-                <View style={styles.alternativeLayoutButtonContainer}>
+                <View style={styles.submitButtonContainer}>
                     <Button
                         title="Submit"
                         onPress={() =>
@@ -147,5 +155,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    submitButtonContainer: {
+        //margin: 20,
+        marginTop: 20,
+        flexDirection: 'row',
+        //justifyContent: 'space-between',
+        justifyContent: 'center',
+        alignContent: 'center', 
     }
 });
