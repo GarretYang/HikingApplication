@@ -14,6 +14,7 @@ import ThemePage from './components/theme_page/ThemePage'
 import MapPage from './components/map/MapPage'
 import CreateOptionPage from './components/create_options_page/CreateOptionPage'
 import LogInPage from './components/log_in/LogInPage'
+import WelcomePage from './components/log_in/WelcomePage'
 
 import AddNewReport from './components/create_options_page/AddNewReport'
 import AddNewTheme from './components/create_options_page/AddNewTheme'
@@ -83,6 +84,7 @@ const LoginStack = createStackNavigator(
   {
     //Defination of Navigaton from setting screen
     Login: { screen: LogInPage },
+    Welcome: { screen: WelcomePage}
   },
   {
     defaultNavigationOptions: {
