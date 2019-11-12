@@ -43,13 +43,6 @@ export default class DetailsScreen extends React.Component {
 
     //Detail Screen to show from any Open detail button
     render() {
-        let themeName = [{
-        value: 'Picnic',
-        }, {
-        value: 'Kayaking',
-        }, {
-        value: 'Waterfall',
-        }];
         
         return (
             <View style={ styles.container }>
@@ -63,22 +56,22 @@ export default class DetailsScreen extends React.Component {
                 <TextInput
                     style={{height: 40}}
                     placeholder="01/01/2019"
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
+                    onChangeText={(value) => this.setState({date: value})}
+                    value={this.state.date}
                 />
 
                 <TextInput
                     style={{height: 40}}
                     placeholder="Description"
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
+                    onChangeText={(value) => this.setState({description: value})}
+                    value={this.state.description}
                 />
 
                 <TextInput
                     style={{height: 40}}
                     placeholder="Location"
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
+                    onChangeText={(value) => this.setState({location: value})}
+                    value={this.state.location}
                 />
 
                 <View style={styles.alternativeLayoutButtonContainer}>
@@ -116,6 +109,19 @@ export default class DetailsScreen extends React.Component {
                     <Button
                         //onPress={this._onPressButton}
                         title="CAMERA"
+                    />
+                </View>
+
+                <View style={styles.alternativeLayoutButtonContainer}>
+                    <Button
+                        title="Submit"
+                        onPress={() =>
+                            {
+                                console.log(this.state.date);
+                                console.log(this.state.description);
+                                console.log(this.state.location)
+                            }
+                        }
                     />
                 </View>
                 
