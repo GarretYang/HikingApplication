@@ -50,6 +50,15 @@ export default class DetailsScreen extends React.Component {
         }); 
     }
 
+    handleTakePhoto = () => {
+        const options = {
+            noData: true,
+        };
+        ImagePicker.launchCamera(options, (response) => {
+            console.log("response", response);
+        });
+    }
+
     //Detail Screen to show from any Open detail button
     render() {
         return (
@@ -115,7 +124,7 @@ export default class DetailsScreen extends React.Component {
                         title="GALLERY"
                     />
                     <Button
-                        //onPress={this._onPressButton}
+                        onPress={this.handleTakePhoto}
                         title="CAMERA"
                     />
                 </View>
