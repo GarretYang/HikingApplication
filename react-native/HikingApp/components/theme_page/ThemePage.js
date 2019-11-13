@@ -21,6 +21,7 @@ export default class ThemePage extends React.Component {
   constructor(props){
     super(props);
     this.state ={ isLoading: true}
+    this.imageHandler = this.imageHandler.bind(this)
   }
 
   componentDidMount(){
@@ -41,8 +42,20 @@ export default class ThemePage extends React.Component {
       });
   }
 
+  imageHandler(item) {
+    if (item.feature_img_id !== undefined && item.feature_img_id.$oid !== undefined) {
+      return (
+        <Image source = {{ uri: "https://aptproject-255903.appspot.com/photo?photoId="+item.feature_img_id.$oid }} style={styles.imageView} />
+      ) 
+    } else {
+      return (
+        <Image source = {{ uri: "http://denrakaev.com/wp-content/uploads/2015/03/no-image-800x511.png"}} style={styles.imageView} />
+      )
+    }
+  }
 
-  render(){
+
+  render() {
 
     if(this.state.isLoading){
       return(
@@ -71,8 +84,9 @@ export default class ThemePage extends React.Component {
                     feature: item.feature_name
                 })}
             >
-
-              <Image source = {{ uri: "https://aptproject-255903.appspot.com/photo?photoId="+item.feature_img_id.$oid }} style={styles.imageView} />
+              
+              {this.imageHandler(item)}
+                
               <Text> {item.feature_name} </Text>
 
             </TouchableOpacity>
