@@ -6,6 +6,7 @@ import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, Image, Scr
 import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker';
 import ImgToBase64 from 'react-native-image-base64';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 export default class DetailsScreen extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class DetailsScreen extends React.Component {
         this.state = {
             text: '',
             isLoading: true,
+            isSignedIn: false
         };
     };
 
@@ -77,7 +79,14 @@ export default class DetailsScreen extends React.Component {
         
     }
 
-    
+    checkIsSignedIn = async () => {
+        const isSignedIn = await GoogleSignin.isSignedIn();
+        this.setState({ isSignedIn: isSignedIn });
+        // console.log("Finish checking the user status");
+        if (!this.state.isSignedIn) {
+            alert('You must sign in before adding new report!');
+        }
+    };
 
     //Detail Screen to show from any Open detail button
     render() {
@@ -163,6 +172,7 @@ export default class DetailsScreen extends React.Component {
                         title="Submit"
                         onPress={() =>
                             {
+                                this.checkIsSignedIn();
                                 console.log(this.state.date);
                                 console.log(this.state.description);
                                 console.log(this.state.location);

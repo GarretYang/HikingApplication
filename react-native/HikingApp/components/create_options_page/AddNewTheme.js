@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, Alert } from 'react-native'
 import { Input, Button } from 'react-native-elements';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 class AddNewTheme extends React.Component {
     
@@ -8,12 +9,25 @@ class AddNewTheme extends React.Component {
         super(props);
         this.state = {
             thmeme: "",
-            location: ""
+            location: "",
+            isSignedIn: false
         }
 
     }
+
+    checkIsSignedIn = async () => {
+        const isSignedIn = await GoogleSignin.isSignedIn();
+        this.setState({ isSignedIn: isSignedIn });
+        // console.log("Finish checking the user status");
+        if (!this.state.isSignedIn) {
+            alert('You must sign in before adding new report!');
+        }
+    };
     
     async submitHandler() {
+        this.checkIsSignedIn();
+        if (!this.state.isSignedIn)
+            return;
         const theme = this.state.theme
         const location = this.state.location
 
