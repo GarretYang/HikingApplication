@@ -41,6 +41,8 @@ target 'HikingApp' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+  pod 'RNImgToBase64', :path => '../node_modules/react-native-image-base64'
+
   target 'HikingAppTests' do
     inherit! :search_paths
     # Pods for testing
