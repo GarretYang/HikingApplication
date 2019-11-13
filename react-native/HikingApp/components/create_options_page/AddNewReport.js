@@ -1,17 +1,20 @@
 //This is an example code for Bottom Navigation//
 import React, { Component } from 'react';
 //import react in our code.
-import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, FlatList } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, Image, ScrollView } from 'react-native';
 //import all the basic component we have used
 import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 export default class DetailsScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             text: '',
-            isLoading: true
+            isLoading: true,
+            isSignedIn: false
         };
     };
 
@@ -41,13 +44,25 @@ export default class DetailsScreen extends React.Component {
           });
     }
 
+    state = {
+        photo: null,
+    }
+
     handleChoosePhoto = () => {
         const options = {
             noData: true,
         };
         ImagePicker.launchImageLibrary(options, response => {
             console.log("response", response);
-        }); 
+            console.log(response.fileName);
+            if (response.uri) {
+                this.setState({ photo: response })
+            };
+        });
+        /*I I 
+        ImgToBase64.getBase64String(this.state.photo.path)
+        .then(base64String => doSomethingWith(base64String))
+        .catch(err => doSomethingWith(err));*/
     }
 
     handleTakePhoto = () => {
@@ -56,12 +71,28 @@ export default class DetailsScreen extends React.Component {
         };
         ImagePicker.launchCamera(options, (response) => {
             console.log("response", response);
+            console.log(response.fileSize);
+            if (response.uri) {
+                this.setState({ photo: response })
+            };
         });
+        
     }
+
+    checkIsSignedIn = async () => {
+        const isSignedIn = await GoogleSignin.isSignedIn();
+        this.setState({ isSignedIn: isSignedIn });
+        // console.log("Finish checking the user status");
+        if (!this.state.isSignedIn) {
+            alert('You must sign in before adding new report!');
+        }
+    };
 
     //Detail Screen to show from any Open detail button
     render() {
+        const { photo } = this.state
         return (
+            <ScrollView>
             <View style={ styles.container }>
                 <Text>Add New Report</Text>
                 
@@ -129,20 +160,30 @@ export default class DetailsScreen extends React.Component {
                     />
                 </View>
 
+                {photo && (
+                    <Image
+                        source={{ uri: photo.uri }}
+                        style={{ width: 300, height: 300 }}
+                    />
+                )}
+
                 <View style={styles.submitButtonContainer}>
                     <Button
                         title="Submit"
                         onPress={() =>
                             {
+                                this.checkIsSignedIn();
                                 console.log(this.state.date);
                                 console.log(this.state.description);
-                                console.log(this.state.location)
+                                console.log(this.state.location);
+                                console.log(this.state.photo.fileName)
                             }
                         }
                     />
                 </View>
                 
             </View>
+            </ScrollView>
         );
     }
 }
@@ -172,5 +213,5 @@ const styles = StyleSheet.create({
         //justifyContent: 'space-between',
         justifyContent: 'center',
         alignContent: 'center', 
-    }
+    },
 });
