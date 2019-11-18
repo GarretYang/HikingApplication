@@ -9,11 +9,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
- 
+
 import ThemePage from './components/theme_page/ThemePage'
+import SingleTheme from './components/single_theme/SingleTheme'
+import Search from './components/single_theme/Search'
+
 import MapPage from './components/map/MapPage'
 import CreateOptionPage from './components/create_options_page/CreateOptionPage'
 import LogInPage from './components/log_in/LogInPage'
+import WelcomePage from './components/log_in/WelcomePage'
 
 import AddNewReport from './components/create_options_page/AddNewReport'
 import AddNewTheme from './components/create_options_page/AddNewTheme'
@@ -22,6 +26,18 @@ const HomeStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
     Home: { screen: ThemePage },
+    ThemeReports: {
+        screen: SingleTheme,
+        navigationOptions: {
+            title: 'Reports'
+        }
+    },
+    Search:{
+        screen:Search,
+        navigationOptions:{
+            title:'Search'
+        }
+    }
   },
   {
     defaultNavigationOptions: {
@@ -40,13 +56,18 @@ const AddStack = createStackNavigator(
   {
     //Defination of Navigaton from home screen
     Add: { screen: CreateOptionPage },
-    AddTheme: { 
+    AddTheme: {
       screen: AddNewTheme,
       navigationOptions: {
         headerTitle: 'Add Theme',
-      },    
+      },
     },
-    AddReport: { screen: AddNewReport },
+    AddReport: {
+      screen: AddNewReport,
+      navigationOptions: {
+        headerTitle: 'Add Report',
+      },
+     },
   },
   {
     defaultNavigationOptions: {
@@ -83,6 +104,7 @@ const LoginStack = createStackNavigator(
   {
     //Defination of Navigaton from setting screen
     Login: { screen: LogInPage },
+    Welcome: { screen: WelcomePage}
   },
   {
     defaultNavigationOptions: {

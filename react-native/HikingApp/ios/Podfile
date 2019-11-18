@@ -35,6 +35,16 @@ target 'HikingApp' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'RNImgToBase64', :path => '../node_modules/react-native-image-base64'
+
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'HikingAppTests' do
     inherit! :search_paths
     # Pods for testing

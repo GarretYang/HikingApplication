@@ -4,9 +4,16 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.github.douglasjunior.reactNativeGetLocation.ReactNativeGetLocationPackage;
+import com.rnfs.RNFSPackage;
+import fr.snapp.imagebase64.RNImgToBase64Package;
+import com.swmansion.reanimated.ReanimatedPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage; // <-- Add this line
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -25,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          packages.add(new RNFirebaseAuthPackage()); // <-- Add this line
           return packages;
         }
 
