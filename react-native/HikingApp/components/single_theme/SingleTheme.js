@@ -34,6 +34,63 @@ export default class SingleTheme extends React.Component {
       });
   }
 
+  imageHandler(item) {
+    if (item.photos !== undefined && item.photos[0].$oid !== undefined) {
+      return (
+        <Image source = {{ uri: "https://aptproject-255903.appspot.com/photo?photoId="+item.photos[0].$oid}} style={styles.imageView} />
+      )
+    } else {
+      return (
+        <Image source = {{ uri: "http://denrakaev.com/wp-content/uploads/2015/03/no-image-800x511.png"}} style={styles.imageView} />
+      )
+    }
+  }
+
+  userNameHandler(item){
+      if (item.user_name !== undefined) {
+        return (
+          <Text>User Name: {item.user_name} </Text>
+        )
+      }
+  }
+
+  dateHandler(item){
+      if (item.date_in != undefined) {
+          return (
+            <Text>Date: {item.date_in} </Text>
+          )
+      }
+  }
+
+  descriptionHandler(item) {
+      if (item.description != undefined) {
+          return (
+              <Text>Description: {item.description} </Text>
+          )
+      }
+  }
+
+  locationHandler(item) {
+      if (item.location != undefined) {
+          if (item.location.name != undefined){
+              return (
+                  <Text>Location: {item.location.name} </Text>
+              )
+          }else {
+              return (
+                  <Text>Location: {item.location } </Text>
+              )
+          }
+
+      }
+  }
+
+  tagsHandler(item) {
+      if (item.tags != undefined){
+          <Text>Tags: {item.tags} </Text>
+      }
+  }
+
   render(){
 
     if(this.state.isLoading){
@@ -43,6 +100,7 @@ export default class SingleTheme extends React.Component {
         </View>
       )
     }
+    
 
     return(
      <View style={styles.MainContainer}>
@@ -50,15 +108,12 @@ export default class SingleTheme extends React.Component {
           data={this.state.dataSource}
           renderItem={({item}) =>
              <View style={{flex:1, flexDirection: 'column'}}>
-
-               <Text>User Name: {item.user_name} </Text>
-               <Text>Date: {item.date_in} </Text>
-               <Text>Description: {item.description} </Text>
-               <Text>Tags: {item.tags} </Text>
-               <Text>  </Text>
-
-               <Image source = {{ uri: "https://aptproject-255903.appspot.com/photo?photoId="+item.photos[0].$oid}} style={styles.imageView} />
-
+                {this.userNameHandler(item)}
+                {this.dateHandler(item)}
+                {this.descriptionHandler(item)}
+                {this.tagsHandler(item)}
+                <Text>  </Text>
+                {this.imageHandler(item)}
              </View>}
           keyExtractor={({id}, index) => id}
         />
@@ -82,7 +137,7 @@ const styles = StyleSheet.create({
 
     imageView: {
 
-        width: '70%',
+        width: '100%',
         height: 100 ,
         margin: 7,
         borderRadius : 7

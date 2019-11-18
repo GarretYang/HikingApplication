@@ -4,16 +4,6 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
 
-//export default class ThemePage extends React.Component {
-//  //Home Screen to show in Home Option
-//  render() {
-//    return (
-//      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//        <Text style={{ marginTop: 50, fontSize: 25 }}>Themes</Text>
-//      </View>
-//    );
-//  }
-//}
 import { FlatList, ActivityIndicator, Image } from 'react-native';
 
 export default class ThemePage extends React.Component {
@@ -46,7 +36,7 @@ export default class ThemePage extends React.Component {
     if (item.feature_img_id !== undefined && item.feature_img_id.$oid !== undefined) {
       return (
         <Image source = {{ uri: "https://aptproject-255903.appspot.com/photo?photoId="+item.feature_img_id.$oid }} style={styles.imageView} />
-      ) 
+      )
     } else {
       return (
         <Image source = {{ uri: "http://denrakaev.com/wp-content/uploads/2015/03/no-image-800x511.png"}} style={styles.imageView} />
@@ -79,14 +69,14 @@ export default class ThemePage extends React.Component {
         renderItem={({item}) =>
 
             <TouchableOpacity
-                style={{flex:1, flexDirection: 'row'}}
+                style={{flex:1, flexDirection: 'column'}}
                 onPress={() => this.props.navigation.navigate('ThemeReports', {
                     feature: item.feature_name
                 })}
             >
-              
+
               {this.imageHandler(item)}
-                
+
               <Text> {item.feature_name} </Text>
 
             </TouchableOpacity>
@@ -115,7 +105,7 @@ const styles = StyleSheet.create({
 
     imageView: {
 
-        width: '70%',
+        width: '100%',
         height: 100 ,
         margin: 7,
         borderRadius : 7

@@ -24,7 +24,7 @@ class AddNewTheme extends React.Component {
         }
     };
     
-    async submitHandler() {
+    submitHandler = async() => {
         this.checkIsSignedIn();
         if (!this.state.isSignedIn)
             return;
