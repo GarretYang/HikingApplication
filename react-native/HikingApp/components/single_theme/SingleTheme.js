@@ -25,7 +25,15 @@ export default class SingleTheme extends React.Component {
         this.setState({
           isLoading: false,
           dataSource: responseJson.reports,
+          dataSourceUserName: responseJson.user_name,
         }, function(){
+          var count = this.state.dataSource.length;
+          for (var i=0; i<count; i++) {
+            this.state.dataSource[i].user_name = this.state.dataSourceUserName[i];
+            //console.log('I am debugging 1', this.state.dataSource[i].user_name);
+            //console.log('I am debugging 1', this.state.dataSource[i].description);
+          }
+          this.setState({reportsData: this.state.dataSource})
         });
 
       })
@@ -50,6 +58,10 @@ export default class SingleTheme extends React.Component {
       if (item.user_name !== undefined) {
         return (
           <Text>User Name: {item.user_name} </Text>
+        )
+      } else {
+        return (
+          <Text>no user name</Text>
         )
       }
   }
@@ -105,14 +117,14 @@ export default class SingleTheme extends React.Component {
     return(
      <View style={styles.MainContainer}>
         <FlatList
-          data={this.state.dataSource}
+          data={this.state.reportsData}
           renderItem={({item}) =>
              <View style={{flex:1, flexDirection: 'column'}}>
+                <Text>{}</Text>
                 {this.userNameHandler(item)}
                 {this.dateHandler(item)}
                 {this.descriptionHandler(item)}
                 {this.tagsHandler(item)}
-                <Text>  </Text>
                 {this.imageHandler(item)}
              </View>}
           keyExtractor={({id}, index) => id}
