@@ -34,12 +34,9 @@ export default class AddNewReport extends React.Component {
           .then((response) => response.json())
           .then((responseJson) => {
                 var count = Object.keys(responseJson).length;
-                //console.log(count);
                 let drop_down_data = [];
                 for (var i=0; i<count; i++) {
-                    //console.log(responseJson[i].feature_name);
                     drop_down_data.push({ value: responseJson[i].feature_name });
-                    //console.log(drop_down_data)
                 }
 
                 this.setState({
@@ -60,9 +57,6 @@ export default class AddNewReport extends React.Component {
             noData: true,
         };
         ImagePicker.launchImageLibrary(options, response => {
-            console.log("response", response);
-            console.log(response.fileName);
-            console.log(response.data);
             if (response.uri) {
                 this.setState({ photos: [...this.state.photos, response] })
                 
@@ -86,7 +80,6 @@ export default class AddNewReport extends React.Component {
 
                 RNFS.readFile(response.path, 'base64')
                     .then(res => {
-                    //console.log('base64 is: ', res);
                     this.setState({ photosBase64: [...this.state.photosBase64, res] });
                 });
             };
@@ -96,10 +89,18 @@ export default class AddNewReport extends React.Component {
     checkIsSignedIn = async () => {
         const isSignedIn = await GoogleSignin.isSignedIn();
         this.setState({ isSignedIn: isSignedIn });
-        // console.log("Finish checking the user status");
         if (!this.state.isSignedIn) {
             alert('You must sign in before adding new report!');
         }
+    };
+
+    getCurrentUser = async () => {
+        const currentUser = await GoogleSignin.getCurrentUser();
+        this.setState({ 
+            user_name: currentUser.user.name, 
+            user_email: currentUser.user.email,
+        });
+
     };
     
     getLocationData = async() =>  {
@@ -153,8 +154,8 @@ export default class AddNewReport extends React.Component {
                         'description': this.state.description,
                         'date': this.state.date,
                         'photos': this.state.photosBase64,
-                        'name': 'Ting Pan',
-                        'email': 'tpanchloe@gmail.com',
+                        'name': this.state.user_name,
+                        'email': this.state.user_email,
                     })
                 }
             )
