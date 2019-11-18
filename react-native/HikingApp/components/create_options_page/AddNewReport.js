@@ -81,6 +81,12 @@ export default class AddNewReport extends React.Component {
             console.log(response.fileSize);
             if (response.uri) {
                 this.setState({ photo: response })
+
+                RNFS.readFile(response.path, 'base64')
+                    .then(res =>{
+                    //console.log('base64 is: ', res);
+                    this.setState({ photo_base64: res });
+                });
             };
         });
         
@@ -152,7 +158,7 @@ export default class AddNewReport extends React.Component {
                         //'feature_name': this.state.feature_name,
                         'feature': this.state.feature_name,
                         'tags': this.state.tags,
-                        'location': this.state.locationData,
+                        'location': this.state.locationData[0],
                         'description': this.state.description,
                         //'date_in': this.state.date,
                         'date': this.state.date,
