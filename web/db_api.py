@@ -286,7 +286,7 @@ def find_photos_by_theme(db, theme):
     res = db.Photos.find( {"theme": theme} )
     if res is None:
         print("No themes available")
-        return False
+        return []
     return res.sort([("date_in", -1)])
 
 def update_or_create_tag(db, name, report_id):

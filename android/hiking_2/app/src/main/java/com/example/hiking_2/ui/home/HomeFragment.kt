@@ -62,8 +62,8 @@ class HomeFragment : Fragment() {
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this.context)
-        val url = "https://aptproject-255903.appspot.com/json"
-
+//        val url = "https://aptproject-255903.appspot.com/json"
+        val url = "http://10.0.2.2:8000/json"
         val jsonGetRequest = JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener<JSONArray> { response ->
                 var idx = 0
@@ -74,12 +74,17 @@ class HomeFragment : Fragment() {
                     var newCardTextView = TextView(newCard.context)
                     var newImg = ImageView(newCard.context)
                     val basicPhotoUrl = "https://aptproject-255903.appspot.com/photo?photoId="
-                    if (themeJson.getJSONObject("feature_img_id") != null) {
+                    if (themeJson.has("feature_img_id") && themeJson.getJSONObject("feature_img_id").length() != 0) {
                         var photoID = themeJson.getJSONObject("feature_img_id").getString("\$oid")
                         var PhotoUrl = basicPhotoUrl + photoID
                         Picasso
                             .get()
                             .load(PhotoUrl)
+                            .into(newImg)
+                    } else {
+                        Picasso
+                            .get()
+                            .load("http://denrakaev.com/wp-content/uploads/2015/03/no-image-800x511.png")
                             .into(newImg)
                     }
                     var param: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
