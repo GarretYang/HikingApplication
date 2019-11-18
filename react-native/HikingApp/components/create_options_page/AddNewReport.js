@@ -1,7 +1,7 @@
 //This is an example code for Bottom Navigation//
 import React, { Component } from 'react';
 //import react in our code.
-import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, Image, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, Image, ScrollView, Alert } from 'react-native';
 //import all the basic component we have used
 import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker';
@@ -13,9 +13,17 @@ export default class DetailsScreen extends React.Component {
         super(props);
         this.state = {
             text: '',
+            photos: [],
+            photosBase64: [],
+            feature: "",
+            date: "",
+            location: "",
+            description: "",
             isLoading: true,
             isSignedIn: false
         };
+        this.handleChoosePhoto = this.handleChoosePhoto.bind(this)
+        this.handleTakePhoto = this.handleTakePhoto.bind(this)
     };
 
     componentDidMount(){
@@ -44,8 +52,36 @@ export default class DetailsScreen extends React.Component {
           });
     }
 
-    state = {
-        photo: null,
+    handleSubmit = async() => {
+        try {
+            let response = await fetch(
+                'http://aptproject-255903.appspot.com/newcreatereportjson',
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'photos': this.state.photosBase64,
+                        'feature': this.state.feature,
+                        'location': this.state.location,
+                        "tags": ["DRY"],
+                        "description": this.state.description,
+                        "name": "Garret",
+                        "email": "qihuay@utexas.edu"
+                    })    
+                }
+            )
+            let responseJson = await response.text();
+            Alert.alert(
+                'Submission Status',
+                responseJson
+            )
+        } catch(error) {
+            Alert.alert(error)
+        }
+
     }
 
     handleChoosePhoto = () => {
@@ -56,7 +92,7 @@ export default class DetailsScreen extends React.Component {
             console.log("response", response);
             console.log(response.fileName);
             if (response.uri) {
-                this.setState({ photo: response })
+                // this.setState({ photo: response })
             };
         });
         /*I I 
@@ -65,18 +101,19 @@ export default class DetailsScreen extends React.Component {
         .catch(err => doSomethingWith(err));*/
     }
 
-    handleTakePhoto = () => {
+    handleTakePhoto = async() => {
         const options = {
-            noData: true,
+            // noData: true,
+            base64: true
         };
-        ImagePicker.launchCamera(options, (response) => {
-            console.log("response", response);
-            console.log(response.fileSize);
+        await ImagePicker.launchCamera(options, (response) => {
+            // "data" field has the base 64 data
+            let selectedPhotoBase64 = response.data;
             if (response.uri) {
-                this.setState({ photo: response })
+                this.setState({ photosBase64: [...this.state.photosBase64, selectedPhotoBase64] })
+                this.setState({ photos: [...this.state.photos, response]})
             };
-        });
-        
+        });  
     }
 
     checkIsSignedIn = async () => {
@@ -90,7 +127,7 @@ export default class DetailsScreen extends React.Component {
 
     //Detail Screen to show from any Open detail button
     render() {
-        const { photo } = this.state
+        const { photos } = this.state
         return (
             <ScrollView>
             <View style={ styles.container }>
@@ -99,6 +136,7 @@ export default class DetailsScreen extends React.Component {
                 <Dropdown
                     label='Theme'
                     data={this.state.drop_down_data}
+                    onChangeText={(value) => this.setState({feature: value})}
                 />
 
                 <TextInput
@@ -151,20 +189,22 @@ export default class DetailsScreen extends React.Component {
 
                 <View style={styles.alternativeLayoutButtonContainer}>
                     <Button
-                        onPress={this.handleChoosePhoto}
+                        onPress={() => { this.handleChoosePhoto() }}
                         title="GALLERY"
                     />
                     <Button
-                        onPress={this.handleTakePhoto}
+                        onPress={() => { this.handleTakePhoto() }}
                         title="CAMERA"
                     />
                 </View>
 
-                {photo && (
-                    <Image
-                        source={{ uri: photo.uri }}
-                        style={{ width: 300, height: 300 }}
-                    />
+                { photos.map((photo) => 
+                    photo && (
+                        <Image
+                            source={{ uri: photo.uri }}
+                            style={{ width: 300, height: 300 }}
+                        />
+                    )
                 )}
 
                 <View style={styles.submitButtonContainer}>
