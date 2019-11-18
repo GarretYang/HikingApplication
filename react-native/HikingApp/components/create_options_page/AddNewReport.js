@@ -100,6 +100,16 @@ export default class AddNewReport extends React.Component {
             alert('You must sign in before adding new report!');
         }
     };
+
+    getCurrentUser = async () => {
+        const currentUser = await GoogleSignin.getCurrentUser();
+        this.setState({ 
+            user_name: currentUser.user.name, 
+            user_email: currentUser.user.email,
+        });
+        //console.log(currentUser.user.email);
+        //console.log(currentUser.user.name);
+    };
     
     getLocationData() {
         GetLocation.getCurrentPosition({
@@ -134,6 +144,7 @@ export default class AddNewReport extends React.Component {
         };
         this.setState({tags: tagsData});
         //console.log(tagsData);
+        //console.log(this.state.user_name);
     }
 
     submitHandler = async () => {
@@ -144,6 +155,8 @@ export default class AddNewReport extends React.Component {
         console.log(this.state.locationData);
         console.log(this.state.photo_base64);
         console.log(this.state.tags);
+        console.log(this.state.user_name);
+        console.log(this.state.user_email);
         
         try {
             let response = await fetch(
@@ -164,8 +177,8 @@ export default class AddNewReport extends React.Component {
                         'date': this.state.date,
                         //'photos': '001test',
                         'photos': [this.state.photo_base64],
-                        'name': 'Ting Pan',
-                        'email': 'tpanchloe@gmail.com',
+                        'name': this.state.user_name,
+                        'email': this.state.user_email,
                     })
                 }
             )
@@ -263,6 +276,7 @@ export default class AddNewReport extends React.Component {
                         onPress={() =>
                             {
                                 this.checkIsSignedIn();
+                                this.getCurrentUser();
                                 this.getTagsData();
                                 this.getLocationData();
                                 //this.submitHandler();
