@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.github.douglasjunior.reactNativeGetLocation.ReactNativeGetLocationPackage;
+import com.rnfs.RNFSPackage;
 import fr.snapp.imagebase64.RNImgToBase64Package;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
