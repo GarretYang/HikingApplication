@@ -1,14 +1,17 @@
 //This is an example code for Bottom Navigation//
 import React, { Component } from 'react';
 //import react in our code.
-import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, Image, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, Image, ScrollView, Alert } from 'react-native';
 //import all the basic component we have used
 import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker';
-import ImgToBase64 from 'react-native-image-base64';
+//import ImgToBase64 from 'react-native-image-base64';
 import { GoogleSignin } from '@react-native-community/google-signin';
+import RNFS from 'react-native-fs';
+import GetLocation from 'react-native-get-location';
+import { TagSelect } from 'react-native-tag-select';
 
-export default class DetailsScreen extends React.Component {
+export default class AddNewReport extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -55,14 +58,18 @@ export default class DetailsScreen extends React.Component {
         ImagePicker.launchImageLibrary(options, response => {
             console.log("response", response);
             console.log(response.fileName);
+            console.log(response.data);
             if (response.uri) {
                 this.setState({ photo: response })
+                
+                RNFS.readFile(response.path, 'base64')
+                    .then(res =>{
+                    //console.log('base64 is: ', res);
+                    this.setState({ photo_base64: res });
+                });
             };
-        });
-        /*I I 
-        ImgToBase64.getBase64String(this.state.photo.path)
-        .then(base64String => doSomethingWith(base64String))
-        .catch(err => doSomethingWith(err));*/
+            
+        });     
     }
 
     handleTakePhoto = () => {
@@ -87,9 +94,98 @@ export default class DetailsScreen extends React.Component {
             alert('You must sign in before adding new report!');
         }
     };
+    
+    getLocationData() {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+        .then(location => {
+            //console.log(location);
+            this.setState({ geo_location: location });
+            //console.log(this.state.geo_location.latitude);
+            //console.log(this.state.geo_location.longitude);
+            let locationData = [];
+            locationData.push({ 
+                name: this.state.location, 
+                latitude: this.state.geo_location.latitude, 
+                longitude: this.state.geo_location.longitude 
+            });
+            this.setState({ locationData: locationData }, this.submitHandler);
+            //console.log(locationData);
+        })
+        .catch(error => {
+            const { code, message } = error;
+            console.warn(code, message);
+        })
+    }
+
+    getTagsData()  {
+        var num = this.tag.itemsSelected.length;
+        let tagsData = [];
+        for (var i=0; i<num; i++) {
+            tagsData.push(this.tag.itemsSelected[i].label)
+        };
+        this.setState({tags: tagsData});
+        //console.log(tagsData);
+    }
+
+    submitHandler = async () => {
+        await this.getTagsData();
+        console.log(this.state.feature_name);
+        console.log(this.state.date);
+        console.log(this.state.description);
+        console.log(this.state.locationData);
+        console.log(this.state.photo_base64);
+        console.log(this.state.tags);
+        
+        try {
+            let response = await fetch(
+                'http://aptproject-255903.appspot.com/newcreatereportjson', 
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        //'feature_name': this.state.feature_name,
+                        'feature': this.state.feature_name,
+                        'tags': this.state.tags,
+                        'location': this.state.locationData,
+                        'description': this.state.description,
+                        //'date_in': this.state.date,
+                        'date': this.state.date,
+                        //'photos': '001test',
+                        'photos': this.state.photo_base64,
+                        'name': 'Ting Pan',
+                        'email': 'tpanchloe@gmail.com',
+                    })
+                }
+            )
+            let responseJson = await response.text();
+            Alert.alert(
+                'Submission Status',
+                responseJson.substring(responseJson.indexOf(':')+1, responseJson.length-1)
+            )
+        } catch(error) {
+            Alert.alert(
+                'Submission Status',
+                error
+            )
+        }
+    }
 
     //Detail Screen to show from any Open detail button
     render() {
+        const tags = [
+            { id: 1, label: 'Dry' },
+            { id: 2, label: 'Wet' },
+            { id: 3, label: 'Crowded' },
+            { id: 4, label: 'Not Busy' },
+            { id: 5, label: 'Hot' },
+            { id: 6, label: 'Cold' },
+        ];
         const { photo } = this.state
         return (
             <ScrollView>
@@ -99,6 +195,7 @@ export default class DetailsScreen extends React.Component {
                 <Dropdown
                     label='Theme'
                     data={this.state.drop_down_data}
+                    onChangeText={(value) => this.setState({ feature_name: value })}
                 />
 
                 <TextInput
@@ -122,30 +219,17 @@ export default class DetailsScreen extends React.Component {
                     value={this.state.location}
                 />
 
-                <View style={styles.alternativeLayoutButtonContainer}>
-                    <Button
-                        //onPress={this._onPressButton}
-                        title="Dry"
-                    />
-                    <Button
-                        //onPress={this._onPressButton}
-                        title="Wet"
-                    />
-                    <Button
-                        //onPress={this._onPressButton}
-                        title="Crowded"
-                    />
-                    <Button
-                        //onPress={this._onPressButton}
-                        title="Not Busy"
-                    />
-                    <Button
-                        //onPress={this._onPressButton}
-                        title="Hot"
-                    />
-                    <Button
-                        //onPress={this._onPressButton}
-                        title="Cold"
+                <View style={styles.tagsContainer}>
+                    <Text>Tags:</Text>
+                    <TagSelect
+                        data={tags}
+                        max={6}
+                        ref={(tag) => {
+                            this.tag = tag;
+                        }}
+                        onMaxError={() => {
+                            Alert.alert('Ops', 'Max reached');
+                        }}
                     />
                 </View>
 
@@ -173,10 +257,9 @@ export default class DetailsScreen extends React.Component {
                         onPress={() =>
                             {
                                 this.checkIsSignedIn();
-                                console.log(this.state.date);
-                                console.log(this.state.description);
-                                console.log(this.state.location);
-                                console.log(this.state.photo.fileName)
+                                this.getTagsData();
+                                this.getLocationData();
+                                //this.submitHandler();
                             }
                         }
                     />
@@ -214,4 +297,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center', 
     },
+    tagsContainer: {
+        flex: 1,
+        backgroundColor: '#FFF',
+        marginTop: 50,
+        marginLeft: 15,
+      }
 });
