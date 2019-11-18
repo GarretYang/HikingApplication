@@ -157,7 +157,7 @@ export default class AddNewReport extends React.Component {
                         //'date_in': this.state.date,
                         'date': this.state.date,
                         //'photos': '001test',
-                        'photos': this.state.photo_base64,
+                        'photos': [this.state.photo_base64],
                         'name': 'Ting Pan',
                         'email': 'tpanchloe@gmail.com',
                     })
