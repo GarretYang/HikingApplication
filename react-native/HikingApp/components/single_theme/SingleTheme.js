@@ -1,7 +1,5 @@
-
-
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, SafeAreaView, SectionList, } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, SafeAreaView, SectionList, Button } from 'react-native';
 
 export default class SingleTheme extends React.Component {
 
@@ -112,10 +110,16 @@ export default class SingleTheme extends React.Component {
         </View>
       )
     }
-    
+
 
     return(
      <View style={styles.MainContainer}>
+         <View style={styles.buttonContainer}>
+           <Button
+             onPress={() => this.props.navigation.navigate('Search')}
+             title="Search by Tag Name"
+           />
+         </View>
         <FlatList
           data={this.state.reportsData}
           renderItem={({item}) =>
