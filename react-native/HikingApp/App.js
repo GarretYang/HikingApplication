@@ -12,6 +12,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import ThemePage from './components/theme_page/ThemePage'
 import SingleTheme from './components/single_theme/SingleTheme'
+import Search from './components/single_theme/Search'
 
 import MapPage from './components/map/MapPage'
 import CreateOptionPage from './components/create_options_page/CreateOptionPage'
@@ -29,6 +30,12 @@ const HomeStack = createStackNavigator(
         screen: SingleTheme,
         navigationOptions: {
             title: 'Reports'
+        }
+    },
+    Search:{
+        screen:Search,
+        navigationOptions:{
+            title:'Search'
         }
     }
   },

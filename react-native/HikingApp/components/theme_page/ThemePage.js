@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
 
-import { FlatList, ActivityIndicator, Image } from 'react-native';
+import { FlatList, ActivityIndicator, Image, Button } from 'react-native';
 
 export default class ThemePage extends React.Component {
 
@@ -60,6 +60,12 @@ export default class ThemePage extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ marginTop: 50, fontSize: 25 }}>Themes</Text>
       </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={() => this.props.navigation.navigate('Search')}
+          title="Search by Tag Name"
+        />
+      </View>
        <FlatList
 
         data={ this.state.dataSource }
@@ -74,15 +80,10 @@ export default class ThemePage extends React.Component {
                     feature: item.feature_name
                 })}
             >
-
               {this.imageHandler(item)}
-
               <Text> {item.feature_name} </Text>
-
             </TouchableOpacity>
-
           }
-
         keyExtractor={item => item.feature_id.$oid}
 
         />
