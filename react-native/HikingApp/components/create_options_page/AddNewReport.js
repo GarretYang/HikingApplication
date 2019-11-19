@@ -135,6 +135,7 @@ export default class AddNewReport extends React.Component {
     submitHandler = async () => {
         await this.checkIsSignedIn();
         if (!this.state.isSignedIn) return
+        await this.getCurrentUser()
         await this.getTagsData();
         await this.getLocationData();
         
@@ -164,6 +165,8 @@ export default class AddNewReport extends React.Component {
                 'Submission Status',
                 responseJson.substring(responseJson.indexOf(':')+1, responseJson.length-1)
             )
+            this.setState({feature: ""})
+            this.setState({date: ""})
         } catch(error) {
             Alert.alert(
                 'Submission Status',

@@ -86,7 +86,7 @@ export default class SingleTheme extends React.Component {
               return (
                   <Text>Location: {item.location.name} </Text>
               )
-          }else {
+          } else {
               return (
                   <Text>Location: {item.location } </Text>
               )
