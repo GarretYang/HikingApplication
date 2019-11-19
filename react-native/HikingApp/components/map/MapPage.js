@@ -10,62 +10,52 @@ export default class MapPage extends React.Component {
   //Home Screen to show in Home Option
   constructor(props) {
     super(props);
-
-    this.state = {
-      markers: [{
-        coordinates: {
-          latitude: 30.28,
-          longitude: -97.74
-        },
-        title: "TITLE!!",
-        description: "DESC!!"
-      }],
-      markers2: getReports()
+    const {navigation} = this.props
+    this.state ={
+      reports: [],
+      isLoading: true
     }
+  }
+
+  async componentDidMount(){
+    return fetch('http://aptproject-255903.appspot.com/locations')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          reports: responseJson,
+        });
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
   }
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <View style={styles.container}>
-          <MapView
-            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-            style={styles.map}
-            region={{
-              latitude: 30.288459,
-              longitude: -97.735134,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.0121,
-            }}
-            >
-            {this.state.markers.map(marker => (
-              console.log("MARKER!!"),
-              <MapView.Marker
-                coordinate={marker.coordinates}
-                title={marker.title}
-                description={marker.description}
-              />
-            ))}
-          </MapView>
-        </View>
-      </View>
+      <MapView
+        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        style={styles.map}
+        region={{
+          latitude: 30.288459,
+          longitude: -97.735134,
+          latitudeDelta: 0.075,
+          longitudeDelta: 0.0484,
+        }}
+        >
+        {this.state.reports.map((marker) =>
+          <MapView.Marker
+            coordinate={{latitude: marker.location.latitude,
+            longitude: marker.location.longitude}}
+            title={marker.location.name}
+            description={marker.description}
+          />
+        )}
+      </MapView>
     );
   }
 }
 
-function getReports() {
-  return fetch('http://aptproject-255903.appspot.com/locations')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      console.log("inside responsejson");
-      return responseJson;
-    })
-    .catch((error) => {
-      console.log(error)
-      console.error(error);
-    });
-}
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
