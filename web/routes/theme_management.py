@@ -35,7 +35,8 @@ def getThemes():
         if report_imgs.count() == 0:
             themeJson.append({
                 "feature_id": t['_id'],
-                "feature_name": t['feature_name']
+                "feature_name": t['feature_name'],
+                "feature_img_id": []
             })
         else:
             themeJson.append({

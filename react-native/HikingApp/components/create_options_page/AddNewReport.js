@@ -16,9 +16,17 @@ export default class AddNewReport extends React.Component {
         super(props);
         this.state = {
             text: '',
+            photos: [],
+            photosBase64: [],
+            feature: "",
+            date: "",
+            location: "",
+            description: "",
             isLoading: true,
             isSignedIn: false
         };
+        this.handleChoosePhoto = this.handleChoosePhoto.bind(this)
+        this.handleTakePhoto = this.handleTakePhoto.bind(this)
     };
 
     componentDidMount(){
@@ -26,12 +34,9 @@ export default class AddNewReport extends React.Component {
           .then((response) => response.json())
           .then((responseJson) => {
                 var count = Object.keys(responseJson).length;
-                //console.log(count);
                 let drop_down_data = [];
                 for (var i=0; i<count; i++) {
-                    //console.log(responseJson[i].feature_name);
                     drop_down_data.push({ value: responseJson[i].feature_name });
-                    //console.log(drop_down_data)
                 }
 
                 this.setState({
@@ -47,55 +52,43 @@ export default class AddNewReport extends React.Component {
           });
     }
 
-    state = {
-        photo: null,
-    }
-
     handleChoosePhoto = () => {
         const options = {
             noData: true,
         };
         ImagePicker.launchImageLibrary(options, response => {
-            console.log("response", response);
-            console.log(response.fileName);
-            console.log(response.data);
             if (response.uri) {
-                this.setState({ photo: response })
+                this.setState({ photos: [...this.state.photos, response] })
                 
                 RNFS.readFile(response.path, 'base64')
                     .then(res =>{
-                    //console.log('base64 is: ', res);
-                    this.setState({ photo_base64: res });
+                        this.setState({ photosBase64: [...this.state.photosBase64, res] });
                 });
             };
             
         });     
     }
 
-    handleTakePhoto = () => {
+    handleTakePhoto = async() => {
         const options = {
-            noData: true,
+            // noData: true,
+            base64: true
         };
-        ImagePicker.launchCamera(options, (response) => {
-            console.log("response", response);
-            console.log(response.fileSize);
+        await ImagePicker.launchCamera(options, (response) => {
             if (response.uri) {
-                this.setState({ photo: response })
+                this.setState({ photos: [...this.state.photos, response] })
 
                 RNFS.readFile(response.path, 'base64')
-                    .then(res =>{
-                    //console.log('base64 is: ', res);
-                    this.setState({ photo_base64: res });
+                    .then(res => {
+                    this.setState({ photosBase64: [...this.state.photosBase64, res] });
                 });
             };
-        });
-        
+        });  
     }
 
     checkIsSignedIn = async () => {
         const isSignedIn = await GoogleSignin.isSignedIn();
         this.setState({ isSignedIn: isSignedIn });
-        // console.log("Finish checking the user status");
         if (!this.state.isSignedIn) {
             alert('You must sign in before adding new report!');
         }
@@ -107,56 +100,43 @@ export default class AddNewReport extends React.Component {
             user_name: currentUser.user.name, 
             user_email: currentUser.user.email,
         });
-        //console.log(currentUser.user.email);
-        //console.log(currentUser.user.name);
+
     };
     
-    getLocationData() {
-        GetLocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 15000,
-        })
-        .then(location => {
-            //console.log(location);
-            this.setState({ geo_location: location });
-            //console.log(this.state.geo_location.latitude);
-            //console.log(this.state.geo_location.longitude);
+    getLocationData = async() =>  {
+        try {
+            let location = await GetLocation.getCurrentPosition({
+                enableHighAccuracy: true,
+                // timeout: 15000,
+            })
+            this.setState( { geo_location: location } )
             let locationData = [];
             locationData.push({ 
                 name: this.state.location, 
-                latitude: this.state.geo_location.latitude, 
-                longitude: this.state.geo_location.longitude 
-            });
-            this.setState({ locationData: locationData }, this.submitHandler);
-            //console.log(locationData);
-        })
-        .catch(error => {
+                latitude: location.latitude, 
+                longitude: location.longitude 
+            });        
+            this.setState({ locationData: locationData });
+        } catch(error) {
             const { code, message } = error;
             console.warn(code, message);
-        })
+        }
     }
 
-    getTagsData()  {
+    getTagsData = async() => {
         var num = this.tag.itemsSelected.length;
         let tagsData = [];
         for (var i=0; i<num; i++) {
             tagsData.push(this.tag.itemsSelected[i].label)
         };
         this.setState({tags: tagsData});
-        //console.log(tagsData);
-        //console.log(this.state.user_name);
     }
 
     submitHandler = async () => {
+        await this.checkIsSignedIn();
+        if (!this.state.isSignedIn) return
         await this.getTagsData();
-        console.log(this.state.feature_name);
-        console.log(this.state.date);
-        console.log(this.state.description);
-        console.log(this.state.locationData);
-        console.log(this.state.photo_base64);
-        console.log(this.state.tags);
-        console.log(this.state.user_name);
-        console.log(this.state.user_email);
+        await this.getLocationData();
         
         try {
             let response = await fetch(
@@ -168,15 +148,12 @@ export default class AddNewReport extends React.Component {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        //'feature_name': this.state.feature_name,
                         'feature': this.state.feature_name,
                         'tags': this.state.tags,
                         'location': this.state.locationData[0],
                         'description': this.state.description,
-                        //'date_in': this.state.date,
                         'date': this.state.date,
-                        //'photos': '001test',
-                        'photos': [this.state.photo_base64],
+                        'photos': this.state.photosBase64,
                         'name': this.state.user_name,
                         'email': this.state.user_email,
                     })
@@ -205,7 +182,7 @@ export default class AddNewReport extends React.Component {
             { id: 5, label: 'Hot' },
             { id: 6, label: 'Cold' },
         ];
-        const { photo } = this.state
+        const { photos } = this.state
         return (
             <ScrollView>
             <View style={ styles.container }>
@@ -254,20 +231,22 @@ export default class AddNewReport extends React.Component {
 
                 <View style={styles.alternativeLayoutButtonContainer}>
                     <Button
-                        onPress={this.handleChoosePhoto}
+                        onPress={() => { this.handleChoosePhoto() }}
                         title="GALLERY"
                     />
                     <Button
-                        onPress={this.handleTakePhoto}
+                        onPress={() => { this.handleTakePhoto() }}
                         title="CAMERA"
                     />
                 </View>
 
-                {photo && (
-                    <Image
-                        source={{ uri: photo.uri }}
-                        style={{ width: 300, height: 300 }}
-                    />
+                { photos.map((photo) => 
+                    photo && (
+                        <Image
+                            source={{ uri: photo.uri }}
+                            style={{ width: 300, height: 300 }}
+                        />
+                    )
                 )}
 
                 <View style={styles.submitButtonContainer}>
@@ -275,11 +254,7 @@ export default class AddNewReport extends React.Component {
                         title="Submit"
                         onPress={() =>
                             {
-                                this.checkIsSignedIn();
-                                this.getCurrentUser();
-                                this.getTagsData();
-                                this.getLocationData();
-                                //this.submitHandler();
+                                this.submitHandler();
                             }
                         }
                     />
