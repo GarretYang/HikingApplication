@@ -3,8 +3,8 @@ import React from 'react';
 //import react in our code.
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
-
-import { FlatList, ActivityIndicator, Image, Button } from 'react-native';
+import { FlatList, ActivityIndicator, Image} from 'react-native';
+import { Button } from 'react-native-elements';
 
 export default class ThemePage extends React.Component {
 
@@ -57,13 +57,12 @@ export default class ThemePage extends React.Component {
 
     return(
      <View style={styles.MainContainer}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ marginTop: 50, fontSize: 25 }}>Themes</Text>
-      </View>
-      <View style={styles.buttonContainer}>
+
+      <View style={styles.container}>
         <Button
           onPress={() => this.props.navigation.navigate('Search')}
           title="Search by Tag Name"
+          type="outline"
         />
       </View>
        <FlatList
@@ -80,8 +79,8 @@ export default class ThemePage extends React.Component {
                     feature: item.feature_name
                 })}
             >
+              <Text style={styles.textView}> {item.feature_name} </Text>
               {this.imageHandler(item)}
-              <Text> {item.feature_name} </Text>
             </TouchableOpacity>
           }
         keyExtractor={item => item.feature_id.$oid}
@@ -106,8 +105,8 @@ const styles = StyleSheet.create({
 
     imageView: {
 
-        width: '100%',
-        height: 100 ,
+        width: '95%',
+        height: 170 ,
         margin: 7,
         borderRadius : 7
 
@@ -115,10 +114,13 @@ const styles = StyleSheet.create({
 
     textView: {
 
-        width:'50%',
+        width:'95%',
         textAlignVertical:'center',
+        fontFamily: 'Cochin',
+        fontSize: 25,
+        fontWeight: 'bold',
         padding:10,
-        color: '#000'
+        color: '#273746'
 
     }
 
