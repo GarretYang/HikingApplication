@@ -41,9 +41,13 @@ export default class Search extends React.Component {
   }
 
   userNameHandler(item){
-      if (item.user_id !== undefined) {
+      if (item.user_name !== undefined) {
         return (
-          <Text>User Name: {item.user_id.$oid} </Text>
+          <Text style={styles.textView}>User Name: {item.user_name} </Text>
+        )
+      } else {
+        return (
+          <Text style={styles.textView}>no user name</Text>
         )
       }
   }
@@ -51,7 +55,7 @@ export default class Search extends React.Component {
   dateHandler(item){
       if (item.date_in != undefined) {
           return (
-            <Text>Date: {item.date_in} </Text>
+            <Text style={styles.textView}>Date: {item.date_in} </Text>
           )
       }
   }
@@ -59,7 +63,7 @@ export default class Search extends React.Component {
   descriptionHandler(item) {
       if (item.description != undefined) {
           return (
-              <Text>Description: {item.description} </Text>
+              <Text style={styles.textView}>Description: {item.description} </Text>
           )
       }
   }
@@ -68,25 +72,44 @@ export default class Search extends React.Component {
       if (item.location != undefined) {
           if (item.location.name != undefined){
               return (
-                  <Text>Location: {item.location.name} </Text>
+                  <Text style={styles.textView}>Location: {item.location.name} </Text>
               )
           }else {
               return (
-                  <Text>Location: {item.location} </Text>
+                  <Text style={styles.textView}>Location: {item.location } </Text>
               )
           }
 
       }
   }
 
-  tagsHandler(item) {
-      if (item.tags != undefined){
-          <Text>Tags: {item.tags} </Text>
+  tagsHandler(data) {
+      if (data.tags != undefined){
+          console.log(data.tags)
+          return(
+              <View style={{flex:1, flexDirection: 'row', flexWrap:'wrap'}}>
+                <Text style={{
+                    textAlignVertical:'center',
+                    fontSize: 14,
+                    fontWeight: 'bold',
+                    padding:5,
+                    color: '#273746'
+                }}>Tags: </Text>
+                  <FlatList
+                  style={{flex:1, flexDirection: 'row', flexWrap:'wrap'}}
+                    data={data.tags}
+                    renderItem={({item}) =>
+                          <Text style={styles.textView, {backgroundColor: "#009577", marginRight: 10, marginTop:5, color: "white"}}>{item} </Text>}
+                    listKey = {(item, index) => 'D' + index.toString()}
+                  />
+              </View>
+          )
+
       }
   }
 
   render(){
-    if(this.state.tag_name != 'hot' && this.state.tag_name != 'cold' && this.state.tag_name != 'Cold' &&  this.state.tag_name != 'crowded' && this.state.tag_name != 'Crowded' && this.state.tag_name != 'not busy' && this.state.tag_name != 'Not Busy' && this.state.tag_name != 'wet' && this.state.tag_name != 'Wet' && this.state.tag_name != 'dry' && this.state.tag_name != 'Dry'){
+    if(this.state.tag_name != 'hot' && this.state.tag_name != 'cold' && this.state.tag_name != 'Cold' &&  this.state.tag_name != 'crowded' && this.state.tag_name != 'Crowded' && this.state.tag_name != 'not busy' && this.state.tag_name != 'Not Busy' && this.state.tag_name != 'wet' && this.state.tag_name != 'Wet' && this.state.tag_name != 'dry' && this.state.tag_name != 'Dry' && !this.state.isLoading){
         return(
           <View style={{flex: 1, padding: 20}}>
               <TextInput
@@ -114,12 +137,12 @@ export default class Search extends React.Component {
               data={this.state.dataSource}
               renderItem={({item}) =>
                  <View style={{flex:1, flexDirection: 'column'}}>
+                    {this.imageHandler(item)}
                     {this.userNameHandler(item)}
                     {this.dateHandler(item)}
                     {this.descriptionHandler(item)}
                     {this.tagsHandler(item)}
                     <Text>  </Text>
-                    {this.imageHandler(item)}
                  </View>}
               keyExtractor={({id}, index) => id}
             />
@@ -143,8 +166,8 @@ const styles = StyleSheet.create({
 
     imageView: {
 
-        width: '70%',
-        height: 100 ,
+        width: '95%',
+        height: 170 ,
         margin: 7,
         borderRadius : 7
 
@@ -152,10 +175,12 @@ const styles = StyleSheet.create({
 
     textView: {
 
-        width:'50%',
+        width:'95%',
         textAlignVertical:'center',
-        padding:10,
-        color: '#000'
+        fontSize: 14,
+        fontWeight: 'bold',
+        padding:5,
+        color: '#273746'
 
     }
 
