@@ -15,6 +15,7 @@ import SingleTheme from './components/single_theme/SingleTheme'
 import Search from './components/single_theme/Search'
 
 import MapPage from './components/map/MapPage'
+import SingleReport from './components/map/SingleReport'
 import CreateOptionPage from './components/create_options_page/CreateOptionPage'
 import LogInPage from './components/log_in/LogInPage'
 import WelcomePage from './components/log_in/WelcomePage'
@@ -86,6 +87,12 @@ const MapStack = createStackNavigator(
   {
     //Defination of Navigaton from setting screen
     Map: { screen: MapPage },
+    SingleReport:{
+        screen:SingleReport,
+        navigationOptions:{
+            title:'View Report'
+        }
+    }
   },
   {
     defaultNavigationOptions: {

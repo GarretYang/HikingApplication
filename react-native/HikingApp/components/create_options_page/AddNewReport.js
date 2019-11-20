@@ -135,7 +135,7 @@ export default class AddNewReport extends React.Component {
     submitHandler = async () => {
         await this.checkIsSignedIn();
         if (!this.state.isSignedIn) return
-        await this.getCurrentUser()
+        await this.getCurrentUser();
         await this.getTagsData();
         await this.getLocationData();
         

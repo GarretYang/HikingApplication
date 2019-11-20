@@ -95,9 +95,28 @@ export default class SingleTheme extends React.Component {
       }
   }
 
-  tagsHandler(item) {
-      if (item.tags != undefined){
-          <Text style={styles.textView}>Tags: {item.tags} </Text>
+  tagsHandler(data) {
+      if (data.tags != undefined){
+          console.log(data.tags)
+          return(
+              <View style={{flex:1, flexDirection: 'row', flexWrap:'wrap'}}>
+                <Text style={{
+                    textAlignVertical:'center',
+                    fontSize: 14,
+                    fontWeight: 'bold',
+                    padding:5,
+                    color: '#273746'
+                }}>Tags: </Text>
+                  <FlatList
+                  style={{flex:1, flexDirection: 'row', flexWrap:'wrap'}}
+                    data={data.tags}
+                    renderItem={({item}) =>
+                          <Text style={styles.textView, {backgroundColor: "#009577", marginRight: 10, marginTop:5, color: "white"}}>{item} </Text>}
+                    listKey = {(item, index) => 'D' + index.toString()}
+                  />
+              </View>
+          )
+
       }
   }
 
@@ -133,7 +152,7 @@ export default class SingleTheme extends React.Component {
                 {this.tagsHandler(item)}
 
              </View>}
-          keyExtractor={({id}, index) => id}
+          keyExtractor={(item, index) => item._id.$oid}
         />
 
      </View>

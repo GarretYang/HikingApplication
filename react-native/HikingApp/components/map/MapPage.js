@@ -3,17 +3,67 @@ import React from 'react';
 //import react in our code.
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
- 
+
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
 export default class MapPage extends React.Component {
   //Home Screen to show in Home Option
+  constructor(props) {
+    super(props);
+    const {navigation} = this.props
+    this.state ={
+      reports: [],
+      isLoading: true
+    }
+  }
+
+  async componentDidMount(){
+    return fetch('http://aptproject-255903.appspot.com/locations')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          reports: responseJson,
+        });
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ marginTop: 50, fontSize: 25 }}>Map</Text>
-      </View>
+      <MapView
+        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        style={styles.map}
+        region={{
+          latitude: 30.288459,
+          longitude: -97.735134,
+          latitudeDelta: 0.075,
+          longitudeDelta: 0.0484,
+        }}
+        >
+        {this.state.reports.map((marker) =>
+          <MapView.Marker
+            coordinate={{latitude: marker.location.latitude,
+            longitude: marker.location.longitude}}
+            title={marker.location.name}
+            description={marker.description}
+            onCalloutPress={() => this.props.navigation.navigate('SingleReport', {
+              report: marker._id,
+              description: marker.description,
+              feature: marker.feature_name,
+              date: marker.date_in,
+              photos: marker.photos,
+              marker: marker
+            })}
+          />
+        )}
+      </MapView>
     );
   }
 }
+
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
@@ -22,4 +72,14 @@ const styles = StyleSheet.create({
     width: 300,
     marginTop: 16,
   },
+   container: {
+     ...StyleSheet.absoluteFillObject,
+     height: 600,
+     width: 400,
+     justifyContent: 'flex-end',
+     alignItems: 'center',
+   },
+   map: {
+     ...StyleSheet.absoluteFillObject,
+   },
 });
