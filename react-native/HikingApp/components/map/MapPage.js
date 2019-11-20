@@ -49,6 +49,14 @@ export default class MapPage extends React.Component {
             longitude: marker.location.longitude}}
             title={marker.location.name}
             description={marker.description}
+            onCalloutPress={() => this.props.navigation.navigate('SingleReport', {
+              report: marker._id,
+              description: marker.description,
+              feature: marker.feature_name,
+              date: marker.date_in,
+              photos: marker.photos,
+              marker: marker
+            })}
           />
         )}
       </MapView>
