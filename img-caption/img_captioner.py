@@ -3,8 +3,8 @@ import os
 
 # File system path for the shell script of running model
 # TODO: Change this path to your own config
-IM2TXT_SCRIPT = '/home/shiyu/models-master/research/im2txt/capgen.sh'
-IM2TXT_DIR = '/home/shiyu/models-master/research/im2txt/'
+IM2TXT_SCRIPT = '/home/apt_team2/models/research/im2txt/caption.sh'
+IM2TXT_DIR = '/home/apt_team2/models/research/im2txt/'
 
 def get_sanitized_caption(output):
     if not output:
@@ -23,7 +23,7 @@ def get_im2txt_output(file_name):
     try:
         os.chdir(IM2TXT_DIR)
         output = subprocess.check_output(
-            [IM2TXT_SCRIPT, file_name]
+            ['sh', IM2TXT_SCRIPT, file_name]
         ).decode()
     except (subprocess.CalledProcessError, OSError) as e:
         print(e)
@@ -39,4 +39,4 @@ def get_img_caption(file_name):
     print(output)
     return output
 
-get_img_caption('/home/shiyu/1.jpeg')
+get_img_caption('/home/apt_team2/models/research/im2txt/image.jpeg')
