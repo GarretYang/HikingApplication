@@ -1,0 +1,147 @@
+  bash arg: -p
+  bash arg: com.example.hiking_2
+  bash arg: -s
+  bash arg: 1000
+  bash arg: -v
+  bash arg: 500
+  bash arg: --pct-touch
+  bash arg: 50
+  bash arg: --pct-motion
+  bash arg: 50
+:Monkey: seed=1000 count=500
+:AllowPackage: com.example.hiking_2
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.example.hiking_2/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.hiking_2/.MainActivity } in package com.example.hiking_2
+:Sending Touch (ACTION_DOWN): 0:(876.0,1210.0)
+:Sending Touch (ACTION_UP): 0:(902.46747,1187.4387)
+:Sending Touch (ACTION_DOWN): 0:(172.0,389.0)
+:Sending Touch (ACTION_UP): 0:(173.65752,389.0058)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.example.hiking_2/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.hiking_2/.MainActivity } in package com.example.hiking_2
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(387.0,1163.0)
+:Sending Touch (ACTION_UP): 0:(390.03946,1161.4384)
+:Sending Touch (ACTION_DOWN): 0:(466.0,1786.0)
+:Sending Touch (ACTION_UP): 0:(425.2828,1794.0)
+:Sending Trackball (ACTION_MOVE): 0:(1.0,-1.0)
+    // Allowing start of Intent { cmp=com.example.hiking_2/.ui.MapsActivity } in package com.example.hiking_2
+    // Rejecting start of Intent { act=android.content.pm.action.REQUEST_PERMISSIONS pkg=com.google.android.packageinstaller cmp=com.google.android.packageinstaller/com.android.packageinstaller.permission.ui.GrantPermissionsActivity } in package com.google.android.packageinstaller
+:Sending Touch (ACTION_DOWN): 0:(5.0,1594.0)
+:Sending Touch (ACTION_UP): 0:(15.715435,1593.2615)
+:Sending Touch (ACTION_DOWN): 0:(376.0,899.0)
+:Sending Touch (ACTION_UP): 0:(396.78586,924.71216)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(247.0,1006.0)
+:Sending Touch (ACTION_UP): 0:(246.3602,1008.82404)
+:Sending Touch (ACTION_DOWN): 0:(1059.0,1034.0)
+:Sending Touch (ACTION_UP): 0:(1061.2198,1040.0178)
+:Sending Touch (ACTION_DOWN): 0:(511.0,1284.0)
+:Sending Touch (ACTION_UP): 0:(488.05945,1285.3915)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,3.0)
+    //[calendar_time:2019-11-26 14:22:52.192  system_uptime:48039667]
+    // Sending event #100
+:Sending Trackball (ACTION_MOVE): 0:(4.0,0.0)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.example.hiking_2/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.hiking_2/.MainActivity } in package com.example.hiking_2
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,1.0)
+:Sending Touch (ACTION_DOWN): 0:(532.0,9.0)
+:Sending Touch (ACTION_UP): 0:(546.7557,0.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,2.0)
+:Sending Touch (ACTION_DOWN): 0:(375.0,1761.0)
+    //[calendar_time:2019-11-26 14:22:52.968  system_uptime:48040442]
+    // Sending event #200
+:Sending Touch (ACTION_UP): 0:(373.80206,1725.4492)
+:Sending Touch (ACTION_DOWN): 0:(223.0,1022.0)
+:Sending Touch (ACTION_UP): 0:(214.88182,1019.07574)
+:Sending Touch (ACTION_DOWN): 0:(759.0,938.0)
+:Sending Touch (ACTION_UP): 0:(776.2017,1044.6602)
+:Sending Touch (ACTION_DOWN): 0:(805.0,1149.0)
+:Sending Touch (ACTION_UP): 0:(751.6157,1212.1327)
+:Sending Touch (ACTION_DOWN): 0:(583.0,42.0)
+:Sending Touch (ACTION_UP): 0:(575.4605,15.769202)
+:Sending Touch (ACTION_DOWN): 0:(226.0,1454.0)
+:Sending Touch (ACTION_UP): 0:(226.16568,1452.5045)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,-5.0)
+:Sending Touch (ACTION_DOWN): 0:(576.0,1786.0)
+:Sending Touch (ACTION_UP): 0:(573.3063,1794.0)
+:Sending Trackball (ACTION_MOVE): 0:(3.0,-4.0)
+:Sending Touch (ACTION_DOWN): 0:(150.0,916.0)
+:Sending Touch (ACTION_UP): 0:(136.58412,910.7112)
+:Sending Touch (ACTION_DOWN): 0:(595.0,963.0)
+:Sending Touch (ACTION_UP): 0:(591.8541,980.22797)
+    // Rejecting start of Intent { act=android.settings.ALL_APPS_NOTIFICATION_SETTINGS cmp=com.android.settings/.Settings$NotificationAppListActivity } in package com.android.settings
+:Sending Touch (ACTION_DOWN): 0:(579.0,890.0)
+:Sending Touch (ACTION_UP): 0:(577.6276,888.5118)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(607.0,533.0)
+    //[calendar_time:2019-11-26 14:22:53.592  system_uptime:48041066]
+    // Sending event #300
+:Sending Touch (ACTION_UP): 0:(600.5517,512.7704)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,-4.0)
+:Sending Trackball (ACTION_UP): 0:(0.0,0.0)
+:Sending Touch (ACTION_DOWN): 0:(1036.0,1131.0)
+:Sending Touch (ACTION_UP): 0:(1034.6403,1130.6475)
+:Sending Touch (ACTION_DOWN): 0:(176.0,1270.0)
+:Sending Touch (ACTION_UP): 0:(227.18475,1263.6067)
+:Sending Touch (ACTION_DOWN): 0:(78.0,404.0)
+:Sending Touch (ACTION_UP): 0:(75.65133,408.48947)
+:Sending Touch (ACTION_DOWN): 0:(601.0,611.0)
+:Sending Touch (ACTION_UP): 0:(590.7859,620.5001)
+:Sending Touch (ACTION_DOWN): 0:(354.0,1071.0)
+:Sending Touch (ACTION_UP): 0:(369.03598,1072.5215)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-5.0)
+:Sending Flip keyboardOpen=false
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-5.0)
+:Sending Touch (ACTION_DOWN): 0:(434.0,1556.0)
+:Sending Touch (ACTION_UP): 0:(434.26718,1550.7056)
+:Sending Touch (ACTION_DOWN): 0:(982.0,173.0)
+:Sending Touch (ACTION_UP): 0:(981.27655,162.41963)
+:Sending Touch (ACTION_DOWN): 0:(27.0,905.0)
+:Sending Touch (ACTION_UP): 0:(96.14123,844.7303)
+    //[calendar_time:2019-11-26 14:22:54.425  system_uptime:48041899]
+    // Sending event #400
+    //[calendar_time:2019-11-26 14:22:54.425  system_uptime:48041900]
+    // Sending event #400
+:Sending Touch (ACTION_DOWN): 0:(972.0,1606.0)
+:Sending Touch (ACTION_UP): 0:(979.57007,1610.3789)
+:Sending Touch (ACTION_DOWN): 0:(530.0,524.0)
+:Sending Touch (ACTION_UP): 0:(525.73315,523.74817)
+:Sending Touch (ACTION_DOWN): 0:(772.0,993.0)
+:Sending Touch (ACTION_UP): 0:(770.79596,1110.1846)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(261.0,1721.0)
+:Sending Touch (ACTION_UP): 0:(314.80087,1676.8955)
+:Sending Flip keyboardOpen=true
+:Sending Touch (ACTION_DOWN): 0:(1079.0,358.0)
+:Sending Touch (ACTION_UP): 0:(1077.3096,351.0815)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(439.0,1340.0)
+:Sending Touch (ACTION_UP): 0:(348.94446,1335.614)
+:Sending Touch (ACTION_DOWN): 0:(207.0,841.0)
+:Sending Touch (ACTION_UP): 0:(251.63728,856.81213)
+Events injected: 500
+:Sending rotation degree=0, persist=false
+:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=4252ms (0ms mobile, 0ms wifi, 4252ms not connected)
+// Monkey finished

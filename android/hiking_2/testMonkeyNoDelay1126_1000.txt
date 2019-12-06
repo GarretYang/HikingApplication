@@ -1,0 +1,272 @@
+  bash arg: -p
+  bash arg: com.hikingapp
+  bash arg: -s
+  bash arg: 500
+  bash arg: -v
+  bash arg: 1000
+  bash arg: --pct-touch
+  bash arg: 50
+  bash arg: --pct-motion
+  bash arg: 50
+:Monkey: seed=500 count=1000
+:AllowPackage: com.hikingapp
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Touch (ACTION_DOWN): 0:(452.0,468.0)
+:Sending Touch (ACTION_UP): 0:(454.0877,458.32144)
+:Sending Touch (ACTION_DOWN): 0:(213.0,917.0)
+:Sending Touch (ACTION_UP): 0:(190.4717,918.1869)
+:Sending Touch (ACTION_DOWN): 0:(300.0,106.0)
+:Sending Touch (ACTION_UP): 0:(311.01562,97.52667)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(69.0,537.0)
+:Sending Touch (ACTION_UP): 0:(68.81869,538.4392)
+    // Rejecting start of Intent { act=android.intent.action.CALL_BUTTON cmp=com.google.android.dialer/com.google.android.apps.dialer.extensions.GoogleDialtactsActivity } in package com.google.android.dialer
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(468.0,728.0)
+:Sending Touch (ACTION_UP): 0:(463.41165,728.7321)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,0.0)
+:Sending Touch (ACTION_DOWN): 0:(883.0,328.0)
+    //[calendar_time:2019-11-26 14:53:35.422  system_uptime:49882896]
+    // Sending event #100
+:Sending Touch (ACTION_UP): 0:(782.3506,330.1664)
+:Sending Touch (ACTION_DOWN): 0:(371.0,1258.0)
+:Sending Touch (ACTION_UP): 0:(368.21472,1260.3579)
+:Sending Flip keyboardOpen=false
+:Sending Touch (ACTION_DOWN): 0:(305.0,1118.0)
+:Sending Touch (ACTION_UP): 0:(251.6425,1063.3131)
+:Sending Trackball (ACTION_MOVE): 0:(3.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,-2.0)
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] cmp=com.google.android.apps.nexuslauncher/.NexusLauncherActivity } in package com.google.android.apps.nexuslauncher
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,-3.0)
+:Sending Touch (ACTION_DOWN): 0:(570.0,165.0)
+:Sending Touch (ACTION_UP): 0:(555.9452,162.36003)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Rejecting start of Intent { act=android.intent.action.VIEW dat=content://com.android.calendar/time/1574801615737 cmp=com.google.android.calendar/com.android.calendar.AllInOneActivity } in package com.google.android.calendar
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Touch (ACTION_DOWN): 0:(786.0,621.0)
+:Sending Touch (ACTION_UP): 0:(801.3442,617.88727)
+:Sending Touch (ACTION_DOWN): 0:(1028.0,723.0)
+:Sending Touch (ACTION_UP): 0:(1025.3593,720.32904)
+:Sending Touch (ACTION_DOWN): 0:(352.0,182.0)
+:Sending Touch (ACTION_UP): 0:(370.6715,177.61766)
+:Sending Touch (ACTION_DOWN): 0:(1.0,1433.0)
+:Sending Touch (ACTION_UP): 0:(4.8124356,1425.709)
+:Sending Trackball (ACTION_MOVE): 0:(3.0,3.0)
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,1.0)
+:Sending Touch (ACTION_DOWN): 0:(952.0,594.0)
+    //[calendar_time:2019-11-26 14:53:36.595  system_uptime:49884069]
+    // Sending event #200
+:Sending Touch (ACTION_UP): 0:(929.0962,638.54156)
+:Sending Touch (ACTION_DOWN): 0:(452.0,1213.0)
+:Sending Touch (ACTION_UP): 0:(452.29303,1216.86)
+:Sending Touch (ACTION_DOWN): 0:(40.0,421.0)
+:Sending Touch (ACTION_UP): 0:(54.262985,416.2738)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,0.0)
+:Sending Touch (ACTION_DOWN): 0:(1.0,1396.0)
+:Sending Touch (ACTION_UP): 0:(0.51323557,1397.4791)
+:Sending Touch (ACTION_DOWN): 0:(348.0,228.0)
+:Sending Touch (ACTION_UP): 0:(414.18317,214.00327)
+:Sending Touch (ACTION_DOWN): 0:(256.0,1398.0)
+:Sending Touch (ACTION_UP): 0:(309.07782,1412.9473)
+:Sending Touch (ACTION_DOWN): 0:(847.0,1447.0)
+:Sending Touch (ACTION_UP): 0:(873.47845,1423.728)
+:Sending Touch (ACTION_DOWN): 0:(574.0,434.0)
+:Sending Touch (ACTION_UP): 0:(456.18488,533.5027)
+:Sending Touch (ACTION_DOWN): 0:(16.0,317.0)
+:Sending Touch (ACTION_UP): 0:(18.25164,315.11115)
+:Sending Touch (ACTION_DOWN): 0:(734.0,751.0)
+:Sending Touch (ACTION_UP): 0:(728.35254,758.43274)
+:Sending Touch (ACTION_DOWN): 0:(486.0,1289.0)
+:Sending Touch (ACTION_UP): 0:(464.97046,1282.8809)
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,-3.0)
+    //[calendar_time:2019-11-26 14:53:37.976  system_uptime:49885450]
+    // Sending event #300
+    //[calendar_time:2019-11-26 14:53:37.976  system_uptime:49885451]
+    // Sending event #300
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-1.0)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-3.0)
+:Sending Touch (ACTION_DOWN): 0:(372.0,1423.0)
+:Sending Touch (ACTION_UP): 0:(372.24927,1413.9344)
+:Sending Touch (ACTION_DOWN): 0:(121.0,423.0)
+:Sending Touch (ACTION_UP): 0:(111.170586,428.9139)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(934.0,950.0)
+:Sending Touch (ACTION_UP): 0:(998.48444,1038.1786)
+:Sending Touch (ACTION_DOWN): 0:(315.0,1787.0)
+:Sending Touch (ACTION_UP): 0:(305.1334,1788.5983)
+:Sending Flip keyboardOpen=true
+:Sending Touch (ACTION_DOWN): 0:(361.0,792.0)
+:Sending Touch (ACTION_UP): 0:(280.74847,760.25055)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-5.0)
+    //[calendar_time:2019-11-26 14:53:38.792  system_uptime:49886267]
+    // Sending event #400
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,4.0)
+:Sending Flip keyboardOpen=false
+:Sending Touch (ACTION_DOWN): 0:(859.0,517.0)
+:Sending Touch (ACTION_UP): 0:(859.13226,516.34595)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Touch (ACTION_DOWN): 0:(105.0,1028.0)
+:Sending Touch (ACTION_UP): 0:(115.323944,1027.8131)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(266.0,130.0)
+:Sending Touch (ACTION_UP): 0:(256.8199,82.85185)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(13.0,1129.0)
+:Sending Touch (ACTION_UP): 0:(10.338125,1131.586)
+:Sending Touch (ACTION_DOWN): 0:(941.0,1691.0)
+:Sending Touch (ACTION_UP): 0:(880.517,1775.1115)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-1.0)
+    //[calendar_time:2019-11-26 14:53:39.538  system_uptime:49887013]
+    // Sending event #500
+:Sending Touch (ACTION_DOWN): 0:(605.0,592.0)
+:Sending Touch (ACTION_UP): 0:(631.9773,572.89557)
+:Sending Touch (ACTION_DOWN): 0:(677.0,77.0)
+:Sending Touch (ACTION_UP): 0:(753.60187,94.41306)
+:Sending Touch (ACTION_DOWN): 0:(549.0,428.0)
+:Sending Touch (ACTION_UP): 0:(557.5818,428.1099)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,0.0)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(638.0,606.0)
+:Sending Touch (ACTION_UP): 0:(574.04865,573.6209)
+:Sending Touch (ACTION_DOWN): 0:(300.0,1505.0)
+:Sending Touch (ACTION_UP): 0:(302.25482,1534.7578)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,4.0)
+:Sending Trackball (ACTION_UP): 0:(0.0,0.0)
+:Sending Touch (ACTION_DOWN): 0:(995.0,383.0)
+:Sending Touch (ACTION_UP): 0:(985.6965,377.7301)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+    //[calendar_time:2019-11-26 14:53:40.611  system_uptime:49888086]
+    // Sending event #600
+    //[calendar_time:2019-11-26 14:53:40.612  system_uptime:49888086]
+    // Sending event #600
+:Sending Touch (ACTION_DOWN): 0:(553.0,1600.0)
+:Sending Touch (ACTION_UP): 0:(550.248,1610.7515)
+:Sending Flip keyboardOpen=true
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,4.0)
+:Sending Touch (ACTION_DOWN): 0:(317.0,1637.0)
+:Sending Touch (ACTION_UP): 0:(400.8371,1655.0482)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Touch (ACTION_DOWN): 0:(119.0,1400.0)
+:Sending Touch (ACTION_UP): 0:(111.55658,1361.5681)
+:Sending Touch (ACTION_DOWN): 0:(660.0,719.0)
+:Sending Touch (ACTION_UP): 0:(646.35474,700.7835)
+:Sending Touch (ACTION_DOWN): 0:(596.0,208.0)
+:Sending Touch (ACTION_UP): 0:(610.8079,211.75038)
+:Sending Touch (ACTION_DOWN): 0:(100.0,276.0)
+:Sending Touch (ACTION_UP): 0:(107.23551,265.20898)
+:Sending Touch (ACTION_DOWN): 0:(478.0,546.0)
+:Sending Touch (ACTION_UP): 0:(463.6556,542.5456)
+:Sending Touch (ACTION_DOWN): 0:(394.0,401.0)
+:Sending Touch (ACTION_UP): 0:(392.96378,402.70123)
+    // Rejecting start of Intent { act=com.android.intent.action.SHOW_BRIGHTNESS_DIALOG cmp=com.android.systemui/.settings.BrightnessDialog } in package com.android.systemui
+:Sending Touch (ACTION_DOWN): 0:(1036.0,85.0)
+:Sending Touch (ACTION_UP): 0:(1065.3912,51.11502)
+:Sending Touch (ACTION_DOWN): 0:(388.0,228.0)
+:Sending Touch (ACTION_UP): 0:(403.84775,210.89023)
+:Sending Touch (ACTION_DOWN): 0:(325.0,728.0)
+:Sending Touch (ACTION_UP): 0:(318.06207,722.2603)
+:Sending Touch (ACTION_DOWN): 0:(236.0,126.0)
+:Sending Touch (ACTION_UP): 0:(218.30716,127.5061)
+:Sending Touch (ACTION_DOWN): 0:(291.0,454.0)
+:Sending Touch (ACTION_UP): 0:(279.90332,456.10672)
+:Sending Touch (ACTION_DOWN): 0:(567.0,1766.0)
+:Sending Touch (ACTION_UP): 0:(586.0211,1777.6768)
+    //[calendar_time:2019-11-26 14:53:42.051  system_uptime:49889526]
+    // Sending event #700
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,0.0)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Touch (ACTION_DOWN): 0:(783.0,1233.0)
+:Sending Touch (ACTION_UP): 0:(727.9437,1188.0974)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,-1.0)
+    // Allowing start of Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN pkg=com.hikingapp cmp=com.hikingapp/com.google.android.gms.auth.api.signin.internal.SignInHubActivity } in package com.hikingapp
+    // Rejecting start of Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN pkg=com.google.android.gms cmp=com.google.android.gms/.auth.api.signin.ui.SignInActivity } in package com.google.android.gms
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,-2.0)
+    // activityResuming(com.hikingapp)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-2.0)
+:Sending Touch (ACTION_DOWN): 0:(263.0,850.0)
+:Sending Touch (ACTION_UP): 0:(291.8459,888.96985)
+:Sending Touch (ACTION_DOWN): 0:(1062.0,686.0)
+:Sending Touch (ACTION_UP): 0:(1080.0,730.85736)
+:Sending Touch (ACTION_DOWN): 0:(323.0,872.0)
+:Sending Touch (ACTION_UP): 0:(334.02454,866.1102)
+:Sending Touch (ACTION_DOWN): 0:(404.0,1475.0)
+:Sending Touch (ACTION_UP): 0:(421.0652,1466.4625)
+    //[calendar_time:2019-11-26 14:53:44.596  system_uptime:49892071]
+    // Sending event #800
+    // Rejecting start of Intent { act=com.android.intent.action.SHOW_BRIGHTNESS_DIALOG cmp=com.android.systemui/.settings.BrightnessDialog } in package com.android.systemui
+:Sending Flip keyboardOpen=false
+:Sending Touch (ACTION_DOWN): 0:(271.0,712.0)
+:Sending Touch (ACTION_UP): 0:(113.69912,820.2464)
+    // Rejecting start of Intent { act=com.android.intent.action.SHOW_BRIGHTNESS_DIALOG cmp=com.android.systemui/.settings.BrightnessDialog } in package com.android.systemui
+:Sending Touch (ACTION_DOWN): 0:(1010.0,1685.0)
+:Sending Touch (ACTION_UP): 0:(1019.4499,1702.1505)
+:Sending Touch (ACTION_DOWN): 0:(581.0,184.0)
+:Sending Touch (ACTION_UP): 0:(583.32544,184.27386)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-2.0)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Touch (ACTION_DOWN): 0:(363.0,76.0)
+:Sending Touch (ACTION_UP): 0:(364.15668,99.8877)
+:Sending Touch (ACTION_DOWN): 0:(90.0,1247.0)
+:Sending Touch (ACTION_UP): 0:(74.31251,1246.9181)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-3.0)
+:Sending Touch (ACTION_DOWN): 0:(554.0,867.0)
+:Sending Touch (ACTION_UP): 0:(549.8344,855.59467)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,0.0)
+    //[calendar_time:2019-11-26 14:53:45.575  system_uptime:49893049]
+    // Sending event #900
+:Sending Touch (ACTION_DOWN): 0:(348.0,437.0)
+:Sending Touch (ACTION_UP): 0:(355.0049,421.87735)
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] cmp=com.google.android.apps.nexuslauncher/.NexusLauncherActivity } in package com.google.android.apps.nexuslauncher
+    // Rejecting start of Intent { act=android.intent.action.CALL_BUTTON cmp=com.google.android.dialer/com.google.android.apps.dialer.extensions.GoogleDialtactsActivity } in package com.google.android.dialer
+:Sending Touch (ACTION_DOWN): 0:(473.0,1473.0)
+:Sending Touch (ACTION_UP): 0:(387.31558,1477.511)
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.hikingapp/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.hikingapp/.MainActivity } in package com.hikingapp
+:Sending Touch (ACTION_DOWN): 0:(1050.0,1191.0)
+:Sending Touch (ACTION_UP): 0:(1080.0,1163.4597)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,-4.0)
+    // Rejecting start of Intent { act=android.settings.SOUND_SETTINGS cmp=com.android.settings/.Settings$SoundSettingsActivity } in package com.android.settings
+    // Injection Failed
+:Sending Touch (ACTION_DOWN): 0:(834.0,769.0)
+:Sending Touch (ACTION_UP): 0:(853.194,773.2988)
+:Sending Touch (ACTION_DOWN): 0:(558.0,737.0)
+:Sending Touch (ACTION_UP): 0:(564.62506,727.79877)
+:Sending Flip keyboardOpen=true
+:Sending Touch (ACTION_DOWN): 0:(997.0,1045.0)
+:Sending Touch (ACTION_UP): 0:(985.3028,1047.2067)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,2.0)
+:Sending Touch (ACTION_DOWN): 0:(441.0,1749.0)
+:Sending Touch (ACTION_UP): 0:(468.70578,1794.0)
+:Sending Touch (ACTION_DOWN): 0:(932.0,1650.0)
+Events injected: 1000
+:Sending rotation degree=0, persist=false
+:Dropped: keys=1 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=12880ms (0ms mobile, 0ms wifi, 12880ms not connected)
+// Monkey finished
