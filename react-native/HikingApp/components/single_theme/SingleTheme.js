@@ -1,4 +1,6 @@
 import React from 'react';
+import Share from 'react-native-share';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, SafeAreaView, SectionList } from 'react-native';
 import { Button } from 'react-native-elements';
 
@@ -53,13 +55,41 @@ export default class SingleTheme extends React.Component {
   }
 
   userNameHandler(item){
+      let url = "https://aptproject-255903.appspot.com/photo?photoId="+item.photos[0].$oid
       if (item.user_name !== undefined) {
         return (
-          <Text style={styles.textView}>User Name: {item.user_name} </Text>
+          <View style={{flex:1, flexDirection: "row", justifyContent: 'space-between'}}>
+            <View style={{flex:1, flexDirection: "row"}}>
+              <Text style={styles.textView}>User Name: {item.user_name} </Text>
+            </View>
+            <View>
+              <Button 
+                buttonStyle={{backgroundColor:'#009577'}}
+                // title="Share"
+                icon={
+                  <MaterialCommunityIcons name="share" size={15} />
+                }
+                onPress={() => this.shareHandler(url)}
+              />
+            </View>
+          </View>
         )
       } else {
         return (
-          <Text style={styles.textView}>no user name</Text>
+          <View style={{flex:1, flexDirection: "row", justifyContent: 'space-between'}}>
+            <View style={{flex:1, flexDirection: "row"}}>
+              <Text style={styles.textView}>User Name: N/A </Text>
+            </View>
+            <View>
+              <Button 
+                buttonStyle={{backgroundColor:'#009577'}}
+                // title="Share"
+                icon={
+                  <MaterialCommunityIcons name="share" size={15} />
+                }
+              />
+            </View>
+          </View>
         )
       }
   }
@@ -120,6 +150,20 @@ export default class SingleTheme extends React.Component {
       }
   }
 
+  shareHandler(url) {
+    console.log("You clikced share")
+    const shareOption = {
+      title: 'Sharing Hiking Photo',
+      message: 'Check out this awesome hiking photo! \n\n',
+      url: url, 
+      social: [
+        Share.Social.FACEBOOK,
+      ]
+    }
+    Share.open(shareOption)
+    .then((res) => { console.log(res) })
+    .catch((err) => { err && console.log(err); });
+  }
   render(){
 
     if(this.state.isLoading){
@@ -150,7 +194,6 @@ export default class SingleTheme extends React.Component {
                 {this.dateHandler(item)}
                 {this.descriptionHandler(item)}
                 {this.tagsHandler(item)}
-
              </View>}
           keyExtractor={(item, index) => item._id.$oid}
         />
