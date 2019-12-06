@@ -91,8 +91,12 @@ export default class AddNewReport extends React.Component {
         this.setState({ isSignedIn: isSignedIn });
         if (!this.state.isSignedIn) {
             alert('You must sign in before adding new report!');
-        }
+        } 
     };
+
+    sentenceGeneratorTrigger = async() => {
+        console.log("You pressed!")
+    }
 
     getCurrentUser = async () => {
         const currentUser = await GoogleSignin.getCurrentUser();
@@ -163,8 +167,24 @@ export default class AddNewReport extends React.Component {
             let responseJson = await response.text();
             Alert.alert(
                 'Submission Status',
-                responseJson.substring(responseJson.indexOf(':')+1, responseJson.length-1)
-            )
+                responseJson.substring(responseJson.indexOf(':')+1, responseJson.length-1),
+                "message",
+                [{
+                    text: 'Ok',
+                    onPress: () => 
+                        Alert.alert(
+                            'Surprise!',
+                            'See what AI tells about your photo!',
+                            [
+                                { text: 'Yes!!!',
+                                    onPress: () => { this.sentenceGeneratorTrigger() },
+                                },
+                                { text: 'Nope',
+                                }
+                            ]
+                        )                  
+                }],
+            )          
             this.setState({feature: ""})
             this.setState({date: ""})
         } catch(error) {
