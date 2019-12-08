@@ -1,3 +1,6 @@
+import base64
+
+from bson import Binary
 from flask import Blueprint, render_template, request, Response
 import google.oauth2.id_token
 from db_api import *
@@ -36,6 +39,7 @@ def newcreatereport():
         user = find_or_create_user(db, req.get('name'), req.get('email'))
 
     new_report_result = create_report(db, feature, tags, location, description, date, user, photos=photos)
+    print("report result: " + new_report_result)
     #new_report_result = False
 
     if new_report_result is False:
@@ -51,7 +55,9 @@ def newcreatereport():
     if request.path == '/newcreatereport':
         return render_template('created_new_report.html', status=status, user_data=claims, error_message=error_message)
     else:
-        return Response("{'status':'" + status + "'}", status=status_code, mimetype='application/json')
+        return Response("{'status':'" + status + "'" + ", " +
+                        "'photo_id':'" + new_report_result[1] + "'}",
+                        status=status_code, mimetype='application/json')
 # [END createReport]
 
 

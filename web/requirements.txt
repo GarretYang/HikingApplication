@@ -1,9 +1,6 @@
 flask
-google-cloud-datastore==1.7.3	
-google-auth==1.6.2	
-requests==2.21.0	
-wtforms==2.2.1	
-pymongo==3.9.0	
-dnspython==1.16.0
-google-auth==1.6.3
 requests
+wtforms
+pymongo
+dnspython
+google-auth
