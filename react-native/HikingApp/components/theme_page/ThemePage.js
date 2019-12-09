@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 //import all the basic component we have used
 import { FlatList, ActivityIndicator, Image} from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Card } from 'react-native-elements';
 
 export default class ThemePage extends React.Component {
 
@@ -77,8 +77,10 @@ export default class ThemePage extends React.Component {
                     feature: item.feature_name
                 })}
             >
-              <Text style={styles.textView}> {item.feature_name} </Text>
-              {this.imageHandler(item)}
+              <Card>
+                <Text style={styles.textView}> {item.feature_name} </Text>
+                {this.imageHandler(item)}
+              </Card>
             </TouchableOpacity>
           }
         keyExtractor={item => item.feature_id.$oid}

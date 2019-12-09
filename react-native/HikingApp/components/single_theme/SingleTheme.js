@@ -2,7 +2,7 @@ import React from 'react';
 import Share from 'react-native-share';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, SafeAreaView, SectionList } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Card } from 'react-native-elements';
 
 export default class SingleTheme extends React.Component {
 
@@ -60,16 +60,16 @@ export default class SingleTheme extends React.Component {
         return (
           <View style={{flex:1, flexDirection: "row", justifyContent: 'space-between'}}>
             <View style={{flex:1, flexDirection: "row"}}>
-              <Text style={styles.textView}>User Name: {item.user_name} </Text>
+              <Text style={styles.textViewtitle}>  {item.user_name} </Text>
             </View>
             <View>
-              <Button 
-                buttonStyle={{backgroundColor:'#009577'}}
+              <Button
+                buttonStyle={{backgroundColor:'#EAECEE'}}
                 // title="Share"
                 icon={
                   <MaterialCommunityIcons name="share" size={15} />
                 }
-                onPress={() => this.shareHandler(url)}
+                onPress={() => this.shareHandler(url, item)}
               />
             </View>
           </View>
@@ -77,16 +77,14 @@ export default class SingleTheme extends React.Component {
       } else {
         return (
           <View style={{flex:1, flexDirection: "row", justifyContent: 'space-between'}}>
-            <View style={{flex:1, flexDirection: "row"}}>
-              <Text style={styles.textView}>User Name: N/A </Text>
-            </View>
             <View>
-              <Button 
+              <Button
                 buttonStyle={{backgroundColor:'#009577'}}
                 // title="Share"
                 icon={
                   <MaterialCommunityIcons name="share" size={15} />
                 }
+                onPress={() => this.shareHandler(url, item)}
               />
             </View>
           </View>
@@ -127,7 +125,7 @@ export default class SingleTheme extends React.Component {
 
   tagsHandler(data) {
       if (data.tags != undefined){
-          console.log(data.tags)
+          // console.log(data.tags)
           return(
               <View style={{flex:1, flexDirection: 'row', flexWrap:'wrap'}}>
                 <Text style={{
@@ -141,7 +139,7 @@ export default class SingleTheme extends React.Component {
                   style={{flex:1, flexDirection: 'row', flexWrap:'wrap'}}
                     data={data.tags}
                     renderItem={({item}) =>
-                          <Text style={styles.textView, {backgroundColor: "#009577", marginRight: 10, marginTop:5, color: "white"}}>{item} </Text>}
+                          <Text style={styles.textView, {backgroundColor: "#EAECEE", marginRight: 10, marginTop:5,}}>{item} </Text>}
                     listKey = {(item, index) => 'D' + index.toString()}
                   />
               </View>
@@ -150,12 +148,13 @@ export default class SingleTheme extends React.Component {
       }
   }
 
-  shareHandler(url) {
+  shareHandler(url, item) {
     console.log("You clikced share")
+    let messageToShare = 'Check out this awesome hiking photo posted on '+item.date_in+'! \n\n'+item.user_name+' said: '+item.description+' \n\n'
     const shareOption = {
       title: 'Sharing Hiking Photo',
-      message: 'Check out this awesome hiking photo! \n\n',
-      url: url, 
+      message: messageToShare,
+      url: url,
       social: [
         Share.Social.FACEBOOK,
       ]
@@ -187,14 +186,18 @@ export default class SingleTheme extends React.Component {
         <FlatList
           data={this.state.reportsData}
           renderItem={({item}) =>
+
              <View style={{flex:1, flexDirection: 'column'}}>
-                <Text>{}</Text>
-                {this.imageHandler(item)}
-                {this.userNameHandler(item)}
-                {this.dateHandler(item)}
-                {this.descriptionHandler(item)}
-                {this.tagsHandler(item)}
-             </View>}
+                <Card title={this.userNameHandler(item)}
+                    image={{ uri: "https://aptproject-255903.appspot.com/photo?photoId="+item.photos[0].$oid}} style={styles.imageView}
+                    >
+                    {this.dateHandler(item)}
+                    {this.descriptionHandler(item)}
+                    {this.tagsHandler(item)}
+                </Card>
+             </View>
+
+         }
           keyExtractor={(item, index) => item._id.$oid}
         />
 
@@ -232,6 +235,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         padding:5,
         color: '#273746'
+
+    },
+
+    textViewtitle: {
+
+        width:'95%',
+        textAlignVertical:'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding:5,
+        color: '#626567'
 
     }
 });
