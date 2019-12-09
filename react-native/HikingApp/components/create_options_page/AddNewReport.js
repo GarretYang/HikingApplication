@@ -13,6 +13,7 @@ import { TagSelect } from 'react-native-tag-select';
 import ImageView from 'react-native-image-view'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
 export default class AddNewReport extends React.Component {
     constructor(props) {
         super(props);
@@ -114,6 +115,16 @@ export default class AddNewReport extends React.Component {
         let image_url = "https://aptproject-255903.appspot.com/photo?photoId=" + photo_id;
         console.log("You pressed! " + image_url);
         //TODO: get results from api!
+
+        const deepai = require('deepai'); // OR include deepai.min.js as a script tag in your HTML
+
+        deepai.setApiKey('quickstart-QUdJIGlzIGNvbWluZy4uLi4K');
+
+        let resp = await deepai.callStandardApi("neuraltalk", {
+            image: image_url
+        });
+
+        console.log(resp);
     }
 
     getCurrentUser = async () => {
