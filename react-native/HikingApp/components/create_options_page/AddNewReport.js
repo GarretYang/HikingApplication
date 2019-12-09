@@ -110,8 +110,10 @@ export default class AddNewReport extends React.Component {
         } 
     };
 
-    sentenceGeneratorTrigger = async() => {
-        console.log("You pressed!")
+    sentenceGeneratorTrigger = async(photo_id) => {
+        let image_url = "https://aptproject-255903.appspot.com/photo?photoId=" + photo_id;
+        console.log("You pressed! " + image_url);
+        //TODO: get results from api!
     }
 
     getCurrentUser = async () => {
@@ -161,7 +163,7 @@ export default class AddNewReport extends React.Component {
         
         try {
             let response = await fetch(
-                'http://aptproject-255903.appspot.com/newcreatereportjson', 
+                'http://10.0.2.2:5000/newcreatereportjson',
                 {
                     method: 'POST',
                     headers: {
@@ -180,10 +182,13 @@ export default class AddNewReport extends React.Component {
                     })
                 }
             )
-            let responseJson = await response.text();
+            let responseJson = await response.json();
+            console.log(responseJson);
+            console.log(responseJson['status']);
+            console.log(responseJson['photo_id']);
             Alert.alert(
                 'Submission Status',
-                responseJson.substring(responseJson.indexOf(':')+1, responseJson.length-1),
+                responseJson['status'],
                 [{
                     text: 'Ok',
                     onPress: () => 
@@ -192,7 +197,7 @@ export default class AddNewReport extends React.Component {
                             'See what AI tells about your photo!',
                             [
                                 { text: 'Yes!!!',
-                                    onPress: () => { this.sentenceGeneratorTrigger() },
+                                    onPress: () => { this.sentenceGeneratorTrigger(responseJson['photo_id']) },
                                 },
                                 { text: 'Nope',
                                 }
