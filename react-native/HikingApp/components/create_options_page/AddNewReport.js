@@ -1,7 +1,7 @@
 //This is an example code for Bottom Navigation//
 import React, { Component } from 'react';
 //import react in our code.
-import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, Image, ScrollView, Alert } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Button, TextInput, ImageBackground, ScrollView, Alert } from 'react-native';
 //import all the basic component we have used
 import { Dropdown } from 'react-native-material-dropdown';
 import ImagePicker from 'react-native-image-picker';
@@ -10,6 +10,8 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 import RNFS from 'react-native-fs';
 import GetLocation from 'react-native-get-location';
 import { TagSelect } from 'react-native-tag-select';
+import ImageView from 'react-native-image-view'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class AddNewReport extends React.Component {
     constructor(props) {
@@ -27,6 +29,7 @@ export default class AddNewReport extends React.Component {
         };
         this.handleChoosePhoto = this.handleChoosePhoto.bind(this)
         this.handleTakePhoto = this.handleTakePhoto.bind(this)
+        this.handleDeletePhoto = this.handleDeletePhoto.bind(this)
     };
 
     componentDidMount(){
@@ -77,13 +80,26 @@ export default class AddNewReport extends React.Component {
         await ImagePicker.launchCamera(options, (response) => {
             if (response.uri) {
                 this.setState({ photos: [...this.state.photos, response] })
-
+                
                 RNFS.readFile(response.path, 'base64')
                     .then(res => {
                     this.setState({ photosBase64: [...this.state.photosBase64, res] });
                 });
+                console.log(this.state.photo)
+                console.log(this.state.photosBase64)
             };
         });  
+    }
+
+    handleDeletePhoto = async(photo) => {
+        this.setState({photos: this.state.photos.filter((img) => {
+                return img.uri !== photo.uri
+            }) 
+        })
+        this.setState({photosBase64: this.state.photosBase64.filter((img) => {
+                return img.data != photo.data
+            })
+        })
     }
 
     checkIsSignedIn = async () => {
@@ -123,7 +139,7 @@ export default class AddNewReport extends React.Component {
             this.setState({ locationData: locationData });
         } catch(error) {
             const { code, message } = error;
-            console.warn(code, message);
+            // console.warn(code, message);
         }
     }
 
@@ -168,7 +184,6 @@ export default class AddNewReport extends React.Component {
             Alert.alert(
                 'Submission Status',
                 responseJson.substring(responseJson.indexOf(':')+1, responseJson.length-1),
-                "message",
                 [{
                     text: 'Ok',
                     onPress: () => 
@@ -252,6 +267,24 @@ export default class AddNewReport extends React.Component {
                     />
                 </View>
 
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
+                        { photos.map((photo) => 
+                            photo && (
+                                <ImageBackground
+                                    source={{ uri: photo.uri }}
+                                    style={{ width: 150, height: 150, flex: 1, borderRadius: 15 }}
+                                >
+                                    <MaterialCommunityIcons 
+                                        style={styles.close} 
+                                        name="delete-circle"
+                                        size={25}
+                                        onPress={() => this.handleDeletePhoto(photo)}>
+                                    </MaterialCommunityIcons>
+                                </ImageBackground>
+                            )
+                        )}
+                    </View>
+
                 <View style={styles.alternativeLayoutButtonContainer}>
                     <Button
                         onPress={() => { this.handleChoosePhoto() }}
@@ -262,15 +295,6 @@ export default class AddNewReport extends React.Component {
                         title="CAMERA"
                     />
                 </View>
-
-                { photos.map((photo) => 
-                    photo && (
-                        <Image
-                            source={{ uri: photo.uri }}
-                            style={{ width: 300, height: 300 }}
-                        />
-                    )
-                )}
 
                 <View style={styles.submitButtonContainer}>
                     <Button
@@ -320,5 +344,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         marginTop: 50,
         marginLeft: 15,
-      }
+     },
+    close: {
+        margin: 5,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: 25,
+        height: 25,
+        color: "tomato"
+    }
 });

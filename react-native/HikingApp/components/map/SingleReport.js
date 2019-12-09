@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, Image, StyleSheet, SafeAreaView, SectionList } from 'react-native';
 import { Button } from 'react-native-elements';
 
+
 export default class SingleReport extends React.Component {
 
   constructor(props){
@@ -19,14 +20,13 @@ export default class SingleReport extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.state.marker)
     this.setState({
       isLoading: false,
       reportsData: this.state.marker,
     })
   }
 
-  imageHandler(item) {
+  async imageHandler(item) {
     if (item.photos !== undefined && item.photos[0].$oid !== undefined) {
       return (
         <Image source = {{ uri: "https://aptproject-255903.appspot.com/photo?photoId="+item.photos[0].$oid}} style={styles.imageView} />

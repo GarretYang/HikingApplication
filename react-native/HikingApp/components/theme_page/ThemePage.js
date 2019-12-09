@@ -25,7 +25,6 @@ export default class ThemePage extends React.Component {
         }, function(){
           console.log(this.state.responseJson)
         });
-
       })
       .catch((error) =>{
         console.error(error);
@@ -43,7 +42,6 @@ export default class ThemePage extends React.Component {
       )
     }
   }
-
 
   render() {
 
