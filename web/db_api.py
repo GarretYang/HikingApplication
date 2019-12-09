@@ -1,7 +1,4 @@
 from bson.objectid import ObjectId
-from bson import Binary
-import base64
-
 
 def create_report(db, feature_name_in, tags_in, location_in, description_in, date_in, user_id_in, **kwargs):
     """
@@ -29,7 +26,8 @@ def create_report(db, feature_name_in, tags_in, location_in, description_in, dat
     }
 
     if 'photos' in kwargs:
-        report['photos'] = create_photo(db, kwargs['photos'], feature_name_in, date_in)
+        photos = create_photo(db, kwargs['photos'], feature_name_in, date_in)
+        report['photos'] = photos
     try:
         _id = db.Reports.insert_one(report).inserted_id
         existed_report = db.Features.find_one({'feature_name': feature_name_in})
@@ -47,7 +45,7 @@ def create_report(db, feature_name_in, tags_in, location_in, description_in, dat
         # create each tag that didn't exist and associate each existing tag with this report
         for tag in tags_in:
             update_or_create_tag(db, tag, _id)
-        return _id
+        return _id, photos[0]
 
 def create_feature(db, feature_name_in, location_in):
     """
