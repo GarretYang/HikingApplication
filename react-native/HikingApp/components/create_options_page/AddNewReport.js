@@ -376,12 +376,7 @@ export default class AddNewReport extends React.Component {
                 </View>
 
                 <View>
-                    <Button
-                        title="Show Dialog"
-                        onPress={() => {
-                        this.setState({ visible: true });
-                        }}
-                    />
+                    
                     <Dialog
                         height="0.55"
                         visible={this.state.visible}
