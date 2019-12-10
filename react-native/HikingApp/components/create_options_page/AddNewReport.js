@@ -31,7 +31,9 @@ export default class AddNewReport extends React.Component {
             description: "",
             isLoading: true,
             isSignedIn: false,
-            visible: false
+            visible: false,
+            caption: "",
+            url: ""
         };
         this.handleChoosePhoto = this.handleChoosePhoto.bind(this)
         this.handleTakePhoto = this.handleTakePhoto.bind(this)
@@ -118,6 +120,7 @@ export default class AddNewReport extends React.Component {
 
     sentenceGeneratorTrigger = async(photo_id) => {
         let image_url = "https://aptproject-255903.appspot.com/photo?photoId=" + photo_id;
+        this.setState({url:image_url})
         console.log("You pressed! " + image_url);
         //TODO: get results from api!
 
@@ -130,6 +133,8 @@ export default class AddNewReport extends React.Component {
         });
 
         console.log(resp);
+
+        this.setState({caption: resp.output});
     }
 
     getCurrentUser = async () => {
@@ -202,6 +207,9 @@ export default class AddNewReport extends React.Component {
             console.log(responseJson);
             console.log(responseJson['status']);
             console.log(responseJson['photo_id']);
+
+            this.sentenceGeneratorTrigger(responseJson['photo_id']);
+
             Alert.alert(
                 'Submission Status',
                 responseJson['status'],
@@ -213,7 +221,7 @@ export default class AddNewReport extends React.Component {
                             'See what AI tells about your photo!',
                             [
                                 { text: 'Yes!!!',
-                                    onPress: () => { this.sentenceGeneratorTrigger(responseJson['photo_id']) },
+                                    onPress: () => { this.setState({visible:true}) },
                                 },
                                 { text: 'Nope',
                                 }
@@ -231,9 +239,13 @@ export default class AddNewReport extends React.Component {
         }
     }
 
-    shareHandler(url, item) {
+    shareHandler(url) {
         console.log("You clikced share")
-        let messageToShare = 'Check out this awesome hiking photo posted on '+item.date_in+'! \n\n'+item.user_name+' said: '+item.description+' \n\n'
+        let messageToShare = 'Check out this awesome hiking photo posted on '+this.state.date+'! \n\n'+this.state.user_name+' said: '+this.state.description+' \n\n'
+        + 'AI said this image was: ' + this.state.caption + '! ' + this.state.emojis + '\n\n'
+        console.log(this.state.emojis)
+        console.log(this.state.date)
+        console.log(this.state.caption)
         const shareOption = {
           title: 'Sharing Hiking Photo',
           message: messageToShare,
@@ -394,7 +406,7 @@ export default class AddNewReport extends React.Component {
                                         )
                                     )}
                             </View>
-                            <Text>hahahaha</Text>
+                            <Text>{this.state.caption}</Text>
                             <View style={styles.emojisContainer}>
                                 <Text>I feel...</Text>
                                 <TagSelect
@@ -411,7 +423,7 @@ export default class AddNewReport extends React.Component {
                             <Button
                                 buttonStyle={{backgroundColor:'#EAECEE'}}
                                 title="share"
-                                onPress={() => this.shareHandler(url, item)}
+                                onPress={() => this.shareHandler(this.state.url)}
                             />
                             </ScrollView>
                         </DialogContent>
