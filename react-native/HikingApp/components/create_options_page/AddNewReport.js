@@ -184,7 +184,7 @@ export default class AddNewReport extends React.Component {
         
         try {
             let response = await fetch(
-                'http://10.0.2.2:5000/newcreatereportjson',
+                'https://aptproject-255903.appspot.com/newcreatereportjson',
                 {
                     method: 'POST',
                     headers: {
