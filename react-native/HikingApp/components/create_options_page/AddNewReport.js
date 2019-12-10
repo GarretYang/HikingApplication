@@ -230,7 +230,6 @@ export default class AddNewReport extends React.Component {
                 }],
             )          
             this.setState({feature: ""})
-            this.setState({date: ""})
         } catch(error) {
             Alert.alert(
                 'Submission Status',
@@ -239,13 +238,15 @@ export default class AddNewReport extends React.Component {
         }
     }
 
-    shareHandler(url) {
+    shareHandler = async(url) => {
+        await this.getEmojisData();
         console.log("You clikced share")
         let messageToShare = 'Check out this awesome hiking photo posted on '+this.state.date+'! \n\n'+this.state.user_name+' said: '+this.state.description+' \n\n'
         + 'AI said this image was: ' + this.state.caption + '! ' + this.state.emojis + '\n\n'
-        console.log(this.state.emojis)
-        console.log(this.state.date)
-        console.log(this.state.caption)
+        console.log(this.state.emojis);
+        console.log(this.state.date);
+        console.log(this.state.caption);
+        this.setState({date: ""});
         const shareOption = {
           title: 'Sharing Hiking Photo',
           message: messageToShare,
