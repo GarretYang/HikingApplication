@@ -13,6 +13,10 @@ import { TagSelect } from 'react-native-tag-select';
 import ImageView from 'react-native-image-view'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+//popup window for displaying image captioning
+import Dialog, { DialogTitle, DialogContent } from 'react-native-popup-dialog';
+import Share from 'react-native-share';
+
 
 export default class AddNewReport extends React.Component {
     constructor(props) {
@@ -26,7 +30,8 @@ export default class AddNewReport extends React.Component {
             location: "",
             description: "",
             isLoading: true,
-            isSignedIn: false
+            isSignedIn: false,
+            visible: false
         };
         this.handleChoosePhoto = this.handleChoosePhoto.bind(this)
         this.handleTakePhoto = this.handleTakePhoto.bind(this)
@@ -226,6 +231,31 @@ export default class AddNewReport extends React.Component {
         }
     }
 
+    shareHandler(url, item) {
+        console.log("You clikced share")
+        let messageToShare = 'Check out this awesome hiking photo posted on '+item.date_in+'! \n\n'+item.user_name+' said: '+item.description+' \n\n'
+        const shareOption = {
+          title: 'Sharing Hiking Photo',
+          message: messageToShare,
+          url: url,
+          social: [
+            Share.Social.FACEBOOK,
+          ]
+        }
+        Share.open(shareOption)
+        .then((res) => { console.log(res) })
+        .catch((err) => { err && console.log(err); });
+    }
+
+    getEmojisData = async() => {
+        var num = this.emoji.itemsSelected.length;
+        let emojisData = [];
+        for (var i=0; i<num; i++) {
+            emojisData.push(this.emoji.itemsSelected[i].label)
+        };
+        this.setState({emojis: emojisData});
+    }
+
     //Detail Screen to show from any Open detail button
     render() {
         const tags = [
@@ -236,6 +266,15 @@ export default class AddNewReport extends React.Component {
             { id: 5, label: 'Hot' },
             { id: 6, label: 'Cold' },
         ];
+
+        const emojis = [
+            { id: 1, label: '😓' },
+            { id: 2, label: '😞' },
+            { id: 3, label: '😂' },
+            { id: 4, label: '😊' },
+            { id: 5, label: '😍' },
+        ];
+
         const { photos } = this.state
         return (
             <ScrollView>
@@ -299,7 +338,7 @@ export default class AddNewReport extends React.Component {
                                 </ImageBackground>
                             )
                         )}
-                    </View>
+                </View>
 
                 <View style={styles.alternativeLayoutButtonContainer}>
                     <Button
@@ -322,7 +361,64 @@ export default class AddNewReport extends React.Component {
                         }
                     />
                 </View>
-                
+
+                <View>
+                    <Button
+                        title="Show Dialog"
+                        onPress={() => {
+                        this.setState({ visible: true });
+                        }}
+                    />
+                    <Dialog
+                        visible={this.state.visible}
+                        onTouchOutside={() => {
+                            this.setState({ visible: false });
+                        }}
+                        dialogTitle={<DialogTitle title="AI image captioning" />}
+                    >
+                        <DialogContent 
+                            style={{
+                                maxHeight:"50%"
+                            }}
+                            >
+                            <ScrollView
+                                style={{height:"100%"}}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
+                                    { photos.map((photo) => 
+                                        photo && (
+                                            <ImageBackground
+                                                source={{ uri: photo.uri }}
+                                                style={{ width: 150, height: 150, flex: 1, borderRadius: 15 }}
+                                            >
+                                            </ImageBackground>
+                                        )
+                                    )}
+                            </View>
+                            <Text>hahahaha</Text>
+                            <View style={styles.emojisContainer}>
+                                <Text>I feel...</Text>
+                                <TagSelect
+                                    data={emojis}
+                                    max={6}
+                                    ref={(emoji) => {
+                                        this.emoji = emoji;
+                                    }}
+                                    onMaxError={() => {
+                                        Alert.alert('Ops', 'Max reached');
+                                    }}
+                                />
+                            </View>
+                            <Button
+                                buttonStyle={{backgroundColor:'#EAECEE'}}
+                                title="share"
+                                onPress={() => this.shareHandler(url, item)}
+                            />
+                            
+                        </ScrollView>
+                        </DialogContent>
+                    </Dialog>
+                </View>
+
             </View>
             </ScrollView>
         );
@@ -361,6 +457,13 @@ const styles = StyleSheet.create({
         marginTop: 50,
         marginLeft: 15,
      },
+
+    emojisContainer: {
+        flex: 1,
+        backgroundColor: '#FFF',
+        marginTop: 25,
+        marginLeft: 15,
+    },
     close: {
         margin: 5,
         position: "absolute",
