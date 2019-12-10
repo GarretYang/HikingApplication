@@ -370,19 +370,19 @@ export default class AddNewReport extends React.Component {
                         }}
                     />
                     <Dialog
+                        height="0.55"
                         visible={this.state.visible}
                         onTouchOutside={() => {
                             this.setState({ visible: false });
                         }}
                         dialogTitle={<DialogTitle title="AI image captioning" />}
                     >
-                        <DialogContent 
+                        <DialogContent
                             style={{
-                                maxHeight:"50%"
+                                flex:1
                             }}
                             >
-                            <ScrollView
-                                style={{height:"100%"}}>
+                            <ScrollView style={{height:"100%", flexGrow:1}}>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center' }}>
                                     { photos.map((photo) => 
                                         photo && (
@@ -413,8 +413,7 @@ export default class AddNewReport extends React.Component {
                                 title="share"
                                 onPress={() => this.shareHandler(url, item)}
                             />
-                            
-                        </ScrollView>
+                            </ScrollView>
                         </DialogContent>
                     </Dialog>
                 </View>
