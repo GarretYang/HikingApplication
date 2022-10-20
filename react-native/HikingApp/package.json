@@ -28,7 +28,7 @@
     "react-native-modals": "^0.19.9",
     "react-native-navigation-bar": "^0.2.1",
     "react-native-popup-dialog": "^0.18.3",
-    "react-native-reanimated": "^1.4.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-share": "^2.0.0",
     "react-native-tab-view": "^2.10.0",
     "react-native-tag-select": "^2.0.0",
